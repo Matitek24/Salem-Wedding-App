@@ -11,7 +11,7 @@
   
   <style scoped>
   .home {
-    padding: 2rem;
+    padding: 3rem;
     text-align: center;
   }
   </style>
