@@ -19,14 +19,13 @@
             <li v-for="(item, index) in rightItems" :key="'right-' + index" class="nav-item">
               <a class="nav-link" :href="item.link">{{ item.text }}</a>
             </li>
-            <li class="nav-item logo-item">
+            <!-- <li class="nav-item logo-item">
               <a class="nav-link" href="#">
                 <img :src="logoSrc" alt="Logo" class="logo-img" />
               </a>
-            </li>
+            </li> -->
           </template>
-
-  
+          
           <template v-else>       
             <li v-for="(item, index) in leftItems" :key="'left-' + index" class="nav-item">
               <a class="nav-link" :href="item.link">{{ item.text }}</a>
@@ -42,7 +41,6 @@
               <a class="nav-link" :href="item.link">{{ item.text }}</a>
             </li>
           </template>
-
         </ul>
       </div>
     </div>

@@ -1,6 +1,6 @@
 <script setup>
 import { useHead } from '#imports'
-
+import Formularz from '~/components/Formularz.vue'
 useHead({
   title: 'Kontakt - Salem Wedding',
   meta: [
@@ -13,8 +13,7 @@ useHead({
 
 <template>
     <div class="kontakt">
-      <h1>Kontakt</h1>
-      <p>Formularz</p>
+      <Formularz />
     </div>
 </template>
   
