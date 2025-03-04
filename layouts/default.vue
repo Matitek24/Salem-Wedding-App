@@ -18,7 +18,6 @@ const rightMenu = [
         :rightItems="rightMenu"
         logoSrc="/images/SalemWedding.png"
       />
-      <!-- Dynamiczne ładowanie podstron -->
         <NuxtPage />
     </div>
   </template>

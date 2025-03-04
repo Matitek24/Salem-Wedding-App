@@ -2,7 +2,7 @@
 import { useHead } from '#imports'
 
 useHead({
-  title: 'Salem Wedding',
+  title: 'Kontakt - Salem Wedding',
   meta: [
     { name: 'description', content: '' },
     { property: 'og:title', content: '' },
@@ -12,15 +12,16 @@ useHead({
   </script>
 
 <template>
-    <div class="home">
-      <h1>Witamy na stronie głównej</h1>
-      <p>Treść strony głównej...</p>
+    <div class="kontakt">
+      <h1>Kontakt</h1>
+      <p>Formularz</p>
     </div>
-  </template>
+</template>
+  
   
   <style scoped>
-  .home {
-    padding: 3rem;
+  .kontakt {
+    padding: 2rem;
     text-align: center;
   }
   </style>
