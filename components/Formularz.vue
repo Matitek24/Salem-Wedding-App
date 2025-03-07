@@ -29,6 +29,10 @@
           <input type="text" id="lastName" v-model="lastName" class="form-control"  placeholder="Wpisz Nazwisko"  required />
         </div>
         <div class="mb-3">
+          <label for="email" class="form-label">Email:</label>
+          <input type="email" id="email" v-model="email" class="form-control" placeholder="Wpisz Email" required />
+        </div>
+        <div class="mb-3">
           <label for="weddingDate" class="form-label">Data Wesela:</label>
           <input type="date" id="weddingDate" v-model="weddingDate" class="form-control" required />
         </div>
@@ -52,6 +56,7 @@ import { useRuntimeConfig } from '#app';
 
 const firstName = ref('');
 const lastName = ref('');
+const email = ref('');
 const weddingDate = ref('');
 const weddingLocation = ref('');
 const marriageLocation = ref('');
@@ -71,6 +76,14 @@ const clearAlerts = () => {
     alertMessage2.value = '';
     alertVariant2.value = '';
   }, alertDuration);
+};
+const clearForm = () => {
+  firstName.value = '';
+  lastName.value = '';
+  email.value = '';
+  weddingDate.value = '';
+  weddingLocation.value = '';
+  marriageLocation.value = '';
 };
 
 const hideAlert = (alertType) => {
@@ -103,6 +116,7 @@ const submitForm = async () => {
       body: {
         firstName: firstName.value,
         lastName: lastName.value,
+        email: email.value,
         weddingDate: weddingDate.value,
         weddingLocation: weddingLocation.value,
         marriageLocation: marriageLocation.value,
@@ -112,7 +126,8 @@ const submitForm = async () => {
     alertMessage.value = 'Dane zapisane pomyślnie!';
     alertVariant.value = 'alert-success';
 
-    resetForm();
+   clearForm();
+
   } catch (error) {
     alertMessage.value = `Błąd podczas wysyłania danych: ${error.message}`;
     alertVariant.value = 'alert-danger';
