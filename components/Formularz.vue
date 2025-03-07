@@ -13,6 +13,18 @@
           <label for="lastName" class="form-label">Nazwisko:</label>
           <input type="text" id="lastName" v-model="lastName" class="form-control" required />
         </div>
+        <div class="mb-3">
+          <label for="weddingDate" class="form-label">Data Wesela:</label>
+          <input type="date" id="weddingDate" v-model="weddingDate" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label for="weddingLocation" class="form-label">Miejsce Wesela:</label>
+          <input type="text" id="weddingLocation" v-model="weddingLocation" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label for="marriageLocation" class="form-label">Miejsce Ślubu:</label>
+          <input type="text" id="marriageLocation" v-model="marriageLocation" class="form-control" />
+        </div>
         <button type="submit" class="btn btn-primary">Wyślij</button>
       </form>
     </div>
@@ -25,6 +37,9 @@ import { useRuntimeConfig } from '#app';
 
 const firstName = ref('');
 const lastName = ref('');
+const weddingDate = ref('');
+const weddingLocation = ref('');
+const marriageLocation = ref('');
 const alertMessage = ref('');
 const alertVariant = ref('');
 
@@ -37,7 +52,10 @@ const submitForm = async () => {
       method: 'POST',
       body: {
         firstName: firstName.value,
-        lastName: lastName.value
+        lastName: lastName.value,
+        weddingDate: weddingDate.value,
+        weddingLocation: weddingLocation.value,
+        marriageLocation: marriageLocation.value,
       }
     });
 
@@ -45,11 +63,12 @@ const submitForm = async () => {
     alertVariant.value = 'alert-success';
     firstName.value = '';
     lastName.value = '';
+    weddingDate.value = '';
+    weddingLocation.value = '';
+    marriageLocation.value = '';
   } catch (error) {
     alertMessage.value = 'Błąd podczas wysyłania danych!';
     alertVariant.value = 'alert-danger';
-    firstName.value = '';
-    lastName.value = '';
   }
 };
 </script>
