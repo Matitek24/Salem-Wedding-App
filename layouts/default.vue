@@ -3,11 +3,13 @@ import Menu from '~/components/Menu.vue'
 
 const leftMenu = [
   { text: 'Home', link: '/' },
-  { text: 'Oferta', link: '/oferta' }
+  { text: 'Oferta', link: '/oferta' },
+  { text: 'Historie', link: '/historie' }
 ]
 const rightMenu = [
   { text: 'O nas', link: '/onas' },
-  { text: 'Kontakt', link: '/kontakt' }
+  { text: 'Kontakt', link: '/kontakt' },
+  { text: 'Blog', link: '/blog' }
 ]
 </script>
 

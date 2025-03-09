@@ -40,6 +40,7 @@
             <li v-for="(item, index) in rightItems" :key="'right-' + index" class="nav-item">
               <a class="nav-link" :href="item.link">{{ item.text }}</a>
             </li>
+            
           </template>
         </ul>
       </div>
