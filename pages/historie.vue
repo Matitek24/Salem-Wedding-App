@@ -1,28 +1,26 @@
 <script setup>
 import { useHead } from '#imports'
+import WST from '~/components/WeddingStoriesList.vue'
 
 useHead({
   title: 'O nas - Salem Wedding',
   meta: [
-    { name: 'description', content: '' },
-    { property: 'og:title', content: '' },
-    { property: 'og:description', content: '' }
+    { name: 'description', content: 'Poznaj historie par, które nam zaufały.' },
+    { property: 'og:title', content: 'O nas - Salem Wedding' },
+    { property: 'og:description', content: 'Sprawdź piękne historie miłosne.' }
   ]
 })
-  </script>
+</script>
 
 <template>
-    <div class="historie">
-      <h1>Historie</h1>
-      <p>Nasze Historie</p>
-    </div>
+  <div class="historie">
+    <WST />
+  </div>
 </template>
-  
-  
-  <style scoped>
-  .historie {
-    padding: 2rem;
-    text-align: center;
-  }
-  </style>
-  
+
+<style scoped>
+.historie {
+  padding: 2rem;
+  text-align: center;
+}
+</style>
