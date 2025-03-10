@@ -12,11 +12,15 @@ const accessCode = ref('');
 const errorMessage = ref('');
 const showModal = ref(false);
 const router = useRouter();
+const publicStories = ref([]);
+const privateStories = ref([]);
 
 // Pobieranie historii z API
 const fetchWeddingStories = async () => {
   try {
-    weddingStories.value = await $fetch(`${apiUrl}/api/wedding-stories`);
+    const response = await $fetch(`${apiUrl}/api/wedding-stories`);
+    publicStories.value = response.public_stories;
+    privateStories.value = response.private_stories;
   } catch (error) {
     console.error('Błąd pobierania historii:', error);
   }
@@ -56,38 +60,55 @@ fetchWeddingStories();
 </script>
 
 <template>
-  <div class="container wedding-stories">
-    <h2 class="text-center my-4">Historie Ślubne</h2>
-
-    <div v-if="!weddingStories.length" class="text-center">Brak historii do wyświetlenia.</div>
-
-    <div class="row">
-      <div v-for="story in weddingStories" :key="story.id" class="col-lg-3 col-md-6 col-sm-12 mb-4">
-        <div class="card wedding-story-card" @click="openModal(story)">
-          <img :src="story.thumbnail" alt="Miniatura" class="card-img-top story-thumbnail" />
-          <div class="card-body text-center">
-            <h5 class="card-title">{{ story.couple_names }}</h5>
-            <hr />
-            <p class="card-text">{{ story.description }}</p>
+    <div class="container wedding-stories">
+      <h2 class="text-center my-4">Historie Ślubne</h2>
+  
+      <!-- Publiczne historie -->
+      <div v-if="!publicStories.length" class="text-center">Brak publicznych historii.</div>
+      <div class="row">
+        <div v-for="story in publicStories" :key="story.id" class="col-lg-3 col-md-6 col-sm-12 mb-4">
+          <div class="card wedding-story-card" @click="router.push(`/wedding-stories/${story.id}`)">
+            <img :src="story.thumbnail" alt="Miniatura" class="card-img-top story-thumbnail" />
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ story.couple_names }}</h5>
+              <hr />
+              <p class="card-text">{{ story.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Prywatne historie -->
+      <h3 class="text-center mt-4 mb">Historie prywatne</h3>
+      <div v-if="!privateStories.length" class="text-center">Brak prywatnych historii.</div>
+      <div class="row">
+        <div v-for="story in privateStories" :key="story.id" class="col-lg-3 col-md-6 col-sm-12 mb-4">
+          <div class="card wedding-story-card" @click="openModal(story)">
+            <img :src="story.thumbnail" alt="Miniatura" class="card-img-top story-thumbnail" />
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ story.couple_names }}</h5>
+              <hr />
+              <p class="card-text">{{ story.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Modal do wpisania kodu -->
+      <div v-if="showModal" class="modal-backdrop">
+        <div class="modal-content">
+          <h3>Podaj kod dostępu</h3>
+          <input v-model="accessCode" type="text" placeholder="Wpisz kod" class="form-control" />
+          <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+          <div class="modal-buttons">
+            <button @click="checkAccess" class="btn btn-primary">Sprawdź kod</button>
+            <button @click="showModal = false" class="btn btn-secondary">Anuluj</button>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Modal do wpisania kodu -->
-    <div v-if="showModal" class="modal-backdrop">
-      <div class="modal-content">
-        <h3>Podaj kod dostępu</h3>
-        <input v-model="accessCode" type="text" placeholder="Wpisz kod" class="form-control" />
-        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-        <div class="modal-buttons">
-          <button @click="checkAccess" class="btn btn-primary">Sprawdź kod</button>
-          <button @click="showModal = false" class="btn btn-secondary">Anuluj</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
+  </template>
+  
 
 <style scoped>
 .wedding-story-card {
