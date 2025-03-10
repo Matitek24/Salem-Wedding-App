@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useRuntimeConfig } from '#app';
 
@@ -14,6 +14,7 @@ const showModal = ref(false);
 const router = useRouter();
 const publicStories = ref([]);
 const privateStories = ref([]);
+const searchQuery = ref(''); 
 
 // Pobieranie historii z API
 const fetchWeddingStories = async () => {
@@ -25,6 +26,21 @@ const fetchWeddingStories = async () => {
     console.error('Błąd pobierania historii:', error);
   }
 };
+
+// Filtracja historii na podstawie wpisanej frazy
+const filteredPublicStories = computed(() => {
+  if (!searchQuery.value) return publicStories.value;
+  return publicStories.value.filter(story =>
+    story.couple_names.toLowerCase().includes(searchQuery.value.toLowerCase())
+  );
+});
+
+const filteredPrivateStories = computed(() => {
+  if (!searchQuery.value) return privateStories.value;
+  return privateStories.value.filter(story =>
+    story.couple_names.toLowerCase().includes(searchQuery.value.toLowerCase())
+  );
+});
 
 // Pokazanie modala
 const openModal = (story) => {
@@ -60,61 +76,77 @@ fetchWeddingStories();
 </script>
 
 <template>
-    <div class="container wedding-stories">
-      <h2 class="text-center my-4">Historie Ślubne</h2>
-  
-      <!-- Publiczne historie -->
-      <div v-if="!publicStories.length" class="text-center">Brak publicznych historii.</div>
-      <div class="row">
-        <div v-for="story in publicStories" :key="story.id" class="col-lg-3 col-md-6 col-sm-12 mb-4">
-          <div class="card wedding-story-card" @click="router.push(`/wedding-stories/${story.id}`)">
-            <img :src="story.thumbnail" alt="Miniatura" class="card-img-top story-thumbnail" />
-            <div class="card-body text-center">
-              <h5 class="card-title">{{ story.couple_names }}</h5>
-              <hr />
-              <p class="card-text">{{ story.description }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-  
-      <!-- Prywatne historie -->
-      <h3 class="text-center mt-4 mb">Historie prywatne</h3>
-      <div v-if="!privateStories.length" class="text-center">Brak prywatnych historii.</div>
-      <div class="row">
-        <div v-for="story in privateStories" :key="story.id" class="col-lg-3 col-md-6 col-sm-12 mb-4">
-          <div class="card wedding-story-card" @click="openModal(story)">
-            <img :src="story.thumbnail" alt="Miniatura" class="card-img-top story-thumbnail" />
-            <div class="card-body text-center">
-              <h5 class="card-title">{{ story.couple_names }}</h5>
-              <hr />
-              <p class="card-text">{{ story.description }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-  
-      <!-- Modal do wpisania kodu -->
-      <div v-if="showModal" class="modal-backdrop">
-        <div class="modal-content">
-          <h3>Podaj kod dostępu</h3>
-          <input v-model="accessCode" type="text" placeholder="Wpisz kod" class="form-control" />
-          <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-          <div class="modal-buttons">
-            <button @click="checkAccess" class="btn btn-primary">Sprawdź kod</button>
-            <button @click="showModal = false" class="btn btn-secondary">Anuluj</button>
+  <div class="container wedding-stories">
+    <h2 class="text-center my-4">Historie Ślubne</h2>
+
+    <!-- Pole wyszukiwania -->
+
+
+    <!-- Publiczne historie -->
+    <h3 class="text-center mt-4">Publiczne historie</h3>
+    <div v-if="!filteredPublicStories.length" class="text-center">Brak pasujących publicznych historii.</div>
+    <div class="row">
+      <div v-for="story in filteredPublicStories" :key="story.id" class="col-lg-3 col-md-6 col-sm-12 mb-4">
+        <div class="card wedding-story-card" @click="router.push(`/wedding-stories/${story.id}`)">
+          <img :src="story.thumbnail" alt="Miniatura" class="card-img-top story-thumbnail" />
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ story.couple_names }}</h5>
+            <hr />
+            <p class="card-text">{{ story.description }}</p>
           </div>
         </div>
       </div>
     </div>
-  </template>
-  
+
+    <!-- Prywatne historie -->
+    <h3 class="text-center mt-4">Prywatne historie</h3>
+    
+    <div class="d-flex justify-content-center mb-4 mt-4">
+        <div class="search-container w-50">
+        <input v-model="searchQuery" type="text" placeholder="Wyszukaj parę..." class="form-control" />
+        </div>
+    </div>
+
+    <div v-if="!filteredPrivateStories.length" class="text-center">Brak pasujących prywatnych historii.</div>
+    <div class="row">
+      <div v-for="story in filteredPrivateStories" :key="story.id" class="col-lg-3 col-md-6 col-sm-12 mb-4">
+        <div class="card wedding-story-card" @click="openModal(story)">
+          <img :src="story.thumbnail" alt="Miniatura" class="card-img-top story-thumbnail" />
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ story.couple_names }}</h5>
+            <hr />
+            <p class="card-text">{{ story.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal do wpisania kodu -->
+    <div v-if="showModal" class="modal-backdrop">
+      <div class="modal-content">
+        <h3>Podaj kod dostępu</h3>
+        <input v-model="accessCode" type="text" placeholder="Wpisz kod" class="form-control" />
+        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+        <div class="modal-buttons d-flex justify-content-center p-2">
+          <button @click="checkAccess" class="btn btn-success m-2">Wejdź</button>
+          <button @click="showModal = false" class="btn btn-secondary m-2">Anuluj</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped>
+.search-container {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 .wedding-story-card {
   cursor: pointer;
   transition: transform 0.2s;
 }
+
 .wedding-story-card:hover {
   transform: scale(1.05);
 }
