@@ -1,86 +1,131 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRuntimeConfig } from '#app'; // W Nuxt 3
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useRuntimeConfig } from '#app';
 
-// Pobieramy konfigurację API (adres backendu)
 const config = useRuntimeConfig();
 const apiUrl = config.public.baseURL || 'http://127.0.0.1:8000';
 
 const weddingStories = ref([]);
-const loading = ref(false);
-const error = ref(null);
+const selectedStory = ref(null);
+const accessCode = ref('');
+const errorMessage = ref('');
+const showModal = ref(false);
+const router = useRouter();
 
+// Pobieranie historii z API
 const fetchWeddingStories = async () => {
-  loading.value = true;
   try {
-    // Pobieramy wszystkie historie z API
-    const data = await $fetch(`${apiUrl}/api/wedding-stories`);
-    weddingStories.value = data;
-  } catch (err) {
-    error.value = err.message;
-  } finally {
-    loading.value = false;
+    weddingStories.value = await $fetch(`${apiUrl}/api/wedding-stories`);
+  } catch (error) {
+    console.error('Błąd pobierania historii:', error);
   }
 };
 
-onMounted(() => {
-  fetchWeddingStories();
-});
+// Pokazanie modala
+const openModal = (story) => {
+  selectedStory.value = story;
+  accessCode.value = '';
+  errorMessage.value = '';
+  showModal.value = true;
+};
+
+// Sprawdzenie kodu dostępu
+const checkAccess = async () => {
+  if (!selectedStory.value) return;
+
+  try {
+    const response = await $fetch(`${apiUrl}/api/wedding-stories/${selectedStory.value.id}/check-access`, {
+      method: 'POST',
+      body: { access_code: accessCode.value },
+    });
+
+    if (response.success) {
+      showModal.value = false;
+      router.push(`/wedding-stories/${selectedStory.value.id}`);
+    } else {
+      errorMessage.value = response.message;
+    }
+  } catch (error) {
+    errorMessage.value = 'Wystąpił błąd';
+  }
+};
+
+// Pobranie danych po zamontowaniu komponentu
+fetchWeddingStories();
 </script>
 
 <template>
-    <div class="container wedding-stories">
-      <h2 class="text-center my-4">Historie Ślubne</h2>
-  
-      <div v-if="loading" class="text-center">Ładowanie danych...</div>
-      <div v-if="error" class="alert alert-danger">{{ error }}</div>
-  
-      <div v-if="!loading && !error && weddingStories.length" class="row">
-        <div
-          v-for="story in weddingStories"
-          :key="story.id"
-          class="col-lg-3 col-md-6 col-sm-12 mb-4"
-        >
-          <router-link :to="`/wedding-stories/${story.id}`" class="card wedding-story-card">
-            <!-- Miniatura -->
-            <img :src="story.thumbnail" alt="Miniatura" class="card-img-top story-thumbnail" />
-  
-            <div class="card-body text-center">
-              <h5 class="card-title">{{ story.couple_names }}</h5>
-              <hr />
-              <p class="card-text">{{ story.description }}</p>
-            </div>
-          </router-link>
+  <div class="container wedding-stories">
+    <h2 class="text-center my-4">Historie Ślubne</h2>
+
+    <div v-if="!weddingStories.length" class="text-center">Brak historii do wyświetlenia.</div>
+
+    <div class="row">
+      <div v-for="story in weddingStories" :key="story.id" class="col-lg-3 col-md-6 col-sm-12 mb-4">
+        <div class="card wedding-story-card" @click="openModal(story)">
+          <img :src="story.thumbnail" alt="Miniatura" class="card-img-top story-thumbnail" />
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ story.couple_names }}</h5>
+            <hr />
+            <p class="card-text">{{ story.description }}</p>
+          </div>
         </div>
       </div>
-  
-      <div v-else-if="!loading && !error" class="text-center">
-        <p>Brak historii do wyświetlenia.</p>
+    </div>
+
+    <!-- Modal do wpisania kodu -->
+    <div v-if="showModal" class="modal-backdrop">
+      <div class="modal-content">
+        <h3>Podaj kod dostępu</h3>
+        <input v-model="accessCode" type="text" placeholder="Wpisz kod" class="form-control" />
+        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+        <div class="modal-buttons">
+          <button @click="checkAccess" class="btn btn-primary">Sprawdź kod</button>
+          <button @click="showModal = false" class="btn btn-secondary">Anuluj</button>
+        </div>
       </div>
     </div>
-  </template>
+  </div>
+</template>
 
 <style scoped>
-.wedding-stories {
-  padding: 20px;
-}
-
 .wedding-story-card {
-  border: 1px solid #ccc;
-  padding: 16px;
-  margin-bottom: 16px;
-  border-radius: 4px;
-  text-align: center;
-  text-decoration: none;
-  transition: 0.6s;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 .wedding-story-card:hover {
   transform: scale(1.05);
 }
-.story-thumbnail {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto 12px;
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 300px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
 }
 </style>
