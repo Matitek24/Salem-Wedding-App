@@ -83,7 +83,6 @@ fetchWeddingStories();
 
 
     <!-- Publiczne historie -->
-    <h3 class="text-center mt-4">Publiczne historie</h3>
     <div v-if="!filteredPublicStories.length" class="text-center">Brak pasujących publicznych historii.</div>
     <div class="row">
       <div v-for="story in filteredPublicStories" :key="story.id" class="col-lg-3 col-md-6 col-sm-12 mb-4">
