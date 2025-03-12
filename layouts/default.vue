@@ -1,5 +1,6 @@
 <script setup>
 import Menu from '~/components/Menu.vue'
+import baner from '~/components/banners.vue'
 
 const leftMenu = [
   { text: 'Home', link: '/' },
@@ -22,6 +23,7 @@ const rightMenu = [
         :rightItems="rightMenu"
         logoSrc="/images/SalemWedding.png"
       />
+      <baner />
         <NuxtPage />
     </div>
   </template>
