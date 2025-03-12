@@ -10,12 +10,12 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.13.6",
-    "@nuxtjs/proxy": "^2.1.0",
     "axios": "^1.8.1",
     "bootstrap": "^5.3.3",
+    "macy": "^2.5.1",
     "nuxt": "^3.15.4",
     "vue": "latest",
+    "vue-easy-lightbox": "^1.19.0",
     "vue-router": "latest"
   }
 }

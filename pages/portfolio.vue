@@ -1,5 +1,6 @@
 <script setup>
 import { useHead } from '#imports'
+import gallery from '~/components/gallery.vue'
 
 useHead({
   title: 'O nas - Salem Wedding',
@@ -12,12 +13,9 @@ useHead({
   </script>
 
 <template>
-    <div class="about">
-      <h1>O nas</h1>
-      <p>Informacje o naszej firmie...</p>
-    </div>
+  <gallery />
 </template>
-  
+
   
   <style scoped>
   .about {
