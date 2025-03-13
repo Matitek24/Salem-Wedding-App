@@ -30,5 +30,10 @@ const rightMenu = [
   
   
   <style>
+  body{
+    margin:0px;
+    overflow-x: hidden;
+    max-width: 100%;
+}
   </style>
   

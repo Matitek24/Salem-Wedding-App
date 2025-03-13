@@ -19,7 +19,7 @@ let macyInstance = null;
 const initMacy = () => {
   nextTick(() => {
     if (containerRef.value) {
-      // Tworzymy nową instancję, by "zresetować" poprzednią konfigurację
+      // Resetujemy poprzednią konfigurację poprzez stworzenie nowej instancji
       macyInstance = Macy({
         container: containerRef.value,
         trueOrder: false,
@@ -40,13 +40,13 @@ onMounted(() => {
   initMacy();
 });
 
-// Obserwujemy zmiany w liście zdjęć. Dodajemy małe opóźnienie, by dać czas na wyrenderowanie obrazów.
+// Obserwujemy zmiany w liście zdjęć. Dodajemy krótkie opóźnienie, by dać czas na wyrenderowanie obrazów.
 watch(
   () => props.images,
   () => {
     setTimeout(() => {
       initMacy();
-    }, 100); // opóźnienie 100ms – dostosuj, jeśli potrzeba
+    }, 100);
   }
 );
 </script>
@@ -59,7 +59,7 @@ watch(
       class="macy-item"
       @click="() => props.openLightbox(idx)"
     >
-      <img :src="image.image_path" :alt="image.category.name" />
+      <img loading="lazy" :src="image.image_path" :alt="image.category.name" />
     </div>
   </div>
 </template>
