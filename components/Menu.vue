@@ -11,8 +11,6 @@
         <ul class="navbar-nav mx-auto align-items-center">
        
           <template v-if="isSmallScreen && isNavbarOpen">
- 
-    
             <li v-for="(item, index) in leftItems" :key="'left-' + index" class="nav-item">
               <a class="nav-link" :href="item.link">{{ item.text }}</a>
             </li>
@@ -24,6 +22,7 @@
                 <img :src="logoSrc" alt="Logo" class="logo-img" />
               </a>
             </li> -->
+
           </template>
           
           <template v-else>       
@@ -32,7 +31,7 @@
             </li>
    
             <li class="nav-item logo-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="/">
                 <img :src="logoSrc" alt="Logo" class="logo-img" />
               </a>
             </li>
@@ -63,8 +62,9 @@ const props = defineProps({
   logoSrc: {
     type: String,
     default: '/image/logo.png'
-  }
+  },
 });
+
 
 const isNavbarOpen = ref(false);
 const windowWidth = ref(1024);
@@ -94,10 +94,42 @@ const toggleNavbar = () => {
 </script>
 
 <style scoped>
+.navbar {
+  position: absolute; /* Ustawia navbar nad banerem */
+  width: 100%;
+  background-color: transparent !important;
+  z-index: 10; /* Zapewnia, że navbar jest nad banerem */
+}
+
 .navbar-nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+.nav-item {
+  margin: 0 8px;
+  font-size: 14px; /* Rozmiar czcionki */
+  font-weight: lighter !important;
+  line-height: 12px;
+}
+
+.nav-link {
+  color: rgb(255, 255, 255) !important;
+  height: auto;
+  font-size: 12px;
+  text-align: left;
+  font-weight: lighter;
+  font-family: 'Times New Roman', Times, serif;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 2.1px; /* lub inna wartość pasująca do Twojego projektu */
+}
+
+
+.nav-link:hover {
+  color: #ddd !important; /* Lekko szary kolor po najechaniu */
 }
 
 .logo-item {
@@ -107,15 +139,18 @@ const toggleNavbar = () => {
 .logo-img {
   width: 120px;
   transition: width 0.3s ease;
-}
-
-.nav-item {
-  margin: 0 4px;
-  font-size: 90%;
+  filter: invert(1);
 }
 
 .navbar-toggler {
   border: none;
-  margin:10px;
+  margin: 10px;
+  background: rgba(255, 255, 255, 0.2); /* Przezroczyste tło przycisku */
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.navbar-toggler-icon {
+  filter: brightness(0) invert(1); /* Biały kolor ikonki burgera */
 }
 </style>

@@ -1,4 +1,18 @@
-body{
-    margin:0px;
-    overflow-x: hidden;
-}
+@font-face {
+    font-family: 'Corinthia';
+    src: url('../public/fonts/Corinthia-Regular.ttf');
+    font-weight: 100;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'HedvigLettersSerif';
+    src: url('../public/fonts/HedvigLettersSerif-Regular-VariableFont_opsz.ttf');
+    font-weight: 100;
+    font-style: normal;
+  }
+  
+  body {
+    font-family: 'HedvigLettersSerif', sans-serif;
+  }
+  

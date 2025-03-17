@@ -3,16 +3,16 @@ import Menu from '~/components/Menu.vue'
 import baner from '~/components/banners.vue'
 
 const leftMenu = [
-  { text: 'Home', link: '/' },
-  { text: 'Oferta', link: '/' },
-  { text: 'Historie', link: '/historie' },
-  { text: 'Zakladka', link: '/' }
+  { text: 'O Nas', link: '/onas' },
+  { text: 'Portfolio', link: '/portfolio' },
+  { text: 'Oferta', link: '/oferta' },
+  { text: 'Testimonials', link: '/testimonials' }
 ]
 const rightMenu = [
-  { text: 'O nas', link: '/onas' },
-  { text: 'Kontakt', link: '/kontakt' },
-  { text: 'Blog', link: '/' },
-  { text: 'Portfolio', link: '/portfolio' }
+  { text: 'Wasze Historie', link: '/historie' },
+  { text: 'Zakładka', link: '/' },
+  { text: 'Blog', link: '/blog' },
+  { text: 'Kontakt', link: '/kontakt' }
 ]
 </script>
 
@@ -23,6 +23,8 @@ const rightMenu = [
         :rightItems="rightMenu"
         logoSrc="/images/SalemWedding.png"
       />
+      
+
       <baner />
         <NuxtPage />
     </div>

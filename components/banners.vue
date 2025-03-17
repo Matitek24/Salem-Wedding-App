@@ -44,6 +44,7 @@ onMounted(fetchBanners);
   height: 100vh;
   overflow: hidden;
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: center;
   background: #000;
