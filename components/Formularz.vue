@@ -186,22 +186,29 @@ const submitForm = async () => {
 
   try {
     // Weryfikacja dostępności terminu
-    const availabilityResponse = await $fetch(`${apiUrl}/api/check-availability`, {
-      method: 'POST',
-      body: {
+   // Weryfikacja dostępności terminu
+const availabilityResponse = await $fetch(`${apiUrl}/api/check-availability`, {
+    method: 'POST',
+    body: {
         weddingDate: form.weddingDate,
-        email: form.email
-      }
-    });
-
-    if (!availabilityResponse.available) {
-      availabilityAlert.message = 'Termin jest zajęty, sprawdź maila!';
-      availabilityAlert.variant = 'alert-danger';
-    } else {
-      availabilityAlert.message = 'Termin jest wolny, ofertę wysłaliśmy na maila!';
-      availabilityAlert.variant = 'alert-success';
+        email: form.email,
+        packages: form.services // Zmienione z form.selectedPackages na form.services
     }
+});
 
+if (!availabilityResponse.available) {
+    availabilityAlert.message = 'Termin jest zajęty dla wybranych usług, sprawdź maila!';
+    availabilityAlert.variant = 'alert-danger';
+    
+    // Możesz również pokazać, które pakiety są niedostępne
+    if (availabilityResponse.unavailablePackages && availabilityResponse.unavailablePackages.length > 0) {
+        availabilityAlert.message += ' Niedostępne pakiety: ' + 
+            availabilityResponse.unavailablePackages.join(', ');
+    }
+} else {
+    availabilityAlert.message = 'Termin jest wolny, ofertę wysłaliśmy na maila!';
+    availabilityAlert.variant = 'alert-success';
+}
     const submissionData = {
       firstName: form.firstName,
       email: form.email,
