@@ -87,17 +87,23 @@ fetchGallery();
 
     <!-- Lightbox -->
     <client-only>
-      <VueEasyLightbox
-        :visible="visible"
-        :imgs="lightboxImages"
-        :index="currentIndex"
-        @hide="closeLightbox"
-      />
-    </client-only>
+  <VueEasyLightbox
+    :visible="visible"
+    :imgs="lightboxImages"
+    :index="currentIndex"
+    :moveDisabled="true"
+    :zoomDisabled="true"
+    :rotateDisabled="true"
+    :dblclickDisabled="true"
+    @hide="closeLightbox"
+  />
+</client-only>
+
   </div>
 </template>
 
 <style scoped>
+
 .categories {
   display: flex;
   gap: 10px;
