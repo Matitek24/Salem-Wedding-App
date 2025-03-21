@@ -158,11 +158,11 @@ const validateForm = () => {
     valid = false;
   }
   if (!form.consentInfo) {
-    errors.consentInfo = 'Musisz wyrazić zgodę na otrzymywanie informacji.';
+    errors.consentInfo = ' - Musisz wyrazić zgodę na otrzymywanie informacji.';
     valid = false;
   }
   if (!form.consentRodo) {
-    errors.consentRodo = 'Musisz zaakceptować RODO.';
+    errors.consentRodo = ' - Musisz zaakceptować RODO.';
     valid = false;
   }
   return valid;
