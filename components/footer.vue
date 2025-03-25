@@ -7,7 +7,7 @@
                     <img src="../public/images/Icon/ozdobnik_brown.png" alt="" srcset="" style="width:200px; transform: scaleX(-1);">
                 </div>
                 <div class="col-lg-2 col-md-12">
-                    <h3>Znajdź nas</h3>
+                    <h3>Znajdź</h3>
                     <p>Zobserwuj</p>
                     <div class="social-icons">
                         <a href="https://facebook.com" target="_blank" aria-label="Facebook">

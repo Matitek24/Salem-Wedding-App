@@ -17,6 +17,7 @@
             <li v-for="(item, index) in rightItems" :key="'right-' + index" class="nav-item">
               <a class="nav-link" :href="item.link">{{ item.text }}</a>
             </li>
+            
           </template>
           
           <template v-else>       
@@ -153,7 +154,7 @@ const toggleNavbar = () => {
 
 @media screen and (max-width: 991px) {
   .navbar {
-    background-color: #B19780 !important;
+    background-color: #b1978063 !important;
     backdrop-filter: blur(10px);
     position: absolute;
   }

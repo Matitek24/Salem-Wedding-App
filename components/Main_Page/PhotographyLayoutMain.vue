@@ -74,6 +74,20 @@
     padding: 3rem;
     text-align: left;
   }
+  .text-content p {
+  position: relative;
+  padding-right: 15px; 
+  }
+  
+  .text-content p::after {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 100%;
+    top: 0;
+    right: 0; 
+    background-color: rgb(0, 0, 0);
+  }
   .text-content h2{
     text-align: right;
     margin-bottom: 2rem;
