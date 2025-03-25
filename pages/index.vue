@@ -1,6 +1,10 @@
 <script setup>
 import { useHead } from '#imports'
-
+import PhotographyLayout from '~/components/Main_Page/PhotographyLayoutMain.vue'
+import VideoLayoutMain from '~/components/Main_Page/VideoLayoutMain.vue'
+import Banner from '~/components/PhotoBaner.vue'
+import GalleryGrid from '~/components/Main_Page/PhotoNavigation.vue'
+import Footer from '~/components/footer.vue'
 useHead({
   title: 'Salem Wedding',
   meta: [
@@ -9,6 +13,15 @@ useHead({
     { property: 'og:description', content: '' }
   ]
 })
+const galleryItems = [
+  { image: '/_nuxt/public/images/wesele_fot3.jpg', title: 'PORTFOLIO' },
+  { image: '/_nuxt/public/images/wesele_fot3.jpg', title: 'HISTORIE' },
+  { image: '/_nuxt/public/images/wesele_fot3.jpg', title: 'BLOG' },
+  { image: '/_nuxt/public/images/wesele_fot3.jpg', title: 'OFERTA' },
+  { image: '/_nuxt/public/images/wesele_fot3.jpg', title: 'O NAS' },
+  { image: '/_nuxt/public/images/wesele_fot3.jpg', title: 'KONTAKT' },
+
+]
   </script>
 
 <template>
@@ -18,11 +31,54 @@ useHead({
       <p>To chwile zamknięte w naszych kadrach</p>
       <hr>
     </div>
-    <Slogan />
+    <Slogan
+        greeting="Witaj!"
+        teamTitle="Jesteśmy ekipę"
+        teamName="Salem Wedding"
+        rightText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi impLorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi imp"
+      />
    </div>
+   <PhotographyLayout>
+      <template #description>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi impedit dicta eaque iusto fuga quidem quod sequi fugiat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit inventore, animi eum consequatur fugit quae labore voluptas laborum facere omnis. In consectetur sit earum esse velit ex asperiores quam. Facere.</p>
+      </template>
+      
+      <template #mainImage>
+        <img src="../public/images/wesele_fot1.jpg" style="width:100%;"alt="Main Image">
+      </template>
+    </PhotographyLayout>
+
+    <VideoLayoutMain>
+      <template #description>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi impedit dicta eaque iusto fuga quidem quod sequi fugiat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit inventore, animi eum consequatur fugit quae labore voluptas laborum facere omnis. In consectetur sit earum esse velit ex asperiores quam. Facere.</p>
+      </template>
+      
+      <template #mainImage>
+        <img src="../public/images/wesele_fot1.jpg" style="width:100%;"alt="Main Image">
+      </template>
+    </VideoLayoutMain>
+
+    <Banner
+    image="/_nuxt/public/images/wesele_fot3.jpg"
+    title="Lorem ipsum Lorem ipsum"
+    subtitle="Lorem ipsum dolor sit amet consectetur, adipisicing elit."
+  />
+
+    <div class="container">
+      <Slogan
+        greeting="Witaj"
+        teamTitle="Jesteśmy ekipę"
+        teamName="Salem Wedding"
+        rightText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi impLorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi imp"
+      />
+      <GalleryGrid :items="galleryItems" />
+    </div>
+
+    <Footer />
   </template>
   
   <style scoped>
+
   .tittle {
     padding: 4rem;
     text-align: center;
