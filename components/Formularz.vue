@@ -27,10 +27,27 @@
           <small v-if="errors.firstName" class="text-danger">{{ errors.firstName }}</small>
         </div>
 
-        <!-- Miejscowość -->
-        <div class="mb-3">
+        <!-- Miejscowość z autouzupełnianiem -->
+        <div class="mb-3 position-relative">
           <label for="miejscowosc" class="form-label">Miejscowość:</label>
-          <input type="text" id="miejscowosc" v-model="form.miejscowosc" class="form-control" placeholder="Wpisz miejscowość" />
+          <input 
+            type="text" 
+            id="miejscowosc" 
+            v-model="searchQuery" 
+            @input="fetchMiejscowosci" 
+            class="form-control" 
+            placeholder="Wpisz nazwę miejscowości"
+          />
+          <ul v-if="suggestions.length" class="list-group position-absolute">
+            <li 
+              v-for="miejscowosc in suggestions" 
+              :key="miejscowosc.geonameId" 
+              @click="selectMiejscowosc(miejscowosc)"
+              class="list-group-item"
+            >
+              {{ miejscowosc.name }}
+            </li>
+          </ul>
           <small v-if="errors.miejscowosc" class="text-danger">{{ errors.miejscowosc }}</small>
         </div>
 
@@ -93,8 +110,9 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { ref, reactive, watch } from 'vue';
 import { useRuntimeConfig } from '#app';
+import { debounce } from 'lodash';
 
 const config = useRuntimeConfig();
 const apiUrl = config.public.baseURL || 'http://127.0.0.1:8000';
@@ -102,7 +120,7 @@ const apiUrl = config.public.baseURL || 'http://127.0.0.1:8000';
 // Obiekt z danymi formularza
 const form = reactive({
   firstName: '',
-  miejscowosc: '', // dodane pole miejscowość
+  miejscowosc: '', 
   email: '',
   weddingDate: '',
   services: [],
@@ -113,7 +131,7 @@ const form = reactive({
 // Obiekt na błędy walidacji
 const errors = reactive({
   firstName: '',
-  miejscowosc: '', // walidacja miejscowości
+  miejscowosc: '',
   email: '',
   weddingDate: '',
   services: '',
@@ -190,6 +208,8 @@ const clearForm = () => {
   form.services = [];
   form.consentInfo = false;
   form.consentRodo = false;
+  searchQuery.value = ''; // czyścimy również query
+  suggestions.value = [];
 };
 
 const submitForm = async () => {
@@ -223,9 +243,10 @@ const submitForm = async () => {
       availabilityAlert.variant = 'alert-success';
     }
 
+    // Wysłanie danych do backendu. Wartość miejscowości zawiera już kod pocztowy, jeśli został pobrany.
     const submissionData = {
       firstName: form.firstName,
-      miejscowosc: form.miejscowosc, // dodane pole miejscowość
+      miejscowosc: form.miejscowosc,
       email: form.email,
       weddingDate: form.weddingDate,
       services: form.services.join('+')
@@ -244,8 +265,72 @@ const submitForm = async () => {
     submissionAlert.variant = 'alert-danger';
   }
 };
+
+// Zmienna dla autouzupełniania miejscowości
+const searchQuery = ref(''); 
+const suggestions = ref([]);
+
+watch(searchQuery, (newVal) => {
+  form.miejscowosc = newVal;
+});
+
+// Funkcja pobierająca dane z API GeoNames (używamy debounce)
+const fetchMiejscowosci = debounce(async () => {
+  if (searchQuery.value.length < 2) {
+    suggestions.value = [];
+    return;
+  }
+
+  try {
+    // Używamy API GeoNames – zastąp 'mateuszprogramista19' własnym użytkownikiem
+    const response = await fetch(
+      `http://api.geonames.org/searchJSON?name_startsWith=${encodeURIComponent(searchQuery.value)}&country=PL&maxRows=4&username=mateuszprogramista19` // Zewnetrzne API Moj profil
+    );
+    const data = await response.json();
+    suggestions.value = data.geonames || [];
+  } catch (error) {
+    console.error('Błąd podczas pobierania danych miast:', error);
+    suggestions.value = [];
+  }
+}, 300);
+
+// Funkcja wybierająca miejscowość z sugestii z dodaniem kodu pocztowego
+const selectMiejscowosc = async (miejscowosc) => {
+  searchQuery.value = miejscowosc.name;
+  suggestions.value = [];
+  
+  try {
+    const postalResponse = await fetch(
+      `http://api.geonames.org/postalCodeSearchJSON?placename=${encodeURIComponent(miejscowosc.name)}&country=PL&maxRows=1&username=mateuszprogramista19` // Zewnetrzne API Moj profil 
+    );
+    const postalData = await postalResponse.json();
+    if (postalData.postalCodes && postalData.postalCodes.length > 0) {
+      // Łączymy kod pocztowy z nazwą miejscowości, np. "07-200 Wyszków"
+      form.miejscowosc = postalData.postalCodes[0].postalCode + ' ' + miejscowosc.name;
+    } else {
+      form.miejscowosc = miejscowosc.name;
+    }
+  } catch (error) {
+    console.error('Błąd pobierania kodu pocztowego:', error);
+    form.miejscowosc = miejscowosc.name;
+  }
+};
 </script>
 
+
 <style scoped>
-/* Opcjonalnie: możesz dodać własne style */
+.position-relative {
+  position: relative;
+}
+.list-group {
+  max-height: 200px;
+  overflow-y: auto;
+  width: 100%;
+  z-index: 1000;
+  margin-top: 0.5rem;
+}
+.position-absolute {
+  top: 100%;
+  left: 0;
+}
 </style>
