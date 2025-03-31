@@ -43,56 +43,78 @@
               </div>
               <small v-if="errors.nr_dowodu" class="text-danger">{{ errors.nr_dowodu }}</small>
             </div>
-            <!-- Telefon Pana Młodego -->
+            <!-- Pakiet -->
             <div class="col-md-6">
               <div class="form-floating mb-1">
-                <input v-model="form.telefon_mlodego" type="text" class="form-control" id="floatingTelMlody" placeholder="Telefon Pana Młodego">
-                <label for="floatingTelMlody">Telefon Pana Młodego</label>
+                <select v-model="form.pakiet" class="form-select" id="floatingPakiet">
+                  <option disabled value="">Wybierz pakiet</option>
+                  <option value="foto">foto</option>
+                  <option value="film">film</option>
+                  <option value="foto+film">foto+film</option>
+                  <option value="foto+film+fotoplener">foto+film+fotoplener</option>
+                  <option value="foto+fotoplener">foto+fotoplener</option>
+                </select>
+                <label for="floatingPakiet">Pakiet</label>
               </div>
-              <small v-if="errors.telefon_mlodego" class="text-danger">{{ errors.telefon_mlodego }}</small>
-            </div>
-            <!-- Telefon Pani Młodej -->
-            <div class="col-md-6">
-              <div class="form-floating mb-1">
-                <input v-model="form.telefon_mlodej" type="text" class="form-control" id="floatingTelMloda" placeholder="Telefon Pani Młodej">
-                <label for="floatingTelMloda">Telefon Pani Młodej</label>
-              </div>
-              <small v-if="errors.telefon_mlodej" class="text-danger">{{ errors.telefon_mlodej }}</small>
-            </div>
-            <!-- Sala Weselna -->
-            <div class="col-md-6">
-              <div class="form-floating mb-1">
-                <input v-model="form.sala" type="text" class="form-control" id="floatingSala" placeholder="Sala Weselna">
-                <label for="floatingSala">Sala Weselna</label>
-              </div>
-              <small v-if="errors.sala" class="text-danger">{{ errors.sala }}</small>
-            </div>
-            <!-- Kościół -->
-            <div class="col-md-6">
-              <div class="form-floating mb-1">
-                <input v-model="form.koscol" type="text" class="form-control" id="floatingKosciol" placeholder="Kościół">
-                <label for="floatingKosciol">Kościół</label>
-              </div>
-              <small v-if="errors.koscol" class="text-danger">{{ errors.koscol }}</small>
+              <small v-if="errors.pakiet" class="text-danger">{{ errors.pakiet }}</small>
             </div>
             <!-- Adres -->
-            <div class="col-md-12">
+            <div class="col-md-6">
               <div class="form-floating mb-1">
-                <textarea v-model="form.adres" class="form-control" id="floatingAdres" placeholder="Adres" style="height: 80px"></textarea>
+                <input v-model="form.adres" type="text" class="form-control" id="floatingAdres" placeholder="Adres">
                 <label for="floatingAdres">Adres</label>
               </div>
               <small v-if="errors.adres" class="text-danger">{{ errors.adres }}</small>
             </div>
-            <!-- NIP -->
+            <!-- Telefon Pana Młodego -->
             <div class="col-md-6">
               <div class="form-floating mb-1">
-                <input v-model="form.nip" type="text" class="form-control" id="floatingNip" placeholder="NIP" maxlength="10">
-                <label for="floatingNip">NIP</label>
+                <input v-model="form.telefon_mlodego" type="text" class="form-control" id="floatingTelMlody" placeholder="Telefon Pana Młodego">
+                <label for="floatingTelMlody">Telefon</label>
               </div>
-              <small v-if="errors.nip" class="text-danger">{{ errors.nip }}</small>
+              <small v-if="errors.telefon_mlodego" class="text-danger">{{ errors.telefon_mlodego }}</small>
             </div>
+            <!-- Data -->
+            <div class="col-md-6">
+              <div class="form-floating mb-1">
+                <input v-model="form.data" type="date" class="form-control" id="floatingData">
+                <label for="floatingData">Data</label>
+              </div>
+              <small v-if="errors.data" class="text-danger">{{ errors.data }}</small>
+            </div>
+            <!-- kosciol  -->
+             
+               <!-- Sala -->
+               <div class="col-md-6">
+              <div class="form-floating mb-1">
+                <input v-model="form.sala" type="text" class="form-control" id="floatingSala" placeholder="Sala">
+                <label for="floatingSala">Sala</label>
+              </div>
+              <small v-if="errors.sala" class="text-danger">{{ errors.sala }}</small>
+            </div>
+
+            <!-- Kościół -->
+            <div class="col-md-6">
+              <div class="form-floating mb-1">
+                <input v-model="form.koscol" type="text" class="form-control" id="floatingKoscol" placeholder="Kościół">
+                <label for="floatingKoscol">Kościół</label>
+              </div>
+              <small v-if="errors.koscol" class="text-danger">{{ errors.koscol }}</small>
+            </div>
+
+            <!-- Dron -->
+            <div class="col-md-6">
+          <div class="form-floating mb-1">
+            <select v-model="form.dron" class="form-select" id="floatingDron">
+              <option :value="true">Tak</option>
+              <option :value="false">Nie</option>
+            </select>
+            <label for="floatingDron">Dron</label>
           </div>
-  
+          <small v-if="errors.dron" class="text-danger">{{ errors.dron }}</small>
+        </div>
+
+          </div>
           <div class="mt-4 d-flex justify-content-center">
             <button type="submit" class="btn btn-success btn-lg px-5">
               <i class="bi bi-check-circle me-2"></i>Zapisz umowę
@@ -104,6 +126,7 @@
   </div>
 </template>
 
+
 <script setup>
 import { reactive, ref, onMounted } from 'vue'
 import { useRoute, useRuntimeConfig, useRouter } from '#app'
@@ -112,7 +135,7 @@ const route = useRoute()
 const router = useRouter()
 const weddingId = route.params.wedding_id
 
-// Jeżeli brakuje parametru "signature", przekierowujemy użytkownika
+// Jeśli brakuje parametru "signature", przekierowujemy użytkownika
 if (!route.query.signature) {
   router.push('/')
 }
@@ -127,12 +150,13 @@ const form = reactive({
   nazwisko: '',
   pesel: '',
   nr_dowodu: '',
+  pakiet: '',
   adres: '',
-  nip: '',
   telefon_mlodego: '',
-  telefon_mlodej: '',
   sala: '',
   koscol: '',
+  data: '',
+  dron: false, // przechowujemy wartość logiczną
 })
 
 // Obiekt na błędy walidacji
@@ -141,24 +165,24 @@ const errors = reactive({
   nazwisko: '',
   pesel: '',
   nr_dowodu: '',
+  pakiet: '',
   adres: '',
-  nip: '',
-  telefon_mlodego: '',
-  telefon_mlodej: '',
   sala: '',
   koscol: '',
+  telefon_mlodego: '',
+  data: '',
+
 })
 
+// Alert do komunikatów
 const alertMessage = ref('')
 const wedding = ref(null)
 
-// Funkcja pobierająca dane wesela z backendu
+// Funkcja pobierająca dane wesela z backendu (opcjonalnie, jeśli chcesz np. uzupełnić jakieś pola)
 const loadWedding = async () => {
   try {
     wedding.value = await $fetch(`${apiUrl}/api/weddings/${weddingId}${window.location.search}`)
-    // Ustawiamy domyślne wartości dla sali i kościoła, jeśli są dostępne
-    form.sala = wedding.value.sala || ''
-    form.koscol = wedding.value.koscol || ''
+    // Jeśli potrzeba uzupełnić jakieś dane z wesela, można je tutaj przypisać
   } catch (error) {
     console.error('Błąd przy pobieraniu danych wesela:', error)
     alertMessage.value = 'Brak uprawnień dostępu lub wygasł link. Następuje przekierowanie...'
@@ -170,67 +194,63 @@ const loadWedding = async () => {
 
 // Funkcja walidująca formularz
 const validateForm = () => {
-  let valid = true;
+  let valid = true
   // Czyścimy poprzednie błędy
-  errors.imie = '';
-  errors.nazwisko = '';
-  errors.pesel = '';
-  errors.nr_dowodu = '';
-  errors.adres = '';
-  errors.nip = '';
-  errors.telefon_mlodego = '';
-  errors.telefon_mlodej = '';
-  errors.sala = '';
-  errors.koscol = '';
-  
+  errors.imie = ''
+  errors.nazwisko = ''
+  errors.pesel = ''
+  errors.nr_dowodu = ''
+  errors.pakiet = ''
+  errors.adres = ''
+  errors.telefon_mlodego = ''
+  errors.sala = ''
+  errors.koscol = ''
+  errors.data = ''
+
+
   if (!form.imie.trim()) {
-    errors.imie = 'Podaj imię.';
-    valid = false;
+    errors.imie = 'Podaj imię.'
+    valid = false
   }
   if (!form.nazwisko.trim()) {
-    errors.nazwisko = 'Podaj nazwisko.';
-    valid = false;
+    errors.nazwisko = 'Podaj nazwisko.'
+    valid = false
   }
-  if (!form.telefon_mlodego.trim()) {
-    errors.telefon_mlodego = 'Podaj telefon pana młodego.';
-    valid = false;
+  if (!form.pesel.trim() || !/^\d{11}$/.test(form.pesel)) {
+    errors.pesel = 'PESEL powinien składać się z 11 cyfr.'
+    valid = false
   }
-  if (!form.telefon_mlodej.trim()) {
-    errors.telefon_mlodej = 'Podaj telefon pani młodej.';
-    valid = false;
+  if (!form.nr_dowodu.trim() || form.nr_dowodu.trim().length < 5) {
+    errors.nr_dowodu = 'Nr dowodu powinien zawierać przynajmniej 5 znaków.'
+    valid = false
   }
-  if (!form.sala.trim()) {
-    errors.sala = 'Podaj salę weselną.';
-    valid = false;
-  }
-  if (!form.koscol.trim()) {
-    errors.koscol = 'Podaj kościół.';
-    valid = false;
+  if (!form.pakiet.trim()) {
+    errors.pakiet = 'Wybierz pakiet.'
+    valid = false
   }
   if (!form.adres.trim() || form.adres.trim().length < 10) {
-    errors.adres = 'Podaj pełny adres (minimum 10 znaków).';
-    valid = false;
+    errors.adres = 'Podaj pełny adres (minimum 10 znaków).'
+    valid = false
   }
-  if (form.nip && !/^\d{10}$/.test(form.nip)) {
-    errors.nip = 'NIP powinien składać się z 10 cyfr.';
-    valid = false;
+  if (!form.telefon_mlodego.trim()) {
+    errors.telefon_mlodego = 'Podaj telefon pana młodego.'
+    valid = false
   }
-  if (form.pesel && !/^\d{11}$/.test(form.pesel)) {
-    errors.pesel = 'PESEL powinien składać się z 11 cyfr.';
-    valid = false;
+  if (!form.data) {
+    errors.data = 'Podaj datę.'
+    valid = false
   }
-  if (form.nr_dowodu && form.nr_dowodu.trim().length < 5) {
-    errors.nr_dowodu = 'Nr dowodu powinien zawierać przynajmniej 5 znaków.';
-    valid = false;
-  }
-  return valid;
+  if (!form.sala.trim()) errors.sala = 'Podaj nazwę sali.', valid = false
+  if (!form.koscol.trim()) errors.koscol = 'Podaj nazwę kościoła.', valid = false
+
+  return valid
 }
 
 // Funkcja wysyłająca formularz do backendu
 const submitForm = async () => {
   if (!validateForm()) {
     alertMessage.value = 'Proszę poprawić błędy w formularzu.'
-    return;
+    return
   }
   try {
     const response = await $fetch(`${apiUrl}/api/umowy?${window.location.search.slice(1)}`, {
@@ -252,18 +272,20 @@ const resetForm = () => {
   form.nazwisko = ''
   form.pesel = ''
   form.nr_dowodu = ''
+  form.pakiet = ''
   form.adres = ''
-  form.nip = ''
   form.telefon_mlodego = ''
-  form.telefon_mlodej = ''
+  form.data = ''
   form.sala = ''
   form.koscol = ''
+  form.dron = false
 }
 
 onMounted(() => {
   loadWedding()
 })
 </script>
+
 
 <style scoped>
 .form-container {
