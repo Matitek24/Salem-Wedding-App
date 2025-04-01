@@ -21,8 +21,10 @@
   --color-first: #B19780;
   --color-second: #333333;
   --color-third: #f7f7f7;
+  --color-fourth: #B19780;
   
   /* Kolory nawigacji */
+  --color-fourth-click: #967a62;
   --navbar-bg: transparent;
   --navbar-bg-mobile: rgba(50, 50, 50, 0.95);
   --navbar-text: #ffffff;

@@ -36,6 +36,7 @@ const rightMenu = [
     margin:0px;
     overflow-x: hidden;
     max-width: 100%;
+    background-color: rgba(251, 211, 148, 0.023);
 }
   </style>
   

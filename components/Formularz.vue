@@ -1,7 +1,21 @@
 <template>
   <div class="d-flex justify-content-center">
-    <div class="w-50">
+    
+    <div class="col-12 col-md-7 p-4">
       <!-- Alert dostępności terminu -->
+
+    
+
+      <form @submit.prevent="submitForm" class="container mt-4 p-4 border rounded shadow-sm bg-light">
+        <!-- Imię -->
+      <div class="d-flex justify-content-center">
+        <div class="mb-5 m-4">
+          <img src="../public/images/Icon/ozdobnik black.png" alt="" srcset="" style="width:100px;" class="mb-3">
+          <h3> ZAPYTAJ O TERMIN</h3>
+          <p>*Wypelnij wszelkie niezbedne informacje</p>
+          <hr>
+        </div>
+      </div>
       <div
         v-if="availabilityAlert.message"
         :class="['alert', availabilityAlert.variant, 'alert-dismissible', 'fade', 'show']"
@@ -18,18 +32,28 @@
         {{ submissionAlert.message }}
         <button type="button" class="btn-close" @click="clearSubmissionAlert" aria-label="Close"></button>
       </div>
-
-      <form @submit.prevent="submitForm" class="container mt-4 p-4 border rounded shadow-sm bg-light">
-        <!-- Imię -->
-        <div class="mb-3">
-          <label for="firstName" class="form-label">Imię:</label>
-          <input type="text" id="firstName" v-model="form.firstName" class="form-control" placeholder="Wpisz imię" />
-          <small v-if="errors.firstName" class="text-danger">{{ errors.firstName }}</small>
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+              <div class="mb-3">
+                      <label for="firstName" class="form-label">Imię:</label>
+                      <input type="text" id="firstName" v-model="form.firstName" class="form-control" placeholder="Wpisz imię" />
+                      <small v-if="errors.firstName" class="text-danger">{{ errors.firstName }}</small>
+                    </div>
+            </div>
+            <div class="col-md-5">
+              <div class="mb-3">
+                      <label for="email" class="form-label">Email:</label>
+                      <input type="email" id="email" v-model="form.email" class="form-control" placeholder="Wpisz email" />
+                      <small v-if="errors.email" class="text-danger">{{ errors.email }}</small>
+                    </div>
+            </div>
         </div>
-
+      
         <!-- Miejscowość z autouzupełnianiem -->
-        <div class="mb-3 position-relative">
-          <label for="miejscowosc" class="form-label">Miejscowość:</label>
+       <div class="row justify-content-center">
+        <div class="col-md-5">
+          <div class="mb-3 position-relative">
+          <label for="miejscowosc" class="form-label">Miejscowość (miejsce zamieszkania):</label>
           <input 
             type="text" 
             id="miejscowosc" 
@@ -50,60 +74,54 @@
           </ul>
           <small v-if="errors.miejscowosc" class="text-danger">{{ errors.miejscowosc }}</small>
         </div>
-
-        <!-- Email -->
-        <div class="mb-3">
-          <label for="email" class="form-label">Email:</label>
-          <input type="email" id="email" v-model="form.email" class="form-control" placeholder="Wpisz email" />
-          <small v-if="errors.email" class="text-danger">{{ errors.email }}</small>
-        </div>
-
-        <!-- Data -->
-        <div class="mb-3">
+          <div class="mb-3">
           <label for="weddingDate" class="form-label">Data:</label>
           <input type="date" id="weddingDate" v-model="form.weddingDate" class="form-control" />
           <small v-if="errors.weddingDate" class="text-danger">{{ errors.weddingDate }}</small>
         </div>
+        </div>
+       </div>
+
 
         <!-- Wybór zakresu usług -->
-        <div class="mb-3">
-          <label class="form-label">Wybierz zakres usług:</label>
+        <div class="mb-5 mt-5">
+          <label class="form-label">Wybierz zakres usług, którymi jesteś zainteresowany*:</label>
           <div class="d-flex justify-content-center">
-            <div class="form-check m-2">
-              <input type="checkbox" id="serviceFoto" class="form-check-input" value="foto" v-model="form.services">
+            <div class="form-check m-2 d-flex flex-row justify-content-center align-items-center">
+              <input type="checkbox" id="serviceFoto" class="form-check-input m-2" value="foto" v-model="form.services">
               <label for="serviceFoto" class="form-check-label">Foto</label>
             </div>
-            <div class="form-check m-2">
-              <input type="checkbox" id="serviceFilm" class="form-check-input" value="film" v-model="form.services">
+            <div class="form-check m-2 d-flex flex-row justify-content-center align-items-center">
+              <input type="checkbox" id="serviceFilm" class="form-check-input m-2" value="film" v-model="form.services">
               <label for="serviceFilm" class="form-check-label">Film</label>
             </div>
-            <div class="form-check m-2">
-              <input type="checkbox" id="serviceFotoplener" class="form-check-input" value="fotoplener" v-model="form.services">
+            <div class="form-check m-2 d-flex flex-row justify-content-center align-items-center">
+              <input type="checkbox" id="serviceFotoplener" class="form-check-input m-2" value="fotoplener" v-model="form.services">
               <label for="serviceFotoplener" class="form-check-label">Fotoplener</label>
             </div>
           </div>
           <small v-if="errors.services" class="text-danger">{{ errors.services }}</small>
         </div>
 
-        <hr />
-
         <!-- Checkbox zgody na otrzymywanie informacji -->
-        <div class="d-flex flex-column align-items-start">
-          <div class="mb-3 form-check">
+        <div class="d-flex flex-column align-items-start align-items-center">
+          <div class="mb-3 w-75 text-start form-check">
             <input type="checkbox" id="consentInfo" v-model="form.consentInfo" class="form-check-input">
-            <label for="consentInfo" class="form-check-label">Wyrażam zgodę na otrzymywanie informacji</label>
+            <label for="consentInfo" class="form-check-label ps-3">Wyrazam zgode na otrzymywanie informacji handlowej</label>
             <small v-if="errors.consentInfo" class="text-danger">{{ errors.consentInfo }}</small>
           </div>
 
           <!-- Checkbox akceptacji RODO -->
-          <div class="mb-3 form-check">
+          <div class="mb-3 w-75 form-check text-start justify-content-center">
             <input type="checkbox" id="consentRodo" v-model="form.consentRodo" class="form-check-input">
-            <label for="consentRodo" class="form-check-label">Akceptuję RODO</label>
+            <label for="consentRodo" class="form-check-label ps-3">*Zapoznalem/am się z informacjami o administratorze oraz przetwarzaniu moich danych osobywch i akceptuje <a href="www.wp.pl">regulamin RODO</a></label>
             <small v-if="errors.consentRodo" class="text-danger">{{ errors.consentRodo }}</small>
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Wyślij</button>
+       <div class="m-5">
+        <button type="submit" class="btn btn-primary ps-4 pe-4">Wyślij</button>
+       </div>
       </form>
     </div>
   </div>
@@ -322,6 +340,13 @@ const selectMiejscowosc = (miejscowosc) => {
 
 
 <style scoped>
+  img{
+    transform: scaleX(-1);
+  }
+form h3{
+  color: var(--color-second);
+  font-family: "HedvigLettersSerif";
+}
 .position-relative {
   position: relative;
 }
@@ -335,5 +360,33 @@ const selectMiejscowosc = (miejscowosc) => {
 .position-absolute {
   top: 100%;
   left: 0;
+}
+.btn-close{
+  background-color: transparent;
+}
+.btn-close:hover{
+  background-color: transparent;
+}
+form button{
+  background-color: var(--color-fourth);
+  border: none;
+}
+form button:hover{
+  background-color: var(--color-fourth-click);
+  border: none;
+}
+form{
+  color: var(--color-fourth);
+  font-family: "HedvigLettersSerif";
+  background-color: rgb(255, 255, 255) !important;
+}
+input[type=checkbox]{
+  border:1px solid rgb(130, 130, 130);
+  width: 22px;
+  height: 22px;
+  border-radius: 0px;
+}
+input{
+  border:1px solid rgba(130, 130, 130, 0.685);
 }
 </style>
