@@ -45,7 +45,7 @@
               @click="selectMiejscowosc(miejscowosc)"
               class="list-group-item"
             >
-              {{ miejscowosc.name }}
+            <span v-if="miejscowosc.postalCode">{{ miejscowosc.postalCode }}&nbsp</span>{{ miejscowosc.name }}
             </li>
           </ul>
           <small v-if="errors.miejscowosc" class="text-danger">{{ errors.miejscowosc }}</small>
@@ -234,10 +234,6 @@ const submitForm = async () => {
       availabilityAlert.message = 'Termin jest zajęty dla wybranych usług, sprawdź maila!';
       availabilityAlert.variant = 'alert-danger';
 
-      if (availabilityResponse.unavailablePackages && availabilityResponse.unavailablePackages.length > 0) {
-        availabilityAlert.message += ' Niedostępne pakiety: ' + 
-          availabilityResponse.unavailablePackages.join(', ');
-      }
     } else {
       availabilityAlert.message = 'Termin jest wolny, ofertę wysłaliśmy na maila!';
       availabilityAlert.variant = 'alert-success';
@@ -280,40 +276,47 @@ const fetchMiejscowosci = debounce(async () => {
     suggestions.value = [];
     return;
   }
-
   try {
-    // Używamy API GeoNames – zastąp 'mateuszprogramista19' własnym użytkownikiem
+    // Najpierw pobieramy miejscowości
     const response = await fetch(
-      `http://api.geonames.org/searchJSON?name_startsWith=${encodeURIComponent(searchQuery.value)}&country=PL&maxRows=4&username=mateuszprogramista19` // Zewnetrzne API Moj profil
+      `http://api.geonames.org/searchJSON?name_startsWith=${encodeURIComponent(searchQuery.value)}&country=PL&maxRows=4&username=mateuszprogramista19`
     );
     const data = await response.json();
-    suggestions.value = data.geonames || [];
+    const cities = data.geonames || [];
+    
+    // Dla każdego miasta pobieramy kod pocztowy
+    const citiesWithPostalCodes = await Promise.all(cities.map(async (city) => {
+      try {
+        const postalResponse = await fetch(
+          `http://api.geonames.org/postalCodeSearchJSON?placename=${encodeURIComponent(city.name)}&country=PL&maxRows=1&username=mateuszprogramista19`
+        );
+        const postalData = await postalResponse.json();
+        if (postalData.postalCodes && postalData.postalCodes.length > 0) {
+          city.postalCode = postalData.postalCodes[0].postalCode;
+        }
+        return city;
+      } catch (error) {
+        console.error('Błąd podczas pobierania kodu pocztowego:', error);
+        return city;
+      }
+    }));
+    
+    suggestions.value = citiesWithPostalCodes;
   } catch (error) {
     console.error('Błąd podczas pobierania danych miast:', error);
     suggestions.value = [];
   }
 }, 300);
 
-// Funkcja wybierająca miejscowość z sugestii z dodaniem kodu pocztowego
-const selectMiejscowosc = async (miejscowosc) => {
-  searchQuery.value = miejscowosc.name;
-  suggestions.value = [];
-  
-  try {
-    const postalResponse = await fetch(
-      `http://api.geonames.org/postalCodeSearchJSON?placename=${encodeURIComponent(miejscowosc.name)}&country=PL&maxRows=1&username=mateuszprogramista19` // Zewnetrzne API Moj profil 
-    );
-    const postalData = await postalResponse.json();
-    if (postalData.postalCodes && postalData.postalCodes.length > 0) {
-      // Łączymy kod pocztowy z nazwą miejscowości, np. "07-200 Wyszków"
-      form.miejscowosc = postalData.postalCodes[0].postalCode + ' ' + miejscowosc.name;
-    } else {
-      form.miejscowosc = miejscowosc.name;
-    }
-  } catch (error) {
-    console.error('Błąd pobierania kodu pocztowego:', error);
+// Funkcja wybierająca miejscowość z sugestii
+const selectMiejscowosc = (miejscowosc) => {
+  if (miejscowosc.postalCode) {
+    form.miejscowosc = miejscowosc.postalCode + ' ' + miejscowosc.name;
+  } else {
     form.miejscowosc = miejscowosc.name;
   }
+  searchQuery.value = form.miejscowosc;
+  suggestions.value = [];
 };
 </script>
 
