@@ -11,16 +11,19 @@ const apiUrl = config.public.baseURL || "http://127.0.0.1:8000";
 const banners = ref([]);
 const route = useRoute();
 
-// Filtrujemy banery dla aktualnej strony
+// Filtrujemy banery dla aktualnej strony i sortujemy według kolejności
 const currentBanners = computed(() => {
-  const filtered = banners.value.filter(banner => banner.page === route.name);
+  const filtered = banners.value
+    .filter(banner => banner.page === route.name)
+    .sort((a, b) => a.sort_order - b.sort_order);
+    
   return filtered.length > 0 ? filtered : banners.value.length > 0 ? [banners.value[0]] : [];
 });
 
 // Ukrywanie banera na stronach stories
 const shouldShowBanner = computed(() => {
-  return !(route.name === 'wedding-stories-id' || 
-           (route.name === 'wedding-stories' && route.params.id));
+  return !(route.name === 'wedding-stories-id' ||
+    (route.name === 'wedding-stories' && route.params.id));
 });
 
 // Pobieranie banerów z API
@@ -44,15 +47,14 @@ onMounted(fetchBanners);
 
 <template>
   <div v-if="shouldShowBanner && currentBanners.length" class="banner">
-    <!-- Jeśli jest więcej niż jeden baner, używamy karuzeli -->
     <template v-if="currentBanners.length > 1">
       <Carousel
-        :autoplay="5000"          
+        :autoplay="5000"
         :pauseAutoplayOnHover="true"
         :mouse-drag="true"
         :touch-drag="true"
-        :wrap-around="true"       
-        :transition="700"         
+        :wrap-around="true"
+        :transition="700"
         class="banner-carousel"
       >
         <Slide v-for="(banner, index) in currentBanners" :key="index">
