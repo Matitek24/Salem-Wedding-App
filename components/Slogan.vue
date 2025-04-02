@@ -13,11 +13,11 @@ const props = defineProps({
   },
   teamName: {
     type: String,
-    default: "Salem"
+
   },
   rightText: {
     type: String,
-    default: "Salem"
+
   }
 });
 
@@ -40,32 +40,46 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container mt-5 mb-5">
     <div class="row justify-content-center align-items-center w-100 position-relative mb-5">
-      <!-- Lewa kolumna -->
-      <div class="col-lg-5">
-        <h1 class="display-4">{{ greeting }}</h1>
-        <p class="lead mt-3">
-          <span class="lead1">{{ teamTitle }}</span> <br />
-          <span class="lead2">{{ teamName }}</span>
-        </p>
-      </div>
+      <!-- Układ dla opisu (dwie kolumny) -->
+      <template v-if="rightText">
+        <!-- Lewa kolumna -->
+        <div class="col-lg-5">
+          <h1 class="display-4">{{ greeting }}</h1>
+          <p class="lead mt-3">
+            <span class="lead1">{{ teamTitle }}</span> <br />
+            <span class="lead2">{{ teamName }}</span>
+          </p>
+        </div>
 
-      <!-- Kreska dzieląca (vr na desktop, hr na mobile) -->
-      <div class="col-lg-1 d-flex justify-content-center">
-        <div v-if="!isMobile" class="vr h-100"></div>
-        <hr v-else class="hr" />
-      </div>
+        <!-- Kolumna z dzielącą linią -->
+        <div class="col-lg-1 d-flex justify-content-center">
+          <div v-if="!isMobile" class="vr h-100"></div>
+          <hr v-else class="hr" />
+        </div>
 
-      <!-- Prawa kolumna -->
-      <div class="col-lg-5">
-        <p class="text">
-          {{ rightText }}
-        </p>
-      </div>
+        <!-- Prawa kolumna z opisem -->
+        <div class="col-lg-5">
+          <p class="text">
+            {{ rightText }}
+          </p>
+        </div>
+      </template>
+
+      <!-- Układ, gdy nie ma opisu (tylko lewa kolumna wyśrodkowana) -->
+      <template v-else>
+        <div class="col-12 text-center position-relative">
+          <h1 class="display-4">{{ greeting }}</h1>
+          <div class="lead-container">
+            <span class="lead12">{{ teamTitle }}</span>
+          </div>
+        </div>
+      </template>
     </div>
   </div>
 </template>
+
 
 
 <style scoped>
@@ -104,16 +118,40 @@ onUnmounted(() => {
   bottom: 60px;
   left: 200px;
 }
+.position-relative {
+  position: relative;
+}
+
+.lead-container {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: 20px; 
+}
+
+.lead12 {
+  display: inline-block; 
+  font-family: 'HedvigLetteresSerif';
+  font-size: 1.3rem;
+  margin-right: 100px;
+}
 
 .lead2 {
   position: absolute;
   bottom: 32px;
   left: 250px;
 }
+
+@media screen and (max-width:1000px){
+  .display-4{
+    font-size: 9rem !important;
+  }
+}
 @media screen and (min-width: 996px) {
   .col-lg-1{
   width: 20px !important;
 }
+
   
 }
 @media (max-width: 1200px) and (min-width: 990px) {
@@ -125,6 +163,7 @@ onUnmounted(() => {
     bottom: 22px;
     left: 180px;
   }
+
  }
 
 </style>

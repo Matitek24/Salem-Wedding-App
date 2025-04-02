@@ -271,8 +271,6 @@ const submitForm = async () => {
       body: submissionData
     });
 
-    submissionAlert.message = 'Dane zapisane pomyślnie!';
-    submissionAlert.variant = 'alert-success';
     clearForm();
   } catch (error) {
     submissionAlert.message = `Błąd podczas wysyłania danych: ${error.message}`;

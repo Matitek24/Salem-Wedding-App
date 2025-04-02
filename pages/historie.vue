@@ -1,6 +1,7 @@
 <script setup>
 import { useHead } from '#imports'
 import WST from '~/components/WeddingStoriesList.vue'
+import Footer from '~/components/footer.vue'
 
 useHead({
   title: 'O nas - Salem Wedding',
@@ -14,13 +15,19 @@ useHead({
 
 <template>
   <div class="historie">
+    <Slogan
+        greeting="Obejrzyj"
+        teamTitle="Pelną historię"
+        teamName=""
+        rightText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi impLorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi imp"
+      />
     <WST />
+    <Footer />
   </div>
 </template>
 
 <style scoped>
 .historie {
   padding: 2rem;
-  text-align: center;
 }
 </style>

@@ -43,7 +43,9 @@
   --font-secondary: 'Corinthia', serif;
 }
 
-
+.font1{
+  font-family: 'HedvigLetterSerif';
+}
 @font-face {
     font-family: 'Corinthia';
     src: url('../public/fonts/Corinthia-Regular.ttf');

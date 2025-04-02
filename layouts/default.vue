@@ -38,5 +38,19 @@ const rightMenu = [
     max-width: 100%;
     background-color: rgba(251, 211, 148, 0.023);
 }
+body::after{
+  content: "";
+  position: absolute;
+  top: 400px;
+  right:-200px; 
+  z-index: -1;
+  width: 1000px; 
+  height: 1000px; 
+  transform: rotate(140deg);
+  background-image: url(../public/images/Icon/ozdobnik_brown.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.1;
+}
   </style>
   
