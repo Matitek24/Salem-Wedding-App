@@ -1,7 +1,7 @@
 <template>
     <div class="full-width-layout photography-layout mb-5 pb-5">
       <div class="row g-0">
-        <div class="col-lg-5 col-md-12 order-lg-2 sidebar">
+        <div class="col-lg-5 col-sm-12 order-lg-2 sidebar">
           <div class="sidebar-content">
             <div class="profile-image">
               <img src="../../public/images/wesele_fot1.jpg" alt="Profile" class="img-fluid">
@@ -12,7 +12,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-7 col-md-12 order-lg-1 main-image d-flex justify-content-center align-items-center">
+        <div class="col-lg-7 col-sm-12 order-lg-1 main-image d-flex justify-content-center align-items-center">
           <slot name="mainImage"></slot>
         </div>
       </div>
@@ -74,7 +74,9 @@
     padding: 3rem;
     text-align: left;
     width: 150%;
+    min-width: 100%;
   }
+
   .text-content h2{
     text-align: left;
     margin-bottom: 2rem;

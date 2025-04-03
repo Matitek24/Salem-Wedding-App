@@ -1,51 +1,59 @@
 <template>
   <div class="form-container">
     <div class="form-overlay-card">
-      <div class="card-header text-white py-3" style="background-color: grey;">
-        <h5 class="mb-0">Formularz umowy {{ weddingId }}</h5>
-      </div>
       <div class="card-body p-4">
         <div v-if="alertMessage" class="alert alert-warning alert-dismissible fade show">
           {{ alertMessage }}
           <button type="button" class="btn-close" @click="alertMessage = ''"></button>
         </div>
+        
+        <div class="d-flex justify-content-center tytul">
+          <div class="mb-5 m-4 text-center">
+            <img src="../../public/images/Icon/ozdobnik_brown.png" alt="" style="width:100px;" class="mb-3">
+            <h3>FORMULARZ UMOWY</h3>
+            <p>*Wypełnij wszelkie niezbędne informacje</p>
+            <hr>
+          </div>
+        </div>
+        
         <form @submit.prevent="submitForm">
-          <div class="row g-3">
-            <!-- Imię -->
-            <div class="col-md-6">
-              <div class="form-floating mb-1">
-                <input v-model="form.imie" type="text" class="form-control" id="floatingImie" placeholder="Imię">
-                <label for="floatingImie">Imię</label>
+          <div class="row g-3 justify-content-center">
+            <!-- Imię i Nazwisko -->
+            <div class="col-md-5">
+              <div class="mb-3">
+                <label for="floatingImie" class="form-label">Imię:</label>
+                <input v-model="form.imie" type="text" class="form-control" id="floatingImie" placeholder="Wpisz imię">
+                <small v-if="errors.imie" class="text-danger">{{ errors.imie }}</small>
               </div>
-              <small v-if="errors.imie" class="text-danger">{{ errors.imie }}</small>
             </div>
-            <!-- Nazwisko -->
-            <div class="col-md-6">
-              <div class="form-floating mb-1">
-                <input v-model="form.nazwisko" type="text" class="form-control" id="floatingNazwisko" placeholder="Nazwisko">
-                <label for="floatingNazwisko">Nazwisko</label>
+            <div class="col-md-5">
+              <div class="mb-3">
+                <label for="floatingNazwisko" class="form-label">Nazwisko:</label>
+                <input v-model="form.nazwisko" type="text" class="form-control" id="floatingNazwisko" placeholder="Wpisz nazwisko">
+                <small v-if="errors.nazwisko" class="text-danger">{{ errors.nazwisko }}</small>
               </div>
-              <small v-if="errors.nazwisko" class="text-danger">{{ errors.nazwisko }}</small>
             </div>
-            <!-- PESEL -->
-            <div class="col-md-6">
-              <div class="form-floating mb-1">
-                <input v-model="form.pesel" type="text" class="form-control" id="floatingPesel" placeholder="PESEL" maxlength="11">
-                <label for="floatingPesel">PESEL</label>
+
+            <!-- PESEL i Nr Dowodu -->
+            <div class="col-md-5">
+              <div class="mb-3">
+                <label for="floatingPesel" class="form-label">PESEL:</label>
+                <input v-model="form.pesel" type="text" class="form-control" id="floatingPesel" placeholder="Wpisz PESEL" maxlength="11">
+                <small v-if="errors.pesel" class="text-danger">{{ errors.pesel }}</small>
               </div>
-              <small v-if="errors.pesel" class="text-danger">{{ errors.pesel }}</small>
             </div>
-            <!-- Nr Dowodu -->
-            <div class="col-md-6">
-              <div class="form-floating mb-1">
-                <input v-model="form.nr_dowodu" type="text" class="form-control" id="floatingDowod" placeholder="Nr Dowodu">
-                <label for="floatingDowod">Nr Dowodu</label>
+            <div class="col-md-5">
+              <div class="mb-3">
+                <label for="floatingDowod" class="form-label">Nr Dowodu:</label>
+                <input v-model="form.nr_dowodu" type="text" class="form-control" id="floatingDowod" placeholder="Wpisz nr dowodu">
+                <small v-if="errors.nr_dowodu" class="text-danger">{{ errors.nr_dowodu }}</small>
               </div>
-              <small v-if="errors.nr_dowodu" class="text-danger">{{ errors.nr_dowodu }}</small>
             </div>
-            <!-- Pakiet -->
-            <div class="col-md-6">
-              <div class="form-floating mb-1">
+
+            <!-- Pakiet i Adres -->
+            <div class="col-md-5">
+              <div class="mb-3">
+                <label for="floatingPakiet" class="form-label">Pakiet:</label>
                 <select v-model="form.pakiet" class="form-select" id="floatingPakiet">
                   <option disabled value="">Wybierz pakiet</option>
                   <option value="foto">foto</option>
@@ -54,69 +62,76 @@
                   <option value="foto+film+fotoplener">foto+film+fotoplener</option>
                   <option value="foto+fotoplener">foto+fotoplener</option>
                 </select>
-                <label for="floatingPakiet">Pakiet</label>
+                <small v-if="errors.pakiet" class="text-danger">{{ errors.pakiet }}</small>
               </div>
-              <small v-if="errors.pakiet" class="text-danger">{{ errors.pakiet }}</small>
             </div>
-            <!-- Adres -->
-            <div class="col-md-6">
-              <div class="form-floating mb-1">
-                <input v-model="form.adres" type="text" class="form-control" id="floatingAdres" placeholder="Adres">
-                <label for="floatingAdres">Adres</label>
+            <div class="col-md-5">
+              <div class="mb-3">
+                <label for="floatingAdres" class="form-label">Adres:</label>
+                <input v-model="form.adres" type="text" class="form-control" id="floatingAdres" placeholder="Wpisz adres">
+                <small v-if="errors.adres" class="text-danger">{{ errors.adres }}</small>
               </div>
-              <small v-if="errors.adres" class="text-danger">{{ errors.adres }}</small>
-            </div>
-            <!-- Telefon Pana Młodego -->
-            <div class="col-md-6">
-              <div class="form-floating mb-1">
-                <input v-model="form.telefon_mlodego" type="text" class="form-control" id="floatingTelMlody" placeholder="Telefon Pana Młodego">
-                <label for="floatingTelMlody">Telefon</label>
-              </div>
-              <small v-if="errors.telefon_mlodego" class="text-danger">{{ errors.telefon_mlodego }}</small>
-            </div>
-            <!-- Data -->
-            <div class="col-md-6">
-              <div class="form-floating mb-1">
-                <input v-model="form.data" type="date" class="form-control" id="floatingData">
-                <label for="floatingData">Data</label>
-              </div>
-              <small v-if="errors.data" class="text-danger">{{ errors.data }}</small>
-            </div>
-            <!-- kosciol  -->
-             
-               <!-- Sala -->
-               <div class="col-md-6">
-              <div class="form-floating mb-1">
-                <input v-model="form.sala" type="text" class="form-control" id="floatingSala" placeholder="Sala">
-                <label for="floatingSala">Sala</label>
-              </div>
-              <small v-if="errors.sala" class="text-danger">{{ errors.sala }}</small>
             </div>
 
-            <!-- Kościół -->
-            <div class="col-md-6">
-              <div class="form-floating mb-1">
-                <input v-model="form.koscol" type="text" class="form-control" id="floatingKoscol" placeholder="Kościół">
-                <label for="floatingKoscol">Kościół</label>
+            <!-- Telefon i Data -->
+            <div class="col-md-5">
+              <div class="mb-3">
+                <label for="floatingTelMlody" class="form-label">Telefon:</label>
+                <input v-model="form.telefon_mlodego" type="text" class="form-control" id="floatingTelMlody" placeholder="Wpisz numer telefonu">
+                <small v-if="errors.telefon_mlodego" class="text-danger">{{ errors.telefon_mlodego }}</small>
               </div>
-              <small v-if="errors.koscol" class="text-danger">{{ errors.koscol }}</small>
+            </div>
+            <div class="col-md-5">
+              <div class="mb-3">
+                <label for="floatingData" class="form-label">Data:</label>
+                <input v-model="form.data" type="date" class="form-control" id="floatingData">
+                <small v-if="errors.data" class="text-danger">{{ errors.data }}</small>
+              </div>
+            </div>
+
+            <!-- Sala i Kościół -->
+            <div class="col-md-5">
+              <div class="mb-3">
+                <label for="floatingSala" class="form-label">Sala:</label>
+                <input v-model="form.sala" type="text" class="form-control" id="floatingSala" placeholder="Wpisz nazwę sali">
+                <small v-if="errors.sala" class="text-danger">{{ errors.sala }}</small>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="mb-3">
+                <label for="floatingKoscol" class="form-label">Kościół:</label>
+                <input v-model="form.koscol" type="text" class="form-control" id="floatingKoscol" placeholder="Wpisz nazwę kościoła">
+                <small v-if="errors.koscol" class="text-danger">{{ errors.koscol }}</small>
+              </div>
             </div>
 
             <!-- Dron -->
-            <div class="col-md-6">
-          <div class="form-floating mb-1">
-            <select v-model="form.dron" class="form-select" id="floatingDron">
-              <option :value="true">Tak</option>
-              <option :value="false">Nie</option>
-            </select>
-            <label for="floatingDron">Dron</label>
+            <div class="col-md-5">
+              <div class="mb-3">
+                <label for="floatingDron" class="form-label">Dron:</label>
+                <select v-model="form.dron" class="form-select" id="floatingDron">
+                  <option :value="true">Tak</option>
+                  <option :value="false">Nie</option>
+                </select>
+                <small v-if="errors.dron" class="text-danger">{{ errors.dron }}</small>
+              </div>
+            </div>
           </div>
-          <small v-if="errors.dron" class="text-danger">{{ errors.dron }}</small>
-        </div>
 
+          <!-- Zgody -->
+          <div class="d-flex flex-column align-items-center mt-4">
+            <div class="mb-3 w-75 text-start form-check">
+              <input type="checkbox" id="consentRodo" class="form-check-input" v-model="consentRodo">
+              <label for="consentRodo" class="form-check-label ps-3">
+                *Zapoznałem/am się z informacjami o administratorze oraz przetwarzaniu moich danych osobowych i akceptuję 
+                <a href="#">regulamin RODO</a>
+              </label>
+              <small v-if="errors.rodo" class="text-danger">{{ errors.rodo }}</small>
+            </div>
           </div>
+
           <div class="mt-4 d-flex justify-content-center">
-            <button type="submit" class="btn btn-success btn-lg px-5">
+            <button type="submit" class="btn btn-lg px-5">
               <i class="bi bi-check-circle me-2"></i>Zapisz umowę
             </button>
           </div>
@@ -125,7 +140,6 @@
     </div>
   </div>
 </template>
-
 
 <script setup>
 import { reactive, ref, onMounted } from 'vue'
@@ -156,7 +170,7 @@ const form = reactive({
   sala: '',
   koscol: '',
   data: '',
-  dron: false, // przechowujemy wartość logiczną
+  dron: false,
 })
 
 // Obiekt na błędy walidacji
@@ -171,18 +185,20 @@ const errors = reactive({
   koscol: '',
   telefon_mlodego: '',
   data: '',
-
+  rodo: ''
 })
+
+// Zmienna dla zgody RODO
+const consentRodo = ref(false)
 
 // Alert do komunikatów
 const alertMessage = ref('')
 const wedding = ref(null)
 
-// Funkcja pobierająca dane wesela z backendu (opcjonalnie, jeśli chcesz np. uzupełnić jakieś pola)
+// Funkcja pobierająca dane wesela z backendu
 const loadWedding = async () => {
   try {
     wedding.value = await $fetch(`${apiUrl}/api/weddings/${weddingId}${window.location.search}`)
-    // Jeśli potrzeba uzupełnić jakieś dane z wesela, można je tutaj przypisać
   } catch (error) {
     console.error('Błąd przy pobieraniu danych wesela:', error)
     alertMessage.value = 'Brak uprawnień dostępu lub wygasł link. Następuje przekierowanie...'
@@ -206,7 +222,7 @@ const validateForm = () => {
   errors.sala = ''
   errors.koscol = ''
   errors.data = ''
-
+  errors.rodo = ''
 
   if (!form.imie.trim()) {
     errors.imie = 'Podaj imię.'
@@ -240,8 +256,18 @@ const validateForm = () => {
     errors.data = 'Podaj datę.'
     valid = false
   }
-  if (!form.sala.trim()) errors.sala = 'Podaj nazwę sali.', valid = false
-  if (!form.koscol.trim()) errors.koscol = 'Podaj nazwę kościoła.', valid = false
+  if (!form.sala.trim()) {
+    errors.sala = 'Podaj nazwę sali.'
+    valid = false
+  }
+  if (!form.koscol.trim()) {
+    errors.koscol = 'Podaj nazwę kościoła.'
+    valid = false
+  }
+  if (!consentRodo.value) {
+    errors.rodo = 'Musisz zaakceptować regulamin RODO.'
+    valid = false
+  }
 
   return valid
 }
@@ -279,6 +305,7 @@ const resetForm = () => {
   form.sala = ''
   form.koscol = ''
   form.dron = false
+  consentRodo.value = false
 }
 
 onMounted(() => {
@@ -286,8 +313,10 @@ onMounted(() => {
 })
 </script>
 
-
 <style scoped>
+.tytul h3{
+  color: var(--color-first)
+}
 .form-container {
   position: absolute;
   top: 500px;
@@ -320,30 +349,70 @@ onMounted(() => {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   text-align: center;
+  background-color: grey;
 }
 
-.form-floating > label {
-  color: #555;
+/* Style z drugiego formularza */
+img {
+  transform: scaleX(-1);
 }
 
-.form-control:focus {
-  border-color: #0d6efd;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+h3 {
+  color: var(--color-second);
+  font-family: "HedvigLettersSerif";
 }
 
-.form-control {
+.btn-close {
+  background-color: transparent;
+}
+
+.btn-close:hover {
+  background-color: transparent;
+}
+
+form button {
+  background-color: var(--color-fourth);
+  border: none;
+  color: white;
+  transition: all 0.3s ease;
+  margin-bottom:40px;
+}
+
+form button:hover {
+  background-color: var(--color-fourth-click);
+  border: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form {
+  color: var(--color-fourth);
+  font-family: "HedvigLettersSerif";
+}
+
+input[type=checkbox] {
+  border: 1px solid rgb(130, 130, 130);
+  width: 22px;
+  height: 22px;
+  border-radius: 0px;
+}
+
+input, select {
+  border: 1px solid rgba(130, 130, 130, 0.685);
   border-radius: 0.375rem;
 }
 
-.btn-success {
-  background-color: #198754;
-  transition: all 0.3s ease;
+input:focus, select:focus {
+  border-color: var(--color-fourth);
+  box-shadow: 0 0 0 0.25rem rgba(var(--color-fourth-rgb), 0.25);
 }
 
-.btn-success:hover {
-  background-color: #157347;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+label {
+  margin-bottom: 0.5rem;
+}
+
+.form-label {
+  color: var(--color-fourth);
 }
 
 .alert {

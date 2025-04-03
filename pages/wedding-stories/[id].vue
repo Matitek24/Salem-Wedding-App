@@ -15,7 +15,6 @@ const error = ref(null);
 const fetchWeddingStory = async () => {
   loading.value = true;
   try {
-    // Pobieramy szczegółowe dane historii na podstawie id z route params
     const data = await $fetch(`${apiUrl}/api/wedding-stories/${route.params.id}`);
     weddingStory.value = data;
   } catch (err) {
@@ -28,6 +27,13 @@ const fetchWeddingStory = async () => {
 onMounted(() => {
   fetchWeddingStory();
 });
+
+// Funkcja do konwersji linku YouTube na osadzony iframe
+const getYouTubeEmbedUrl = (url) => {
+  if (!url) return '';
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/|.+\?v=))([^&]+)/);
+  return match ? `https://www.youtube.com/embed/${match[1]}` : '';
+};
 </script>
 
 <template>
@@ -76,9 +82,26 @@ onMounted(() => {
         <!-- Image left, additional text right grid section -->
         <div class="row mb-5 justify-content-center">
           <div class="col-lg-7">
-            <img :src="weddingStory.thumbnail" alt="Dodatkowe zdjęcie pary młodej" class="img-fluid rounded shadow-sm w-100">
-            <p class="text-center m-3 font1"><span class="zwiastun">ZWIASTUN</span></p>
-          </div>
+  <template v-if="weddingStory.promo_link">
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe 
+        class="embed-responsive-item w-100" 
+        :src="getYouTubeEmbedUrl(weddingStory.promo_link)" 
+        frameborder="0" 
+        style = "height:400px;"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </template>
+  <template v-else>
+    <img 
+      :src="weddingStory.thumbnail" 
+      alt="Dodatkowe zdjęcie pary młodej" 
+      class="img-fluid rounded shadow-sm w-100">
+  </template>
+  <p class="text-center m-3 font1"><span class="zwiastun">ZWIASTUN</span></p>
+</div>
+
       
           <div v-if="weddingStory.additional_text" class="col-lg-5 p-5">
             <div class="card shadow-sm h-100">
@@ -129,44 +152,57 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <div class="d-flex flex-column justify-content-center text-center">
-        <Slogan 
-         greeting="Pamiątka?"
-         teamTitle=""
-        />
-        <p style="margin-top:-140px" class="font1">Specjalnie dla Was w podziękowaniu za zaufanie przygotowaliśmy wyjątkową ofertę</p>
+ 
+     <!-- Sekcja Pamiątek - widoczna tylko dla historii prywatnych -->
+      <div v-if="weddingStory && !weddingStory.is_public" class="container">
+        <div class="d-flex flex-column justify-content-center text-center">
+          <Slogan 
+            greeting="Pamiątka?"
+            teamTitle=""
+          />
+          <p style="margin-top:-140px" class="font1 mb-5">
+            Specjalnie dla Was w podziękowaniu za zaufanie przygotowaliśmy wyjątkową ofertę
+          </p>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <ProductCard 
+              imageUrl="/_nuxt/public/images/wesele_fot1.jpg"
+              label="ALBUM"
+              title="100 str. ze zdjęciami"
+              description="welurowa okładka 5 kolorów do wyboru"
+              :oldPrice="300"
+              :currentPrice="200"
+              priceInfo="miska płacy zadruku jelitego i dodatków"
+            />
+          </div>
+          
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <ProductCard 
+              imageUrl="/_nuxt/public/images/wesele_fot1.jpg"
+              label="ODBITKI"
+              title="100 str. ze zdjęciami"
+              description="welurowa okładka 5 kolorów do wyboru"
+              :oldPrice="300"
+              :currentPrice="200"
+            />
+          </div>
+          
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <ProductCard 
+              imageUrl="/_nuxt/public/images/wesele_fot1.jpg"
+              label="ODBITKI"
+              title="100 str. ze zdjęciami"
+              description="welurowa okładka 5 kolorów do wyboru"
+              :oldPrice="300"
+              :currentPrice="200"
+            />
+          </div>
+        </div>
       </div>
-      <div class="container">
-        <div class="d-flex justify-content-center">
-        <ProductCard 
-      imageUrl=""
-      label="ALBUM"
-      title="100 str. ze zdjęciami"
-      description="welurowa okładka 5 kolorów do wyboru"
-      :oldPrice="300"
-      :currentPrice="200"
-      priceInfo="miska płacy zadruku jelitego i dodatków"
-    />
-    
-    <!-- Możesz dodać więcej kart produktów -->
-    <ProductCard 
-      imageUrl="/images/odbitki.jpg"
-      label="ODBITKI"
-      title="100 str. ze zdjęciami"
-      description="welurowa okładka 5 kolorów do wyboru"
-      :oldPrice="300"
-      :currentPrice="200"
-    />
-    <ProductCard 
-      imageUrl="/images/odbitki.jpg"
-      label="ODBITKI"
-      title="100 str. ze zdjęciami"
-      description="welurowa okładka 5 kolorów do wyboru"
-      :oldPrice="300"
-      :currentPrice="200"
-    />
-      </div>
-      </div>
+
+
     </div>
   </div>
   <Footer />

@@ -40,7 +40,7 @@ const galleryItems = [
    </div>
    <PhotographyLayout>
       <template #description>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi impedit dicta eaque iusto fuga quidem quod sequi fugiat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit inventore, animi eum consequatur fugit quae labore voluptas laborum facere omnis. In consectetur sit earum esse velit ex asperiores quam. Facere.</p>
+        <p class="left-border ps-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi impedit dicta eaque iusto fuga quidem quod sequi fugiat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit inventore, animi eum consequatur fugit quae labore voluptas laborum facere omnis. In consectetur sit earum esse velit ex asperiores quam. Facere.</p>
       </template>
       
       <template #mainImage>
@@ -50,7 +50,7 @@ const galleryItems = [
 
     <VideoLayoutMain>
       <template #description>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi impedit dicta eaque iusto fuga quidem quod sequi fugiat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit inventore, animi eum consequatur fugit quae labore voluptas laborum facere omnis. In consectetur sit earum esse velit ex asperiores quam. Facere.</p>
+        <p class="left-border ps-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi impedit dicta eaque iusto fuga quidem quod sequi fugiat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit inventore, animi eum consequatur fugit quae labore voluptas laborum facere omnis. In consectetur sit earum esse velit ex asperiores quam. Facere.</p>
       </template>
       
       <template #mainImage>

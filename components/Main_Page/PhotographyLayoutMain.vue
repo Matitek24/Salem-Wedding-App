@@ -73,10 +73,12 @@
     box-shadow: -23px 22px 19px -21px rgba(42, 42, 42, 0.182);
     padding: 3rem;
     text-align: left;
+    
   }
   .text-content p {
   position: relative;
   padding-right: 15px; 
+  
   }
   
   .text-content p::after {
@@ -129,6 +131,7 @@
   }
   .text-content{
         width: 100%;
+        
     }
   }
   </style>

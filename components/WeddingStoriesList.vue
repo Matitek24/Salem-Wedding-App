@@ -18,6 +18,18 @@ const searchQuery = ref('');
 const consentMarketing = ref(false);
 const consentRODO = ref(false);
 
+// Dodana referencja dla e-maila
+const mail = ref('');
+
+// Funkcja pomocnicza – pobranie bieżącej daty w formacie YYYY-MM-DD
+const getCurrentDate = () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 // Pobieranie historii z API
 const fetchWeddingStories = async () => {
   try {
@@ -49,7 +61,15 @@ const openModal = (story) => {
   showModal.value = true;
 };
 
-// Sprawdzenie kodu dostępu
+const resetModalData = () => {
+  showModal.value = false;
+  selectedStory.value = null;
+  accessCode.value = '';
+  errorMessage.value = '';
+  consentMarketing.value = false;
+  consentRODO.value = false;
+};
+// Sprawdzenie kodu dostępu z dodatkowym wysłaniem e-maila
 const checkAccess = async () => {
   if (!selectedStory.value) return;
   if (!consentMarketing.value || !consentRODO.value) {
@@ -57,6 +77,19 @@ const checkAccess = async () => {
     return;
   }
   try {
+    // Dodana funkcjonalność: wysłanie rekordu z e-mailem do API (domyślne wartości)
+    await $fetch(`${apiUrl}/api/submit-form`, {
+      method: 'POST',
+      body: {
+        firstName: 'Historie',
+        email: mail.value,
+        weddingDate: getCurrentDate(),
+        services: 'historie',
+        miejscowosc: 'Historie',
+      },
+    });
+
+    // Obecna logika sprawdzania kodu dostępu
     const response = await $fetch(`${apiUrl}/api/wedding-stories/${selectedStory.value.id}/check-access`, {
       method: 'POST',
       body: { access_code: accessCode.value },
@@ -113,9 +146,9 @@ fetchWeddingStories();
 
     <div v-if="!filteredPrivateStories.length" class="text-center">Brak pasujących prywatnych historii.</div>
     <div class="row d-flex align-items-stretch priv">
-      <div v-for="story in filteredPrivateStories" :key="story.id" class="col-lg-3 col-md-6 col-sm-12 mb-4">
+      <div v-for="story in filteredPrivateStories"  :key="story.id" class="col-lg-3 col-md-6 col-sm-12 mb-4">
         <div class="card wedding-story-card h-100" @click="openModal(story)">
-          <img src="../public/images/Icon/kłódka_white.png" alt="kłódka" class="klodka">
+          <img src="../public/images/Icon/kłódka_white.png" alt="kłódka" class="klodka">
           <img :src="story.thumbnail" alt="Miniatura" class="card-img-top story-thumbnail" />
           <div class="card-body">
             <h5 class="card-title text-center">{{ story.couple_names }}</h5>
@@ -129,69 +162,71 @@ fetchWeddingStories();
       </div>
     </div>
 
-    <div v-if="showModal" class="modal-backdrop">
-    <div class="modal-content">
-      <div class="modal-header text-center flex-column">
-        <img
-          v-if="selectedStory"
-          :src="selectedStory.thumbnail"
-          alt="Miniatura pary"
-          class="modal-thumbnail"
-        />
-        <img src="../public/images/Icon/ozdobnik_brown.png" alt="icon" class="icon">
-        <h5 class="modal-title" v-if="selectedStory">
-          {{ selectedStory.couple_names }}
-        </h5>
-      </div>
-      <div class="modal-body d-flex flex-column align-items-center">
-        <img src="../public/images/Icon/kłódka_brown.png" style="width:20px; margin-top:10px;" alt="klodka">
-        <h6>Galeria Prywatna</h6>
-        <span>e-mail</span>
-        <input
-          v-model="mail"
-          type="text"
-          class="form-control w-50"
-        />
-        <span>kod</span>
-        <input
-          v-model="accessCode"
-          type="text"
-          class="form-control w-50"
-        />
-        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-      </div>
-      <!-- Dodane checkboxy -->
-      <div class="modal-checkboxes text-center mb-3">
-        <div class="form-check">
-          <input 
-            class="form-check-input" 
-            type="checkbox" 
-            id="consentMarketing" 
-            v-model="consentMarketing"
-          >
-          <label class="form-check-label" for="consentMarketing">
-            Wyrażam zgodę na otrzymywanie informacji handlowej.
-          </label>
+    <div v-if="showModal" class="modal-backdrop" @click.self="resetModalData">
+      <div class="modal-content">
+        <div class="modal-header text-center flex-column">
+          <img
+            v-if="selectedStory"
+            :src="selectedStory.thumbnail"
+            alt="Miniatura pary"
+            class="modal-thumbnail"
+          />
+          <img src="../public/images/Icon/ozdobnik_brown.png" alt="icon" class="icon">
+          <h5 class="modal-title" v-if="selectedStory">
+            {{ selectedStory.couple_names }}
+          </h5>
         </div>
-        <div class="form-check mt-2">
-          <input 
-            class="form-check-input" 
-            type="checkbox" 
-            id="consentRODO" 
-            v-model="consentRODO"
-          >
-          <label class="form-check-label" for="consentRODO">
-            *Zapoznałem/am się z informacjami o administratorze oraz przetwarzaniu moich danych osobowych i akceptuje regulamin RODO.
-          </label>
+        <div class="modal-body d-flex flex-column align-items-center">
+          <img src="../public/images/Icon/kłódka_brown.png" style="width:20px; margin-top:10px;" alt="klodka">
+          <h6>Galeria Prywatna</h6>
+          <span>e-mail</span>
+          <!-- Zmieniono v-model z "mail" dla pola e-mail -->
+          <input
+            v-model="mail"
+            type="text"
+            class="form-control w-50"
+          />
+          <span>kod</span>
+          <input
+            v-model="accessCode"
+            type="text"
+            class="form-control w-50"
+          />
+          <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
         </div>
-      </div>
-      <div class="modal-buttons d-flex justify-content-center p-2">
-        <button @click="checkAccess" class="btn btn-success m-2">Wejdź</button>
-        <button @click="showModal = false" class="btn btn-secondary m-2">Anuluj</button>
+        <!-- Dodane checkboxy -->
+        <div class="modal-checkboxes text-center mb-3">
+          <div class="form-check">
+            <input 
+              class="form-check-input" 
+              type="checkbox" 
+              id="consentMarketing" 
+              v-model="consentMarketing"
+            >
+            <label class="form-check-label" for="consentMarketing">
+              Wyrażam zgodę na otrzymywanie informacji handlowej.
+            </label>
+          </div>
+          <div class="form-check mt-2">
+            <input 
+              class="form-check-input" 
+              type="checkbox" 
+              id="consentRODO" 
+              v-model="consentRODO"
+            >
+            <label class="form-check-label" for="consentRODO">
+              *Zapoznałem/am się z informacjami o administratorze oraz przetwarzaniu moich danych osobowych i akceptuje regulamin RODO.
+            </label>
+          </div>
+        </div>
+        <div class="modal-buttons d-flex justify-content-center p-2">
+          <button @click="checkAccess" class="btn btn-success m-2">Wejdź</button>
+          <button @click="resetModalData" class="btn btn-secondary m-2">Anuluj</button>
+        </div>
       </div>
     </div>
+
   </div>
-</div>
 </template>
 
 <style scoped>

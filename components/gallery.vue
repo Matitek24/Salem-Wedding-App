@@ -65,7 +65,7 @@ fetchGallery();
 <template>
   <div>
     <!-- Filtr kategorii -->
-    <div class="categories">
+    <div class="categories position-relative">
       <button 
         v-for="category in categories" 
         :key="category" 
@@ -74,7 +74,16 @@ fetchGallery();
       >
         {{ category }}
       </button>
-      <button @click="selectedCategory = null" class="reset">Wszystkie</button>
+      <button 
+        @click="selectedCategory = null" 
+        :class="{ active: selectedCategory === null }"
+        class="reset"
+      >
+        Wszystkie
+      </button>
+    </div> 
+    <div class="line">
+      <hr>
     </div>
 
     <!-- Błąd -->
@@ -87,40 +96,73 @@ fetchGallery();
 
     <!-- Lightbox -->
     <client-only>
-  <VueEasyLightbox
-    :visible="visible"
-    :imgs="lightboxImages"
-    :index="currentIndex"
-    :moveDisabled="true"
-    :zoomDisabled="true"
-    :rotateDisabled="true"
-    :dblclickDisabled="true"
-    @hide="closeLightbox"
-  />
-</client-only>
-
+      <VueEasyLightbox
+        :visible="visible"
+        :imgs="lightboxImages"
+        :index="currentIndex"
+        :moveDisabled="true"
+        :zoomDisabled="true"
+        :rotateDisabled="true"
+        :dblclickDisabled="true"
+        @hide="closeLightbox"
+      />
+    </client-only>
   </div>
 </template>
 
 <style scoped>
-
+.macy-container {
+  margin-top: 70px;
+}
+.line {
+  position: absolute;
+  height: 10px;
+  width: 100%;
+  left: 0px;
+  margin-top: -40px;
+}
 .categories {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  margin-top: 70px;
+  justify-content: center;
 }
-
-.categories button {
-  padding: 8px 12px;
-  border: none;
-  background: #ddd;
+.categories button:hover {
   cursor: pointer;
+  color: var(--color-fourth-click);
+}
+.categories button {
+  padding: 0px 12px;
+  border: none;
+  background: transparent;
+  text-transform: uppercase;
+  font-family: var(--font-primary);
+  color: var(--color-fourth);
+  transition: 0.3s ease-in-out;
+  position: relative;
 }
 
-.categories .active {
-  background: #555;
-  color: white;
+
+.categories button.active {
+  color: var(--color-fourth-click);
+  border-bottom: 2px solid var(--color-fourth-click);
 }
+.categories button.active::after {
+  content: "";
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(-1);
+  z-index: 3;
+  width: 50px;
+  height: 50px; 
+  background-image: url(../public/images/Icon/ozdobnik_brown.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 1;
+}
+
 
 .error {
   color: red;

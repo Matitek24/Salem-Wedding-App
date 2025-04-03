@@ -30,7 +30,6 @@
   --navbar-text: #ffffff;
   --navbar-text-hover: #dddddd;
   
-  /* Kolory przycisków */
   /* Odstępy i rozmiary */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
@@ -67,7 +66,9 @@
   }
   
   
-
+  .left-border{
+    border-left:var(--color-fourth) solid 1px;
+  }
   .vel-toolbar .toolbar-btn{
     display: none !important;
   }

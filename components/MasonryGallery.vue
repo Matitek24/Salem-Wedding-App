@@ -14,7 +14,6 @@ const props = defineProps({
 });
 
 const containerRef = ref(null);
-let macyInstance = null;
 
 const initMacy = () => {
   nextTick(() => {

@@ -62,6 +62,7 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 30px;
+    font-family: 'Zodiak';
   }
   
   .image-container {
@@ -82,26 +83,28 @@
   
   .product-label {
     position: absolute;
-    top: 0;
+    bottom: 5px;
+    z-index: 3;
     left: 50%;
     transform: translateX(-50%);
     background-color: #a67c52; /* Brązowy kolor */
     color: white;
     padding: 5px 25px;
     font-size: 14px;
+    border-radius: 5px;
     text-transform: uppercase;
     letter-spacing: 1px;
   }
   
   .product-info {
     background-color: white;
-    padding: 15px;
+    padding: 35px 20px 30px 20px;
     margin-top: -20px;
     text-align: center;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.142);
     position: relative;
     z-index: 2;
   }
@@ -122,14 +125,16 @@
     text-decoration: line-through;
     color: #999;
     margin: 0;
-    font-size: 14px;
+    font-size: 16px;
+    font-family: var(--font-primary);
   }
   
   .current-price {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 32px;
+    font-weight: 100;
     margin: 5px 0;
     color: #a67c52; /* Brązowy kolor */
+    font-family: var(--font-primary);
   }
   
   .price-info {
