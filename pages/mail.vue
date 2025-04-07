@@ -15,6 +15,7 @@ useHead({
 
 <template>
     <div class="booking-notification">
+      <img src="../public/images/wesele_fot1.jpg" alt="zdjecie" class="backfoto">
       <div class="notification-card">
         <img src="../public/images/SalemWedding.png" alt="Logo" class="logo" style="width: 80px;"/>
         <div class="header">
@@ -132,13 +133,21 @@ useHead({
             <img src="../public/images/Icon/ozdobnik_brown.png" alt="ozdbnik" style="width: 70px">
           </div>
         </div>
-      </div>
-    </div>
+      </div> 
+     </div>  
   </template>
 
   
   
 <style scoped>
+.backfoto{
+  position: absolute;
+  height: 110vh;
+  filter: blur(1px);
+  width: 1000px;
+  z-index: -1;
+  overflow: hidden;
+}
 .subheading2{
     font-size: 2.5rem;
     font-family: 'Zodiak';
@@ -149,7 +158,6 @@ useHead({
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../public/images/wesele_fot1.jpg');
   background-size: cover;
   background-position: center;
   padding: 20px;

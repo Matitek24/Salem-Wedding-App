@@ -244,7 +244,9 @@ const submitForm = async () => {
       body: {
         weddingDate: form.weddingDate,
         email: form.email,
-        packages: form.services
+        packages: form.services,
+        first_name: form.firstName,
+        miejscowosc: form.miejscowosc
       }
     });
 
