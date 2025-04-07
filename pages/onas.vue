@@ -5,6 +5,7 @@ import PhotographerSection from '~/components/O_Nas/Photograph.vue'
 import Videograph from '~/components/O_Nas/Videograph.vue'
 import ContentBlock from '~/components/O_Nas/Info_Block.vue'
 import Footer from '~/components/footer.vue'
+import Odnosnik from '~/components/Odnosnik.vue'
 
 useHead({
   title: 'O nas - Salem Wedding',
@@ -92,61 +93,19 @@ const film = {
           <hr>
         </div>
       </div>
-      <div class="container-fluid p-0" style="margin-top:200px;">
-    <div class="row banner-section align-items-center m-0">
-      <!-- Lewa kolumna ze zdjęciem butów -->
-      <div class="col-lg-6 p-0 justify-content-end">
-        <img src="../public/images/wesele_fot1.jpg" alt="Eleganckie buty" class="img-fluid w-100">
-      </div>
-      
-      <!-- Prawa kolumna z tekstem oferty -->
-      <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center text-center p-4 right">
-        <div class="offer-text">
-          <p class="text-dark mb-2 text_2">Sprawdź naszą</p>
-          <h2 class="script-font mb-4">ofertę</h2>
-          
-          <!-- Biała karta z tekstem -->
-          <div class="card p-3 mb-4 bg-white rounded-1">
-            <div class="card-body">
-              <p class="mb-0 text-start left-border ps-3" >Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko.</p>
-            </div>
-          </div>
-          
-          <!-- Przycisk CTA -->
-          <button class="btn custom-button px-4 py-2">SPRAWDŹ NASZĄ OFERTĘ</button>
-        </div>
-      </div>
-    </div>
-  </div>
+      <Odnosnik 
+        leftImage="/_nuxt/public/images/wesele_fot1.jpg"
+      text2="Sprawdź naszą"
+      scriptTitle="ofertę"
+      cardText="Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko."
+      buttonText="SPRAWDŹ NASZĄ OFERTĘ"
+      containerMarginTop="200px"/>
 </div>
 <Footer />
 </template>
   
   
   <style scoped>
-
-.text_2{
-  position: relative;
-  top: 50px;
-  left:-2rem;
-  font-family: var(--font-primary);
-}
-.banner-section img{
-  margin:40px;
-  position: relative;
-  left:100px;
-  display: flex;
-}
-.card{
-  box-shadow: 1px 10px 10px 1px rgba(0, 0, 0, 0.122);
-  border: none;
-}
-.right{
-  position: relative;
-  right: 70px;
-}
-
-
 .line {
   position: absolute;
   height: 10px;
@@ -155,81 +114,5 @@ const film = {
   margin-top: -20px;
 }
 
-.offer-text {
-  max-width: 400px;
-}
-
-.script-font {
-  font-family: 'Corinthia', serif;
-  color: #b99879;
-  font-size: 6.5rem;
-  font-style: italic;
-}
-
-.custom-button {
-  background-color: #b99879;
-  color: white;
-  border: none;
-  border-radius: 2px;
-  transition: all 0.3s ease;
-  position: relative;
-  top:-45px;
-  left: 130px;
-  font-family: 'Zodiak';
-}
-
-.custom-button:hover {
-  background-color: #a68669;
-  color: white;
-}
-@media (max-width: 1400px) {
-  .text_2{
-  left:2rem;
-}
-.script-font {
-  position: relative;
-  left:20px;
-}
-}
-@media (max-width: 1200px) {
-
-  .text_2{
-  left:4rem;
-}
-.script-font {
-  position: relative;
-  left:100px;
-}
-.banner-section img{
-  margin:40px;
-  position: relative;
-  left:-40px;
-  display: flex;
-}
-}
-/* Responsywność */
-@media (max-width: 768px) {
-  .banner-section {
-    min-height: auto;
-  }
-  .right{
-  position: relative;
-  right: 40px;
-}
-.text_2{
-  left:2rem;
-}
-.script-font {
-  position: relative;
-  left:50px;
-}
-.banner-section img{
-  margin:40px;
-  position: relative;
-  left:-40px;
-  display: flex;
-}
-
-}
   </style>
   

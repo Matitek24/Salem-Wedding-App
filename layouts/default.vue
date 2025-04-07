@@ -11,7 +11,7 @@ const leftMenu = [
 ]
 const rightMenu = [
  { text: 'Wasze Historie', link: '/historie' },
- { text: 'Zakładka', link: '/' },
+ { text: 'Polecamy', link: '/polecamy' },
  { text: 'Blog', link: '/blog' },
  { text: 'Kontakt', link: '/kontakt' }
 ]
@@ -26,8 +26,7 @@ const rightMenu = [
     />
     <Baner />
     <NuxtPage />
-    <!-- Używamy nowego komponentu zamiast statycznych dekoracji -->
-    <DynamicLeaves />
+    <!-- <DynamicLeaves /> -->
   </div>
 </template>
 

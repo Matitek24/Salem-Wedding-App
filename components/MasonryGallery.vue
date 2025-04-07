@@ -14,15 +14,29 @@ const props = defineProps({
 });
 
 const containerRef = ref(null);
+let macyInstance = null;
 
 const initMacy = () => {
   nextTick(() => {
     if (containerRef.value) {
-      // Resetujemy poprzednią konfigurację poprzez stworzenie nowej instancji
+      // Properly clean up previous instance
+      if (macyInstance) {
+        try {
+          macyInstance.remove();
+        } catch (e) {
+          try {
+            macyInstance.destroy();
+          } catch (err) {
+            console.error('Error cleaning up Macy instance:', err);
+          }
+        }
+      }
+      
+      // Create new instance
       macyInstance = Macy({
         container: containerRef.value,
         trueOrder: false,
-        waitForImages: true,
+        waitForImages: false, // Changed to false, we'll handle image loading
         margin: 10,
         columns: 3,
         breakAt: {
@@ -35,18 +49,66 @@ const initMacy = () => {
   });
 };
 
+const recalculateMacy = () => {
+  if (macyInstance && typeof macyInstance.recalculate === 'function') {
+    macyInstance.recalculate(true);
+  }
+};
+
+const checkImagesLoaded = () => {
+  const images = containerRef.value?.querySelectorAll('img') || [];
+  if (images.length === 0) return;
+  
+  let loadedCount = 0;
+  const totalImages = images.length;
+  
+  images.forEach((img) => {
+    if (img.complete) {
+      loadedCount++;
+    } else {
+      img.addEventListener('load', () => {
+        loadedCount++;
+        if (loadedCount === totalImages) {
+          recalculateMacy();
+        }
+      });
+      
+      img.addEventListener('error', () => {
+        loadedCount++;
+        console.error('Failed to load image:', img.src);
+        if (loadedCount === totalImages) {
+          recalculateMacy();
+        }
+      });
+    }
+  });
+  
+  // If all images are already loaded
+  if (loadedCount === totalImages) {
+    recalculateMacy();
+  }
+};
+
 onMounted(() => {
   initMacy();
 });
 
-// Obserwujemy zmiany w liście zdjęć. Dodajemy krótkie opóźnienie, by dać czas na wyrenderowanie obrazów.
 watch(
   () => props.images,
-  () => {
-    setTimeout(() => {
-      initMacy();
-    }, 100);
-  }
+  (newImages) => {
+    if (newImages && newImages.length > 0) {
+      // Give time for DOM to update with new images
+      nextTick(() => {
+        checkImagesLoaded();
+        
+        // As a fallback, try to recalculate after a delay
+        setTimeout(() => {
+          recalculateMacy();
+        }, 100);
+      });
+    }
+  },
+  { deep: true }
 );
 </script>
 

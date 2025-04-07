@@ -31,7 +31,7 @@
       },
       title: {
         type: String,
-        default: '100 str. ze zdjęciami'
+        default: ''
       },
       description: {
         type: String,
@@ -56,7 +56,7 @@
   <style scoped>
   .product-card {
     width: 100%;
-    max-width: 300px;
+    max-width: 380px;
     margin: 0 auto;
     position: relative;
     display: flex;
@@ -87,7 +87,7 @@
     z-index: 3;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #a67c52; /* Brązowy kolor */
+    background-color: var(--color-first); 
     color: white;
     padding: 5px 25px;
     font-size: 14px;
@@ -98,6 +98,7 @@
   
   .product-info {
     background-color: white;
+    max-width: 280px;
     padding: 35px 20px 30px 20px;
     margin-top: -20px;
     text-align: center;
@@ -123,23 +124,23 @@
   
   .old-price {
     text-decoration: line-through;
-    color: #999;
+    color: var(--color-first);
     margin: 0;
     font-size: 16px;
     font-family: var(--font-primary);
   }
   
   .current-price {
-    font-size: 32px;
+    font-size: 2.5rem;
     font-weight: 100;
     margin: 5px 0;
-    color: #a67c52; /* Brązowy kolor */
+    color: var(--color-second); /* Brązowy kolor */
     font-family: var(--font-primary);
   }
   
   .price-info {
     font-size: 12px;
-    color: #777;
+    color: #212121;
     margin: 0;
     font-style: italic;
   }
