@@ -2,7 +2,8 @@
 import { useHead } from '#imports'
 import Footer from '~/components/footer.vue'
 import Slogan from '~/components/Slogan.vue'
-
+import KaruzelaPromo from '~/components/KaruzelaPromo.vue';
+import Odnosnik from '~/components/Odnosnik.vue';
 useHead({
   title: 'O nas - Salem Wedding',
   meta: [
@@ -36,12 +37,32 @@ useHead({
         </div>
       </div>
     </div>
+   <div class="mt-3 pt-3">
     <Slogan
         greeting="Pozostałę"
         teamTitle="Realizacje filmowe"
         teamName=""
         rightText=""
       />
+   </div>
+
+      <KaruzelaPromo />
+
+     <div class="line mt-5">
+            <hr>
+        </div>
+     <div class="container">
+      <Odnosnik 
+        leftImage="/_nuxt/public/images/wesele_fot1.jpg"
+        text2=""
+      text3="3 kroki do podpisania"
+      scriptTitle="Umowa"
+      cardText="here are many variations of passages of Lorem Ipsum available, but the majority have sufered alteration in some form, by injected here are many variations of passages of Lorem Ipsum available, but the majority have sufered alteration in some form, by injected "
+      buttonText="SPRAWDZ NASZEGO BLOGA"
+      containerMarginTop="200px"/>
+     </div>
+
+     <Footer />
   </template>
   
   <script>
@@ -69,6 +90,13 @@ useHead({
   </script>
   
   <style scoped>
+   .line {
+  position: absolute;
+  height: 10px;
+  width: 100%;
+  left: 0px;
+  margin-top: -20px;
+}
   /* Zapewnia responsywny odtwarzacz 16:9 */
   .video-container {
     position: relative;
