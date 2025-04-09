@@ -22,9 +22,14 @@ const currentBanners = computed(() => {
 
 // Ukrywanie banera na stronach stories
 const shouldShowBanner = computed(() => {
-  return !(route.name === 'wedding-stories-id' ||
-    (route.name === 'wedding-stories' && route.params.id));
+  return !(
+    route.name === 'wedding-stories-id' ||
+    (route.name === 'wedding-stories' && route.params.id) ||
+    route.name === 'blog-id' ||
+    (route.name === 'blog' && route.params.id)
+  );
 });
+
 
 // Pobieranie banerów z API
 const fetchBanners = async () => {

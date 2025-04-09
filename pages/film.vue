@@ -55,11 +55,11 @@ useHead({
       <Odnosnik 
         leftImage="/_nuxt/public/images/wesele_fot1.jpg"
         text2=""
-      text3="3 kroki do podpisania"
-      scriptTitle="Umowa"
-      cardText="here are many variations of passages of Lorem Ipsum available, but the majority have sufered alteration in some form, by injected here are many variations of passages of Lorem Ipsum available, but the majority have sufered alteration in some form, by injected "
-      buttonText="SPRAWDZ NASZEGO BLOGA"
-      containerMarginTop="200px"/>
+        text3="3 kroki do podpisania"
+        scriptTitle="Umowa"
+        cardText="here are many variations of passages of Lorem Ipsum available, but the majority have sufered alteration in some form, by injected here are many variations of passages of Lorem Ipsum available, but the majority have sufered alteration in some form, by injected "
+        buttonText="SPRAWDZ NASZEGO BLOGA"
+        containerMarginTop="200px"/>
      </div>
 
      <Footer />
@@ -97,11 +97,10 @@ useHead({
   left: 0px;
   margin-top: -20px;
 }
-  /* Zapewnia responsywny odtwarzacz 16:9 */
   .video-container {
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%; /* proporcja 16:9 */
+    padding-bottom: 56.25%;
     height: 0;
     margin-top:5rem;
     overflow: hidden;
@@ -113,7 +112,7 @@ useHead({
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none; /* blokuje interakcje użytkownika */
+
   }
   
   /* Styl podpisu */

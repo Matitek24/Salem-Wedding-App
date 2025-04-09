@@ -19,7 +19,9 @@ export default defineNuxtConfig({
 
     public: {
       baseURL: 'http://127.0.0.1:8000',
-      ApiKey: process.env.API_KEY
+      ApiKey: process.env.API_KEY,
+      apiBaseUrl: process.env.API_BASE_URL || 'http://localhost:8000/api',
+      backendUrl: process.env.BACKEND_URL || 'http://localhost:8000'
     }
   },
 
