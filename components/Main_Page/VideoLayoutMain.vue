@@ -25,7 +25,7 @@
     props: {
       authorName: {
         type: String,
-        default: 'Film'
+        default: 'Filmy'
       }
     }
   }

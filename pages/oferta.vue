@@ -56,10 +56,18 @@ const film = {
         <div class="row pt-4 mt-4">
             <div class="col-lg-4 col-md-12">
                 <OfertaCard 
-                imageUrl="/_nuxt/public/images/wesele_fot1.jpg"
+                imageUrl="/_nuxt/public/images/A&K plener-7_websize.jpg"
                 description="welurowa okładka 5 kolorów do wyboru welurowe kladka 5 kolorow kolorow kolorow welurowa okładka 5 kolorów do wyboru welurowe"
-
-                currentPrice="7500"
+                currentPrice="2500"
+                :showPackageButton="true"
+                />
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <OfertaCard 
+                imageUrl="/_nuxt/public/images/A&M plener-198_websize.jpg"
+                description="welurowa okładka 5 kolorów do wyboru welurowe kladka 5 kolorow kolorow kolorow welurowa okładka 5 kolorów do wyboru welurowe"
+                label="Fotoreportaz"
+                currentPrice="6500"
                 :showPackageButton="true"
                 />
             </div>
@@ -67,19 +75,8 @@ const film = {
                 <OfertaCard 
                 imageUrl="/_nuxt/public/images/wesele_fot1.jpg"
                 description="welurowa okładka 5 kolorów do wyboru welurowe kladka 5 kolorow kolorow kolorow welurowa okładka 5 kolorów do wyboru welurowe"
-
-                label="Fotoreportaz + Film"
-                currentPrice="7500"
-                :showPackageButton="true"
-                />
-            </div>
-            <div class="col-lg-4 col-md-12">
-                <OfertaCard 
-                imageUrl="/_nuxt/public/images/wesele_fot1.jpg"
-                description="welurowa okładka 5 kolorów do wyboru welurowe kladka 5 kolorow kolorow kolorow welurowa okładka 5 kolorów do wyboru welurowe"
-                label="Fotoreportaz + Film + Fotoplener"
-
-                currentPrice="7500"
+                label="Film"
+                currentPrice="9000"
                 :showPackageButton="true"
                 />
             </div>
@@ -89,9 +86,10 @@ const film = {
         <div class="row pt-4 mt-4">
             <div class="col-lg-4 col-md-12">
                 <OfertaCard 
-                imageUrl="/_nuxt/public/images/wesele_fot1.jpg"
+                imageUrl="/_nuxt/public/images/K&S reportaz-463_websize.jpg"
                 description="welurowa okładka 5 kolorów do wyboru welurowe kladka 5 kolorow kolorow kolorow welurowa okładka 5 kolorów do wyboru welurowe"
                 oldPrice="9000"
+                label="Fotoreportaz + fotoplener"
                 pakiet="PAKIET FOTO"
                 currentPrice="7500"
                 :showPackageButton="true"
@@ -99,29 +97,29 @@ const film = {
             </div>
             <div class="col-lg-4 col-md-12">
                 <OfertaCard 
-                imageUrl="/_nuxt/public/images/wesele_fot1.jpg"
+                imageUrl="/_nuxt/public/images/M&K plener-75_websize.jpg"
                 description="welurowa okładka 5 kolorów do wyboru welurowe kladka 5 kolorow kolorow kolorow welurowa okładka 5 kolorów do wyboru welurowe"
-                oldPrice="9000"
+                oldPrice="15500"
                 pakiet="PAKIET MINI"
                 label="Fotoreportaz + Film"
-                currentPrice="7500"
+                currentPrice="13000"
                 :showPackageButton="true"
                 />
             </div>
             <div class="col-lg-4 col-md-12">
                 <OfertaCard 
-                imageUrl="/_nuxt/public/images/wesele_fot1.jpg"
+                imageUrl="/_nuxt/public/images/wesele_fot2.jpg"
                 description="welurowa okładka 5 kolorów do wyboru welurowe kladka 5 kolorow kolorow kolorow welurowa okładka 5 kolorów do wyboru welurowe"
                 label="Fotoreportaz + Film + Fotoplener"
                 pakiet="PAKIET MAX"
-                oldPrice="9000"
-                currentPrice="7500"
+                oldPrice="18000"
+                currentPrice="15000"
                 :showPackageButton="true"
                 />
             </div>
         </div>
 
-        <div class="row pt-4 mt-4">
+        <div class="row pt-4 mt-4 d-none">
             <div class="col-lg-4 col-md-12">
                 <Card 
         imageUrl="/_nuxt/public/images/wesele_fot1.jpg"
@@ -155,7 +153,7 @@ const film = {
             <hr>
         </div>
         <Odnosnik 
-        leftImage="/_nuxt/public/images/wesele_fot1.jpg"
+        leftImage="/_nuxt/public/images/K&K plener-92_websize.jpg"
         text2=""
       text3="o waszym ślubie"
       scriptTitle="Opowiedz"

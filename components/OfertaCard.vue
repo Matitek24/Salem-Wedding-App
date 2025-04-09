@@ -1,3 +1,4 @@
+
 <template>
   <div class="product-card">
     <!-- Kontener na zdjęcie z etykietami -->
@@ -7,11 +8,19 @@
     </div>
     <span v-if="showPackageButton && pakiet" class="package-button">{{ pakiet }}</span>
     <!-- Prostokąt z informacjami o produkcie -->
-    <div class="product-info">
+    <div class="product-info" :class="{ 'has-discount': !oldPrice }">
       <h3 class="product-title">{{ title }}</h3>
       <p class="product-description">{{ description }}</p>
       <p v-if="oldPrice" class="old-price">{{ oldPrice }} zł</p>
       <p class="current-price">{{ currentPrice }} zł</p>
+      <div
+        v-if="!oldPrice"
+        class="discount-overlay"
+      >
+        <p class="price-original">{{ currentPrice }} zł</p>
+        <p class="price-discounted">{{ discountedPrice }} zł</p>
+        <p class="discount-text">w pakiecie taniej</p>
+      </div>
     </div>
   </div>
 </template>
@@ -52,9 +61,18 @@ export default {
       type: Boolean,
       default: true
     }
+  },
+  computed: {
+    discountedPrice() {
+      const price = parseFloat(this.currentPrice)
+      if (isNaN(price)) return ''
+      return Math.round(price * 0.8)
+    }
   }
 }
 </script>
+
+
 
 <style scoped>
 .product-card {
@@ -67,6 +85,59 @@ export default {
   margin-bottom: 30px;
   font-family: 'Zodiak';
 }
+.discount-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(205, 172, 136, 0.166);
+  backdrop-filter: blur(6px);
+  z-index: 15;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  pointer-events: none;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.product-info.has-discount:hover .discount-overlay {
+  opacity: 1;
+}
+
+.discount-overlay .price-original {
+  text-decoration: line-through;
+  font-size: 16px;
+  margin: 2px 0;
+  opacity: 0.8;
+  cursor: pointer;
+  color:#333;
+}
+
+.discount-overlay .price-discounted {
+  font-size: 48px;
+  font-weight: 100;
+  margin: 2px 0;
+  font-family: 'HedvigLetterSerif';
+  color:var(--color-first);
+  cursor: pointer;
+}
+
+.discount-overlay .discount-text {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 4px;
+  cursor: pointer;
+  color:#333;
+}
+
 
 .image-container {
   position: relative;

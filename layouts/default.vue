@@ -7,14 +7,13 @@ const leftMenu = [
  { text: 'O Nas', link: '/onas' },
  { text: 'Portfolio', link: '/portfolio' },
  { text: 'Testimonials', link: '/testimonials' },
- { text: 'Polecamy', link: '/polecamy' },
+ { text: 'Oferta', link: '/oferta' },
 ]
 const rightMenu = [
  { text: 'Wasze Historie', link: '/historie' },
- { text: 'Oferta', link: '/oferta' },
+ { text: 'Polecamy', link: '/polecamy' },
  { text: 'Blog', link: '/blogMain' },
  { text: 'Kontakt', link: '/kontakt' },
- { text: 'film', link: '/film' }
 ]
 </script>
 

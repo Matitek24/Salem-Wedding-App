@@ -72,18 +72,16 @@ useHead({
 
         videos: [
           {
-            embedUrl:
-              'https://www.youtube.com/embed/dFzZdjoxiOw?autoplay=1&controls=0&rel=0&loop=1&playlist=dFzZdjoxiOw&mute=1&modestbranding=1&playsinline=1&showinfo=0'
+            embedUrl: 'https://www.youtube.com/embed/dFzZdjoxiOw?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1'
           },
           {
-            embedUrl:
-              'https://www.youtube.com/embed/dFzZdjoxiOw?autoplay=1&controls=0&rel=0&loop=1&playlist=dFzZdjoxiOw&mute=1&modestbranding=1&playsinline=1&showinfo=0'
+            embedUrl: 'https://www.youtube.com/embed/dFzZdjoxiOw?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1'
           },
           {
-            embedUrl:
-              'https://www.youtube.com/embed/dFzZdjoxiOw?autoplay=1&controls=0&rel=0&loop=1&playlist=dFzZdjoxiOw&mute=1&modestbranding=1&playsinline=1&showinfo=0'
+            embedUrl: 'https://www.youtube.com/embed/dFzZdjoxiOw?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1'
           }
         ]
+
       }
     }
   }

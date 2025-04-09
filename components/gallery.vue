@@ -80,7 +80,14 @@ fetchGallery();
         class="reset"
       >
         Wszystkie
+      
       </button>
+      <button>
+        <NuxtLink to="/film" style="text-decoration: none; color:var(--color-first)">
+          Film
+        </NuxtLink>
+      </button>
+
     </div> 
     <div class="line">
       <hr>

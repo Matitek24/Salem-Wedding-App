@@ -224,8 +224,8 @@ onMounted(() => {
   background-color: aqua;
 }
 .card-title{
-  font-family: 'Zodiak';
-  font-weight: 600;
+  font-family: 'HedvigLettersSerif';
+  font-weight: 100 !important;
   font-size: 2rem;
 }
 

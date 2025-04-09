@@ -62,6 +62,9 @@ const props = defineProps({
 </template>
 
 <style scoped>
+.card{
+  font-family: 'Zodiak';
+}
 .text_3{
   position: absolute;
   font-size: 0.9rem;

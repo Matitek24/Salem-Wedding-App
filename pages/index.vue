@@ -66,9 +66,9 @@ const galleryItems = [
 
     <div class="container">
       <Slogan
-        greeting="Witaj"
-        teamTitle="Jesteśmy ekipę"
-        teamName="Salem Wedding"
+        greeting="Piękna"
+        teamTitle="Uroczystoś zaślubin"
+        teamName=""
         rightText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi impLorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi imp"
       />
       <GalleryGrid :items="galleryItems" />

@@ -107,6 +107,8 @@
     line-height: 1.6;
     text-align: left;
     padding-left:1rem;
+    padding-right:40px;
+    font-family: var(--font-primary);
     border-left:var(--color-fourth) solid 1px;
   }
   

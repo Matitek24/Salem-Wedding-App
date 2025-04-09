@@ -84,8 +84,9 @@
   .script-heading {
     font-family: 'Corinthia', serif;
     color: #b39573;
-    font-size: 4.8rem;
+    font-size: 5.5rem;
     font-weight: 400;
+    text-align: center;
   }
   
   .subtitle {
@@ -94,6 +95,7 @@
     position: relative;
     bottom:30px;
     left:20px;
+    text-align: center;
   }
   
   .description {

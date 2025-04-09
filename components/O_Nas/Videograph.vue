@@ -31,7 +31,7 @@
           <div class="image-container right-image">
             <picture>
               <source media="(max-width: 990px)" srcset="./../public/images/wesele_fot1.jpg">
-              <img :src="photographer.secondaryImage" alt="Fotograf w akcji" class="img-fluid">
+              <img :src="photographer.secondaryImage" class="img-fluid">
             </picture>
           </div>
         </div>
@@ -113,7 +113,9 @@
   .photographer-description {
     font-size: 0.8rem;
     line-height: 1.6;
+    padding-right:40px;
     text-align: left;
+    font-family: var(--font-primary);
     padding-left: 1rem;
     border-left: var(--color-fourth) solid 1px;
   }
