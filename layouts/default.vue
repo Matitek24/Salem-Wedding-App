@@ -1,7 +1,7 @@
 <script setup>
 import Menu from '~/components/Menu.vue'
 import Baner from '~/components/banners.vue'
-import DynamicLeaves from '~/components/DynamicLeaves.vue' // Zaimportuj nowy komponent
+import Preloader from '~/components/Preloder.vue'
 
 const leftMenu = [
  { text: 'O Nas', link: '/onas' },
@@ -19,6 +19,7 @@ const rightMenu = [
 
 <template>
   <div class="wrapper">
+    <Preloader :minDuration="800" :fadeOutDuration="500" />
     <Menu
       :leftItems="leftMenu"
       :rightItems="rightMenu"
@@ -26,7 +27,6 @@ const rightMenu = [
     />
     <Baner />
     <NuxtPage />
-    <!-- <DynamicLeaves /> -->
   </div>
 </template>
 
@@ -34,5 +34,10 @@ const rightMenu = [
 .wrapper {
   position: relative;
   overflow-x: hidden;
+  background-image: url('../public/images/tloliscie.png');
+  background-repeat: repeat-y;
+  background-position: center top;
+  background-size: auto;
+  background-size: 1920px 1080px;
 }
 </style>

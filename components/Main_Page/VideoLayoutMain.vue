@@ -69,7 +69,7 @@
   }
   .text-content {
     font-family: 'Zodiak', Times, serif;
-    background-color: #f8f9fa;
+    background-color: #ffffff;
     box-shadow: -23px 22px 19px -21px rgba(42, 42, 42, 0.182);
     padding: 3rem;
     text-align: left;

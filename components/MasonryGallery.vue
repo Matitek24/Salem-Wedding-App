@@ -15,6 +15,8 @@ const props = defineProps({
 
 const containerRef = ref(null);
 let macyInstance = null;
+const imagesLoaded = ref(false);
+const mountedItems = ref(0);
 
 const initMacy = () => {
   nextTick(() => {
@@ -36,7 +38,7 @@ const initMacy = () => {
       macyInstance = Macy({
         container: containerRef.value,
         trueOrder: false,
-        waitForImages: false, // Changed to false, we'll handle image loading
+        waitForImages: false,
         margin: 10,
         columns: 3,
         breakAt: {
@@ -65,11 +67,14 @@ const checkImagesLoaded = () => {
   images.forEach((img) => {
     if (img.complete) {
       loadedCount++;
+      animateImageEntry(img.parentNode, loadedCount);
     } else {
       img.addEventListener('load', () => {
         loadedCount++;
+        animateImageEntry(img.parentNode, loadedCount);
         if (loadedCount === totalImages) {
           recalculateMacy();
+          imagesLoaded.value = true;
         }
       });
       
@@ -78,6 +83,7 @@ const checkImagesLoaded = () => {
         console.error('Failed to load image:', img.src);
         if (loadedCount === totalImages) {
           recalculateMacy();
+          imagesLoaded.value = true;
         }
       });
     }
@@ -86,17 +92,32 @@ const checkImagesLoaded = () => {
   // If all images are already loaded
   if (loadedCount === totalImages) {
     recalculateMacy();
+    imagesLoaded.value = true;
   }
+};
+
+// Animate each image as it appears
+const animateImageEntry = (element, index) => {
+  if (!element) return;
+  
+  // Add a delay based on the image index for staggered animation
+  const delay = Math.min(index * 50, 500);
+  element.style.transitionDelay = `${delay}ms`;
+  element.classList.add('visible');
 };
 
 onMounted(() => {
   initMacy();
+  checkImagesLoaded(); 
 });
 
 watch(
   () => props.images,
   (newImages) => {
     if (newImages && newImages.length > 0) {
+      imagesLoaded.value = false;
+      mountedItems.value = 0;
+      
       // Give time for DOM to update with new images
       nextTick(() => {
         checkImagesLoaded();
@@ -134,7 +155,15 @@ watch(
 .macy-item {
   margin-bottom: 10px;
   cursor: pointer;
-  transition: filter 0.6s ease;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0;
+  transform: scale(0.95) translateY(10px);
+}
+
+/* Animation entry for each item */
+.macy-item.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
 }
 
 /* Upewnij się, że obrazy mają spójne wymiary */
@@ -148,5 +177,6 @@ watch(
 
 .macy-item:hover {
   filter: brightness(0.8);
+  transform: scale(1.02);
 }
 </style>

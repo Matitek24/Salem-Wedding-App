@@ -1,4 +1,7 @@
 <template>
+    <div data-aos="fade-up"   
+  data-aos-duration="500"      
+  data-aos-easing="ease-in-out">
     <div class="gallery-grid container">
       <div class="row">
         <div
@@ -6,7 +9,7 @@
           :key="index"
           class="col-6 col-sm-6 col-md-6 col-lg-4 mb-4"
         >
-          <div class="image-wrapper">
+          <div class="image-wrapper hover-object">
             <img :src="item.image" :alt="item.title" class="img-fluid" />
           </div>
           <hr>
@@ -14,9 +17,11 @@
         </div>
       </div>
     </div>
+  </div>
   </template>
   
   <script setup>
+
   const props = defineProps({
     items: {
       type: Array,

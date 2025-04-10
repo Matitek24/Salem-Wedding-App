@@ -129,6 +129,7 @@ const props = defineProps({
   top: 50px;
   margin-bottom: 3rem;
   font-size: 0.8rem;
+  font-family: 'Zodiak';
 }
 
 .content-left {
@@ -137,6 +138,7 @@ const props = defineProps({
   top: 50px;
   margin-bottom: 3rem;
   font-size: 0.8rem;
+  font-family: 'Zodiak';
 }
 
 .offer-text {

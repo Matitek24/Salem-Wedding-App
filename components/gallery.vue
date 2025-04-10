@@ -12,6 +12,7 @@ const categories = ref([]);
 const selectedCategory = ref(null);
 const errorMessage = ref('');
 const searchQuery = ref('');
+const isTransitioning = ref(false); // Track transition state
 
 // Stan dla lightboxa
 const visible = ref(false);
@@ -59,6 +60,25 @@ const closeLightbox = () => {
   visible.value = false;
 };
 
+// New method to change category with animation
+const changeCategory = async (category) => {
+  if (selectedCategory.value === category) return;
+  
+  isTransitioning.value = true;
+  
+  // Wait for fade-out animation to complete
+  await new Promise(resolve => setTimeout(resolve, 500));
+  
+  // Change category
+  selectedCategory.value = category;
+  
+  // Allow fade-in animation to begin
+  await new Promise(resolve => setTimeout(resolve, 50));
+  
+  // End transition state to trigger fade-in
+  isTransitioning.value = false;
+};
+
 fetchGallery();
 </script>
 
@@ -69,25 +89,23 @@ fetchGallery();
       <button 
         v-for="category in categories" 
         :key="category" 
-        @click="selectedCategory = category"
+        @click="changeCategory(category)"
         :class="{ active: selectedCategory === category }"
       >
         {{ category }}
       </button>
       <button 
-        @click="selectedCategory = null" 
+        @click="changeCategory(null)" 
         :class="{ active: selectedCategory === null }"
         class="reset"
       >
         Wszystkie
-      
       </button>
       <button>
         <NuxtLink to="/film" style="text-decoration: none; color:var(--color-first)">
           Film
         </NuxtLink>
       </button>
-
     </div> 
     <div class="line">
       <hr>
@@ -96,10 +114,23 @@ fetchGallery();
     <!-- Błąd -->
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
 
-    <!-- Układ Macy -->
-    <client-only>
-      <MacyGallery :images="filteredImages" :openLightbox="openLightbox" />
-    </client-only>
+    <!-- Gallery container with transition -->
+    <transition-group 
+      tag="div"
+      name="gallery-transition"
+      class="gallery-container"
+      :class="{ 'is-transitioning': isTransitioning }"
+    >
+      <!-- Układ Macy -->
+      <client-only>
+        <MacyGallery 
+          :key="selectedCategory" 
+          :images="filteredImages" 
+          :openLightbox="openLightbox"
+          :class="{ 'fade-out': isTransitioning, 'fade-in': !isTransitioning }"
+        />
+      </client-only>
+    </transition-group>
 
     <!-- Lightbox -->
     <client-only>
@@ -150,7 +181,6 @@ fetchGallery();
   position: relative;
 }
 
-
 .categories button.active {
   color: var(--color-fourth-click);
   border-bottom: 2px solid var(--color-fourth-click);
@@ -170,10 +200,66 @@ fetchGallery();
   opacity: 1;
 }
 
-
 .error {
   color: red;
   text-align: center;
   margin-bottom: 15px;
+}
+
+/* Animation styles */
+.gallery-container {
+  position: relative;
+  min-height: 300px;
+}
+
+/* Fade transition for the gallery */
+.fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.fade-out {
+  animation: fadeOut 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Individual item animations */
+.gallery-transition-enter-active {
+  transition: all 0.8s ease-out;
+}
+
+.gallery-transition-leave-active {
+  transition: all 0.5s ease-in;
+  position: absolute;
+}
+
+.gallery-transition-enter-from,
+.gallery-transition-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.gallery-transition-move {
+  transition: transform 0.8s ease;
 }
 </style>

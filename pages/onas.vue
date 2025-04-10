@@ -6,6 +6,30 @@ import Videograph from '~/components/O_Nas/Videograph.vue'
 import ContentBlock from '~/components/O_Nas/Info_Block.vue'
 import Footer from '~/components/footer.vue'
 import Odnosnik from '~/components/Odnosnik.vue'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+
+onMounted(() => {
+  const initAOS = () => {
+    setTimeout(() => {
+      AOS.init({
+        offset: 100,
+        delay: 200,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: true
+      });
+    }, 1000);
+  };
+
+  if (document.readyState === 'complete') {
+    // Strona już załadowana, inicjuj AOS od razu
+    initAOS();
+  } else {
+    // Czekaj na pełne załadowanie strony
+    window.addEventListener('load', initAOS);
+  }
+});
 
 useHead({
   title: 'O nas - Salem Wedding',
@@ -45,7 +69,10 @@ const film = {
 
 <template>
     <div class="container">
-     <div class="pt-4 mt-2">
+     <div class="pt-4 mt-2" 
+     data-aos="fade-down"   
+  data-aos-duration="500"      
+  data-aos-easing="ease-in-out">
       <Slogan
         greeting="Cześć"
         teamTitle="Jesteśmy ekipę"
@@ -53,16 +80,20 @@ const film = {
         rightText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi impLorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi imp"
       />
      </div>
-     <div class="line">
+     <div class="line-break">
       <hr>
      </div>
-      <div>
+      <div data-aos="zoom-in-up"   
+  data-aos-duration="500"      
+  data-aos-easing="ease-in-out">
         <PhotographerSection :photographer="pawel" />
       </div>
-      <div>
+      <div data-aos="zoom-in-up"   
+  data-aos-duration="500"      
+  data-aos-easing="ease-in-out">
         <Videograph :photographer="film" />
       </div>
-      <div class="mt-5 pt-5">
+      <div class="mt-5 pt-5" >
         <ContentBlock 
       position="left"
       image="/_nuxt/public/images/wesele_fot3.jpg"
@@ -89,10 +120,15 @@ const film = {
       description="Pracujemy w branży od ponad 10 lat, co daje nam pewność w każdej sytuacji."
     />
         
-        <div class="line mt-5">
+        <div class="line-break mt-5" data-aos="zoom-in-up"   
+  data-aos-duration="500"      
+  data-aos-easing="ease-in-out">
           <hr>
         </div>
-      </div>
+      </div> 
+     <div data-aos="zoom-in-up"   
+  data-aos-duration="500"      
+  data-aos-easing="ease-in-out">
       <Odnosnik 
         leftImage="/_nuxt/public/images/wesele_fot1.jpg"
       text2="Sprawdź naszą"
@@ -100,19 +136,14 @@ const film = {
       cardText="Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko."
       buttonText="SPRAWDŹ NASZĄ OFERTĘ"
       containerMarginTop="200px"/>
+     </div>
 </div>
 <Footer />
 </template>
   
   
   <style scoped>
-.line {
-  position: absolute;
-  height: 10px;
-  width: 100%;
-  left: 0px;
-  margin-top: -20px;
-}
+
 
   </style>
   

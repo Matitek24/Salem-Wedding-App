@@ -5,22 +5,19 @@ import { useRuntimeConfig } from '#app';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 
-// Konfiguracja API
 const config = useRuntimeConfig();
 const apiUrl = config.public.baseURL || "http://127.0.0.1:8000";
 const banners = ref([]);
 const route = useRoute();
 
-// Filtrujemy banery dla aktualnej strony i sortujemy według kolejności
 const currentBanners = computed(() => {
   const filtered = banners.value
     .filter(banner => banner.page === route.name)
     .sort((a, b) => a.sort_order - b.sort_order);
-    
+
   return filtered.length > 0 ? filtered : banners.value.length > 0 ? [banners.value[0]] : [];
 });
 
-// Ukrywanie banera na stronach stories
 const shouldShowBanner = computed(() => {
   return !(
     route.name === 'wedding-stories-id' ||
@@ -30,8 +27,6 @@ const shouldShowBanner = computed(() => {
   );
 });
 
-
-// Pobieranie banerów z API
 const fetchBanners = async () => {
   try {
     const response = await $fetch(`${apiUrl}/api/banners`);
@@ -46,7 +41,6 @@ const fetchBanners = async () => {
   }
 };
 
-// Pobranie banerów przy montowaniu komponentu
 onMounted(fetchBanners);
 </script>
 
@@ -65,16 +59,20 @@ onMounted(fetchBanners);
         <Slide v-for="(banner, index) in currentBanners" :key="index">
           <img :src="banner.image_url" :alt="banner.page" class="banner-image" />
         </Slide>
-        <!-- Dodajemy nawigację i paginację jako komponenty -->
         <template #addons>
           <Navigation />
           <Pagination />
         </template>
       </Carousel>
     </template>
-    <!-- Jeśli jest tylko jeden obrazek -->
+
+    <!-- ✅ Efekt zoom tylko przy jednym banerze -->
     <template v-else>
-      <img :src="currentBanners[0].image_url" :alt="currentBanners[0].page" class="banner-image" />
+      <img
+        :src="currentBanners[0].image_url"
+        :alt="currentBanners[0].page"
+        class="banner-image zoom-banner"
+      />
     </template>
   </div>
 </template>
@@ -99,51 +97,67 @@ onMounted(fetchBanners);
   object-fit: cover;
 }
 
+/* ✅ Zoom animacja tylko dla jednego banera */
+.zoom-banner {
+  animation: bannerZoom 10s ease-out forwards;
+}
+
+@keyframes bannerZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
+  }
+}
+
 .banner-carousel {
   width: 100%;
   height: 100%;
 }
-/* Nawigajca  */
+
+/* Nawigacja */
 :deep(.carousel__prev),
 :deep(.carousel__next) {
-  width: 40px; /* Powiększenie strzałek */
+  width: 40px;
   height: 40px;
-  background-color: rgba(0, 0, 0, 0); /* Ciemne tło */
-  color: rgba(255, 255, 255, 0.465); /* Kolor strzałki */
-  border-radius: 50%; /* Okrągły kształt */
+  background-color: rgba(0, 0, 0, 0);
+  color: rgba(255, 255, 255, 0.465);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s;
 }
-:deep(.carousel__next){
-  margin-right:30px;
+
+:deep(.carousel__next) {
+  margin-right: 30px;
 }
-:deep(.carousel__prev){
-  margin-left:30px;
+
+:deep(.carousel__prev) {
+  margin-left: 30px;
 }
 
 :deep(.carousel__prev:hover),
 :deep(.carousel__next:hover) {
   background-color: rgba(255, 255, 255, 0);
-  color: rgba(218, 218, 218, 0.985); /* Zmiana koloru na hover */
+  color: rgba(218, 218, 218, 0.985);
 }
+
 :deep(.carousel__pagination) {
-  bottom: 40px; /* Pozycja kropek */
+  bottom: 40px;
 }
 
 :deep(.carousel__pagination-button) {
-  width: 8px; /* Powiększenie kropek */
+  width: 8px;
   height: 8px;
-  background-color: rgba(255, 255, 255, 0.5); /* Jasne kropki */
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 50%;
   transition: background-color 0.3s, transform 0.3s;
 }
 
 :deep(.carousel__pagination-button--active) {
-  background-color: rgba(255, 255, 255, 0.75); /* Aktywna kropka */
-  transform: scale(1.3); /* Powiększenie aktywnej kropki */
+  background-color: rgba(255, 255, 255, 0.75);
+  transform: scale(1.3);
 }
-
-
 </style>

@@ -4,6 +4,31 @@ import Slogan from '~/components/Slogan.vue';
 import { ref, computed } from 'vue';
 import PolecamyBlok from '~/components/PolecamyBlok.vue';
 import Footer from '~/components/footer.vue';
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+
+onMounted(() => {
+  const initAOS = () => {
+    setTimeout(() => {
+      AOS.init({
+        offset: 100,
+        delay: 200,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: true
+      });
+    }, 1000);
+  };
+
+  if (document.readyState === 'complete') {
+    // Strona już załadowana, inicjuj AOS od razu
+    initAOS();
+  } else {
+    // Czekaj na pełne załadowanie strony
+    window.addEventListener('load', initAOS);
+  }
+});
+
 
 useHead({
   title: 'O nas - Salem Wedding',
@@ -80,11 +105,15 @@ const categoriesWithItems = computed(() => {
 
 <template>
   <div class="container">
-    <Slogan
+  <div data-aos="fade-down"   
+  data-aos-duration="500"      
+  data-aos-easing="ease-in-out">
+  <Slogan
       greeting="Polecamy"
       teamTitle="Profesjonalistów"
       rightText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi impLorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi imp"
-    />
+    /></div>
+
     
     <!-- Categories filter -->
     <div class="categories position-relative">
@@ -104,7 +133,7 @@ const categoriesWithItems = computed(() => {
         Profesjonaliści
       </button>
     </div>
-    <div class="line">
+    <div class="line-break">
       <hr>
     </div>
     

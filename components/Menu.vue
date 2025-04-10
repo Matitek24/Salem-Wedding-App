@@ -148,6 +148,7 @@ const closePortfolioDropdown = () => {
 .sticky-nav {
   position: fixed;
   top: 0;
+  z-index:20;
   background-color: rgba(0, 0, 0, 0.448) !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.369);
   animation: slideDown 0.5s forwards;

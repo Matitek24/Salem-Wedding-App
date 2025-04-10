@@ -115,8 +115,10 @@ fetchWeddingStories();
     <!-- Publiczne historie -->
     <div v-if="!filteredPublicStories.length" class="text-center">Brak pasujących publicznych historii.</div>
     <div class="row d-flex align-items-stretch justify-content-center pb-5">
-      <div v-for="story in filteredPublicStories" :key="story.id" class="col-lg-4 col-md-6 col-sm-12 mb-4">
-        <div class="card wedding-story-card h-100" @click="router.push(`/wedding-stories/${story.id}`)">
+      <div v-for="story in filteredPublicStories" :key="story.id" class="col-lg-4 col-md-6 col-sm-12 mb-4" data-aos="fade-down"   
+  data-aos-duration="500"      
+  data-aos-easing="ease-in-out">
+        <div class="card wedding-story-card h-100"  @click="router.push(`/wedding-stories/${story.id}`)">
           <img :src="story.thumbnail" alt="Miniatura" class="card-img-top story-thumbnail" />
           <div class="card-body d-flex flex-column">
             <h5 class="card-title text-center">{{ story.couple_names }}</h5>
@@ -146,7 +148,9 @@ fetchWeddingStories();
 
     <div v-if="!filteredPrivateStories.length" class="text-center">Brak pasujących prywatnych historii.</div>
     <div class="row d-flex align-items-stretch priv">
-      <div v-for="story in filteredPrivateStories"  :key="story.id" class="col-lg-3 col-md-6 col-sm-12 mb-4">
+      <div v-for="story in filteredPrivateStories"  :key="story.id" class="col-lg-3 col-md-6 col-sm-12 mb-4" data-aos="fade-down"   
+  data-aos-duration="500"      
+  data-aos-easing="ease-in-out">
         <div class="card wedding-story-card h-100" @click="openModal(story)">
           <img src="../public/images/Icon/kłódka_white.png" alt="kłódka" class="klodka">
           <img :src="story.thumbnail" alt="Miniatura" class="card-img-top story-thumbnail" />

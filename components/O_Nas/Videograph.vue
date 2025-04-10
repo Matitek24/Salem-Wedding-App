@@ -115,7 +115,7 @@
     line-height: 1.6;
     padding-right:40px;
     text-align: left;
-    font-family: var(--font-primary);
+    font-family:'Zodiak';
     padding-left: 1rem;
     border-left: var(--color-fourth) solid 1px;
   }

@@ -1,11 +1,18 @@
 <template>
   <div class="container p-0">
+   <div data-aos="fade-down"   
+  data-aos-duration="500"      
+  data-aos-easing="ease-in-out">
     <Slogan
       greeting="Pracujemy"
       teamTitle="na najwyzszych obrotach"
       teamName=""
       rightText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi impLorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi imp"
     />
+   </div>
+    <div class="line-break mb-5 pb-5">
+      <hr>
+    </div>
     
     <div v-if="loading" class="d-flex justify-content-center my-5">
       <div class="spinner"></div>
@@ -26,7 +33,9 @@
         :key="`main-${post.id}`" 
         class="featured-post mb-5"
       >
-        <div class="row banner-section align-items-center m-0">
+        <div class="row banner-section align-items-center m-0" data-aos="zoom-in-up"   
+  data-aos-duration="500"      
+  data-aos-easing="ease-in-out">
           <!-- Image column -->
           <div 
             :class="[
@@ -78,17 +87,22 @@
           </div>
         </div>
       </div>
-      
+      <div class="line-break mb-5 pb-5">
+      <hr>
+    </div>
+    
       <!-- Posty nie-główne w układzie grid -->
       <div class="container mt-5 pt-5 pb-5 secondary-posts-section" v-if="secondaryPosts.length > 0">
         <Slogan
       greeting="Artykuły"
       teamTitle="Pozostałe"
-      teamName="Pozostałe"
+      teamName=""
       rightText=""
     />
           <div class="row">
-        <div 
+        <div  data-aos="zoom-in-up"   
+  data-aos-duration="500"      
+  data-aos-easing="ease-in-out"
           v-for="post in secondaryPosts" 
           :key="`secondary-${post.id}`" 
           class="col-md-6 col-lg-4 mb-4"
@@ -121,13 +135,14 @@
 
             <div class="d-flex justify-content-center">
               <div class="card-body2 description-container">
-              <p class="grid-description">
+          
+              
+              <p class=" grid-description czytaj-wiecej text-center">
                 {{ truncateText(post.short_description, 200) }}
-              <p class="czytaj-wiecej text-end">
                  <NuxtLink :to="`/blog/${post.id}`" class="text-decoration-none">
+                  <br>
                   <a style="color: var(--color-first)"> Czytaj więcej</a>
                  </NuxtLink>
-              </p>
               </p>
             </div>
           </div>
@@ -152,6 +167,7 @@
       </div>
     </div>
   </div>
+  <Footer />
 </template>
 
 <script setup>
@@ -160,6 +176,32 @@ import axios from 'axios'
 import { useRuntimeConfig } from 'nuxt/app'
 import Footer from '~/components/footer.vue'
 import Slogan from '~/components/Slogan.vue'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+
+onMounted(() => {
+  const initAOS = () => {
+    setTimeout(() => {
+      AOS.init({
+        offset: 100,
+        delay: 200,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: true
+      });
+    }, 1000);
+  };
+
+  if (document.readyState === 'complete') {
+    // Strona już załadowana, inicjuj AOS od razu
+    initAOS();
+  } else {
+    // Czekaj na pełne załadowanie strony
+    window.addEventListener('load', initAOS);
+  }
+});
+
+
 
 const config = useRuntimeConfig()
 const posts = ref([])
@@ -224,8 +266,9 @@ onMounted(() => {
   background-color: aqua;
 }
 .card-title{
-  font-family: 'HedvigLettersSerif';
+  font-family: 'Zodiak';
   font-weight: 100 !important;
+  text-align: left;
   font-size: 2rem;
 }
 
@@ -259,7 +302,6 @@ onMounted(() => {
   height: 50px;
   border: 5px solid rgba(185, 152, 121, 0.2);
   border-radius: 50%;
-  border-top-color: #b99879;
   animation: spin 1s linear infinite;
 }
 
@@ -389,10 +431,6 @@ onMounted(() => {
 }
 
 /* Sekcja postów-grid */
-.secondary-posts-section {
-  border-top: 1px solid #eaeaea;
-}
-
 /* Stylowanie komponentów grid */
 .grid-post-card {
   display: flex;

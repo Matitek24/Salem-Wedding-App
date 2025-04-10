@@ -64,6 +64,18 @@
     font-weight: 100;
     font-style: normal;
   }
+  .hover-object {
+    /* Ustawia płynne przejście dla transformacji i cienia */
+    transition: transform 0.6s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .hover-object:hover {
+    /* Przybliżenie elementu */
+    transform: scale(1.03);
+    /* Dodanie subtelnego cienia */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
   
   
   .left-border{
@@ -74,6 +86,14 @@
   }
   .vel-img{
     transform: scale(1.2);
+  }
+  .line-break {
+    position: absolute;
+    color: var(--color-fourth);
+    height: 10px;
+    width: 100%;
+    left: 0px;
+    margin-top: -20px;
   }
   img {
       pointer-events: none;

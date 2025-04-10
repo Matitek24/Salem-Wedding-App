@@ -25,7 +25,9 @@ const props = defineProps({
 
 <template>
   <div class="container-fluid p-0" style="margin-top:0px;">
-    <div class="row banner-section align-items-center m-0">
+    <div class="row banner-section align-items-center m-0" data-aos="zoom-in-up"   
+  data-aos-duration="500"      
+  data-aos-easing="ease-in-out">
       <!-- Lewa kolumna ze zdjęciem butów -->
       <div class="col-lg-6 p-0 justify-content-end">
         <img :src="leftImage" alt="Eleganckie buty" class="img-fluid w-100">
@@ -51,8 +53,8 @@ const props = defineProps({
                 </button>
                 <div class="icons">
                 <img src="../public/images/Icon/iconicon-IG.png" style="width: 20px;">
-                <img src="../public/images/Icon/iconicon-IG.png" style="width: 20px;">
-                <img src="../public/images/Icon/iconicon-IG.png" style="width: 20px;">
+                <img src="../public/images/Icon/iconicon-YT.png" style="width: 20px;">
+                <img src="../public/images/Icon/iconicon-FB.png" style="width: 20px;">
                 </div>
             </div>
           </div>
@@ -134,6 +136,7 @@ const props = defineProps({
 }
 .offer-text {
   max-width: 400px;
+  font-family: 'Zodiak';
 }
 
 

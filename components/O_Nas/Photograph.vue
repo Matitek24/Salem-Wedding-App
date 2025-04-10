@@ -108,7 +108,7 @@
     text-align: left;
     padding-left:1rem;
     padding-right:40px;
-    font-family: var(--font-primary);
+    font-family:'Zodiak';
     border-left:var(--color-fourth) solid 1px;
   }
   
