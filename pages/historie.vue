@@ -29,7 +29,7 @@ onMounted(() => {
 
 
 useHead({
-  title: 'O nas - Salem Wedding',
+  title: 'Historie - Salem Wedding',
   meta: [
     { name: 'description', content: 'Poznaj historie par, które nam zaufały.' },
     { property: 'og:title', content: 'O nas - Salem Wedding' },

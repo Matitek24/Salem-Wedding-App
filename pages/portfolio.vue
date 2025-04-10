@@ -29,7 +29,7 @@ onMounted(() => {
   }
 });
 useHead({
-  title: 'O nas - Salem Wedding',
+  title: 'Portfolio - Salem Wedding',
   meta: [
     { name: 'description', content: '' },
     { property: 'og:title', content: '' },

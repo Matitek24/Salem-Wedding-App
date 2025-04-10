@@ -3,7 +3,7 @@ import { useHead } from '#imports'
 import Formularz from '~/components/Formularz.vue'
 import Footer from '~/components/footer.vue'
 useHead({
-  title: 'Kontakt - Salem Wedding',
+  title: 'Mail - Salem Wedding',
   meta: [
     { name: 'description', content: '' },
     { property: 'og:title', content: '' },

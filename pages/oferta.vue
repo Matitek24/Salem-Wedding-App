@@ -32,7 +32,7 @@ onMounted(() => {
 
 
 useHead({
-  title: 'O nas - Salem Wedding',
+  title: 'Oferta - Salem Wedding',
   meta: [
     { name: 'description', content: '' },
     { property: 'og:title', content: '' },

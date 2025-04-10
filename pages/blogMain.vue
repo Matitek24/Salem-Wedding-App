@@ -202,7 +202,14 @@ onMounted(() => {
 });
 
 
-
+useHead({
+  title: 'Blog - Salem Wedding',
+  meta: [
+    { name: 'description', content: '' },
+    { property: 'og:title', content: '' },
+    { property: 'og:description', content: '' }
+  ]
+})
 const config = useRuntimeConfig()
 const posts = ref([])
 const loading = ref(true)

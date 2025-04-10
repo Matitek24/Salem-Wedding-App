@@ -111,17 +111,6 @@ const toggleNavbar = () => {
   isNavbarOpen.value = !isNavbarOpen.value;
 };
 
-const togglePortfolioDropdown = () => {
-  isPortfolioOpen.value = !isPortfolioOpen.value;
-};
-
-const openPortfolioDropdown = () => {
-  isPortfolioOpen.value = true;
-};
-
-const closePortfolioDropdown = () => {
-  isPortfolioOpen.value = false;
-};
 </script>
 
 <style scoped>

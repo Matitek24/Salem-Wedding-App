@@ -31,7 +31,7 @@ onMounted(() => {
 
 
 useHead({
-  title: 'O nas - Salem Wedding',
+  title: 'Polecamy - Salem Wedding',
   meta: [
     { name: 'description', content: '' },
     { property: 'og:title', content: '' },

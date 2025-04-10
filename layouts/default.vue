@@ -2,7 +2,17 @@
 import Menu from '~/components/Menu.vue'
 import Baner from '~/components/banners.vue'
 import Preloader from '~/components/Preloder.vue'
+import { useHead } from '#imports'
 
+useHead({
+  link: [
+    {
+      rel: 'icon',
+      type: 'image/png',
+      href: '/images/SalemWedding.png'  
+    }
+  ]
+})
 const leftMenu = [
  { text: 'O Nas', link: '/onas' },
  { text: 'Portfolio', link: '/portfolio' },

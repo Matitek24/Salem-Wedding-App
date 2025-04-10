@@ -5,7 +5,7 @@ import Slogan from '~/components/Slogan.vue'
 import KaruzelaPromo from '~/components/KaruzelaPromo.vue';
 import Odnosnik from '~/components/Odnosnik.vue';
 useHead({
-  title: 'O nas - Salem Wedding',
+  title: 'Film - Salem Wedding',
   meta: [
     { name: 'description', content: 'Poznaj historie par, które nam zaufały.' },
     { property: 'og:title', content: 'O nas - Salem Wedding' },
