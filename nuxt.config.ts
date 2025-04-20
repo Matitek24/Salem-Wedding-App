@@ -1,6 +1,7 @@
 import { defineNuxtConfig } from 'nuxt/config';
 
 export default defineNuxtConfig({
+
   compatibilityDate: '2024-11-01',
   
   css: [
@@ -10,13 +11,11 @@ export default defineNuxtConfig({
 
   vue: {
     config: {
-      performance: true,
+      performance: true
     }
   },
 
   runtimeConfig: {
-
-
     public: {
       baseURL: 'http://127.0.0.1:8000',
       ApiKey: process.env.API_KEY,

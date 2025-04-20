@@ -152,7 +152,7 @@ fetchWeddingStories();
   data-aos-duration="500"      
   data-aos-easing="ease-in-out">
         <div class="card wedding-story-card h-100" @click="openModal(story)">
-          <img src="../public/images/Icon/kłódka_white.png" alt="kłódka" class="klodka">
+          <img src="../public/images/Icon/klodka_white.png" alt="kłódka" class="klodka">
           <img :src="story.thumbnail" alt="Miniatura" class="card-img-top story-thumbnail" />
           <div class="card-body">
             <h5 class="card-title text-center">{{ story.couple_names }}</h5>
@@ -181,7 +181,7 @@ fetchWeddingStories();
           </h5>
         </div>
         <div class="modal-body d-flex flex-column align-items-center">
-          <img src="../public/images/Icon/kłódka_brown.png" style="width:20px; margin-top:10px;" alt="klodka">
+          <img src="../public/images/Icon/klodka_brown.png" style="width:20px; margin-top:10px;" alt="klodka">
           <h6>Galeria Prywatna</h6>
           <span>e-mail</span>
           <!-- Zmieniono v-model z "mail" dla pola e-mail -->

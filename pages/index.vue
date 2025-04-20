@@ -43,12 +43,12 @@ useHead({
 })
 
 const galleryItems = [
-  { image: '/_nuxt/public/images/wesele_fot3.jpg', title: 'PORTFOLIO' },
-  { image: '/_nuxt/public/images/wesele_fot3.jpg', title: 'HISTORIE' },
-  { image: '/_nuxt/public/images/wesele_fot3.jpg', title: 'BLOG' },
-  { image: '/_nuxt/public/images/wesele_fot3.jpg', title: 'OFERTA' },
-  { image: '/_nuxt/public/images/wesele_fot3.jpg', title: 'O NAS' },
-  { image: '/_nuxt/public/images/wesele_fot3.jpg', title: 'KONTAKT' },
+  { image: '/images/wesele_fot3.jpg', title: 'PORTFOLIO' },
+  { image: '/images/wesele_fot3.jpg', title: 'HISTORIE' },
+  { image: '/images/wesele_fot3.jpg', title: 'BLOG' },
+  { image: '/images/wesele_fot3.jpg', title: 'OFERTA' },
+  { image: '/images/wesele_fot3.jpg', title: 'O NAS' },
+  { image: '/images/wesele_fot3.jpg', title: 'KONTAKT' },
 ]
 </script>
 
@@ -100,7 +100,7 @@ const galleryItems = [
   
   <div>
     <Banner
-      image="/_nuxt/public/images/wesele_fot3.jpg"
+      image="/images/wesele_fot3.jpg"
       title="Lorem ipsum Lorem ipsum"
       subtitle="Lorem ipsum dolor sit amet consectetur, adipisicing elit."
     />

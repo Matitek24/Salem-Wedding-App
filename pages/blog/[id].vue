@@ -123,13 +123,12 @@
 
               <div class="d-flex justify-content-center">
                 <div class="card-body2 description-container">
-                  <p class="grid-description">
+                  <p class="grid-description czytaj-wiecej text-end">
                     {{ truncateText(sPost.short_description, 200) }}
-                  <p class="czytaj-wiecej text-end">
                     <NuxtLink :to="`/blog/${sPost.id}`" class="text-decoration-none">
                       <a style="color: var(--color-first)"> Czytaj więcej</a>
                     </NuxtLink>
-                  </p>
+
                   </p>
                 </div>
               </div>

@@ -47,8 +47,8 @@ const polecamyItems = ref([
   {
     id: 1,
     category: 'Barmani',
-    leftImage: "/_nuxt/public/images/wesele_fot1.jpg",
-    logoImage: "/_nuxt/public/images/SalemWedding.png",
+    leftImage: "/images/wesele_fot1.jpg",
+    logoImage: "/images/SalemWedding.png",
     primaryButtonText: "Fotograf ślubny",
     mainOfferText: "Zapraszamy do zapoznania się z naszą ofertą fotografa ślubnego. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą.",
     ctaButtonText: "TEL: 555 123 321"
@@ -56,8 +56,8 @@ const polecamyItems = ref([
   {
     id: 2,
     category: 'Barmani',
-    leftImage: "/_nuxt/public/images/wesele_fot3.jpg",
-    logoImage: "/_nuxt/public/images/SalemWedding.png",
+    leftImage: "/images/wesele_fot3.jpg",
+    logoImage: "/images/SalemWedding.png",
     primaryButtonText: "Kamerzysta ślubny",
     mainOfferText: "Zapraszamy do zapoznania się z naszą ofertą kamerzysty ślubnego. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko.",
     ctaButtonText: "TEL: 555 456 789"
@@ -65,8 +65,8 @@ const polecamyItems = ref([
   {
     id: 3,
     category: 'Atrakcje',
-    leftImage: "/_nuxt/public/images/wesele_fot1.jpg",
-    logoImage: "/_nuxt/public/images/SalemWedding.png",
+    leftImage: "/images/wesele_fot1.jpg",
+    logoImage: "/images/SalemWedding.png",
     primaryButtonText: "Fotobudka",
     mainOfferText: "Zapraszamy do zapoznania się z naszą ofertą fotobudki na wesele. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą.",
     ctaButtonText: "TEL: 555 987 654"
@@ -74,8 +74,8 @@ const polecamyItems = ref([
   {
     id: 4,
     category: 'Suknie/DJ',
-    leftImage: "/_nuxt/public/images/wesele_fot3.jpg",
-    logoImage: "/_nuxt/public/images/SalemWedding.png",
+    leftImage: "/images/wesele_fot3.jpg",
+    logoImage: "/images/SalemWedding.png",
     primaryButtonText: "DJ weselny",
     mainOfferText: "Zapraszamy do zapoznania się z naszą ofertą DJ-a na wesele. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą.",
     ctaButtonText: "TEL: 555 111 222"

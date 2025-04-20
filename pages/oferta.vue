@@ -64,7 +64,7 @@ useHead({
   data-aos-duration="500"      
   data-aos-easing="ease-in-out">
                 <OfertaCard 
-                imageUrl="/_nuxt/public/images/A&K plener-7_websize.jpg"
+                imageUrl="/images/A&K plener-7_websize.jpg"
                 description="welurowa okładka 5 kolorów do wyboru welurowe kladka 5 kolorow kolorow kolorow welurowa okładka 5 kolorów do wyboru welurowe"
                 currentPrice="2500"
                 :showPackageButton="true"
@@ -74,7 +74,7 @@ useHead({
   data-aos-duration="500"      
   data-aos-easing="ease-in-out">
                 <OfertaCard 
-                imageUrl="/_nuxt/public/images/A&M plener-198_websize.jpg"
+                imageUrl="/images/A&M plener-198_websize.jpg"
                 description="welurowa okładka 5 kolorów do wyboru welurowe kladka 5 kolorow kolorow kolorow welurowa okładka 5 kolorów do wyboru welurowe"
                 label="Fotoreportaz"
                 currentPrice="6500"
@@ -85,7 +85,7 @@ useHead({
   data-aos-duration="500"      
   data-aos-easing="ease-in-out">
                 <OfertaCard 
-                imageUrl="/_nuxt/public/images/wesele_fot1.jpg"
+                imageUrl="/images/wesele_fot1.jpg"
                 description="welurowa okładka 5 kolorów do wyboru welurowe kladka 5 kolorow kolorow kolorow welurowa okładka 5 kolorów do wyboru welurowe"
                 label="Film"
                 currentPrice="9000"
@@ -100,7 +100,7 @@ useHead({
   data-aos-easing="ease-in-out">
             <div class="col-lg-4 col-md-12">
                 <OfertaCard 
-                imageUrl="/_nuxt/public/images/K&S reportaz-463_websize.jpg"
+                imageUrl="/images/K&S reportaz-463_websize.jpg"
                 description="welurowa okładka 5 kolorów do wyboru welurowe kladka 5 kolorow kolorow kolorow welurowa okładka 5 kolorów do wyboru welurowe"
                 oldPrice="9000"
                 label="Fotoreportaz + fotoplener"
@@ -113,7 +113,7 @@ useHead({
   data-aos-duration="500"      
   data-aos-easing="ease-in-out">
                 <OfertaCard 
-                imageUrl="/_nuxt/public/images/M&K plener-75_websize.jpg"
+                imageUrl="/images/M&K plener-75_websize.jpg"
                 description="welurowa okładka 5 kolorów do wyboru welurowe kladka 5 kolorow kolorow kolorow welurowa okładka 5 kolorów do wyboru welurowe"
                 oldPrice="15500"
                 pakiet="PAKIET MINI"
@@ -126,7 +126,7 @@ useHead({
   data-aos-duration="500"      
   data-aos-easing="ease-in-out">
                 <OfertaCard 
-                imageUrl="/_nuxt/public/images/wesele_fot2.jpg"
+                imageUrl="/images/wesele_fot2.jpg"
                 description="welurowa okładka 5 kolorów do wyboru welurowe kladka 5 kolorow kolorow kolorow welurowa okładka 5 kolorów do wyboru welurowe"
                 label="Fotoreportaz + Film + Fotoplener"
                 pakiet="PAKIET MAX"
@@ -142,7 +142,7 @@ useHead({
   data-aos-duration="500"      
   data-aos-easing="ease-in-out">
                 <Card 
-        imageUrl="/_nuxt/public/images/wesele_fot1.jpg"
+        imageUrl="/images/wesele_fot1.jpg"
         label="ODBITKI"
         description="welurowa okładka 5 kolorów do wyboru welurowe kladka 5 kolorow kolorow kolorow"
         :oldPrice="300"
@@ -153,7 +153,7 @@ useHead({
   data-aos-duration="500"      
   data-aos-easing="ease-in-out">
                 <Card 
-        imageUrl="/_nuxt/public/images/wesele_fot1.jpg"
+        imageUrl="/images/wesele_fot1.jpg"
         label="ODBITKI"
         description="welurowa okładka 5 kolorów do wyboru welurowe kladka 5 kolorow kolorow kolorow"
         :oldPrice="300"
@@ -164,7 +164,7 @@ useHead({
   data-aos-duration="500"      
   data-aos-easing="ease-in-out">
                 <Card 
-        imageUrl="/_nuxt/public/images/wesele_fot1.jpg"
+        imageUrl="/images/wesele_fot1.jpg"
         label="ODBITKI"
         description="welurowa okładka 5 kolorów do wyboru welurowe kladka 5 kolorow kolorow kolorow"
         :oldPrice="300"
@@ -180,7 +180,7 @@ useHead({
   data-aos-duration="500"      
   data-aos-easing="ease-in-out">
         <Odnosnik 
-        leftImage="/_nuxt/public/images/K&K plener-92_websize.jpg"
+        leftImage="/images/K&K plener-92_websize.jpg"
         text2=""
       text3="o waszym ślubie"
       scriptTitle="Opowiedz"

@@ -53,7 +53,7 @@ useHead({
         </div>
      <div class="container">
       <Odnosnik 
-        leftImage="/_nuxt/public/images/wesele_fot1.jpg"
+        leftImage="/images/wesele_fot1.jpg"
         text2=""
         text3="3 kroki do podpisania"
         scriptTitle="Umowa"
