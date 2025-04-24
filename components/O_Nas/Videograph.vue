@@ -15,7 +15,7 @@
           <div class="content-container text-center">
             <h2 class="photographer-name">{{ photographer.name }}</h2>
             <p class="photographer-title">{{ photographer.title }}</p>
-            <div class="photographer-description mt-4">
+            <div class="photographer-description mt-4 ps-4">
               <p v-for="(paragraph, index) in photographer.description" :key="index">
                 {{ paragraph }}
               </p>

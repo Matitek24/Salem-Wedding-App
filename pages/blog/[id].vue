@@ -44,12 +44,12 @@
                 />
               </div>
 
-              <div class="row ">
-                <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-8" style="padding-right: 130px;">
                   <div class="content" v-html="post.content"></div>
                 </div>
 
-                <div class="col-md-4 right-panel">
+                <div class="col-md-4 right-panel ps-5">
                   <p>Dowiedz się więcej</p>
                   <h2>O Nas</h2>
                   <img class="img-fluid custom-img" src="../../public/images/wesele_fot3.jpg" alt="onas">
@@ -402,8 +402,10 @@ onMounted(() => {
 
 .content {
   font-size: 1.1rem;
+  margin-top:50px;
   line-height: 1.8;
   color: #333;
+  font-family: 'Zodiak';
 }
 
 .content :deep(h2) {

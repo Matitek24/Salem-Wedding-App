@@ -1,4 +1,3 @@
-
 <template>
   <div class="product-card">
     <!-- Kontener na zdjęcie z etykietami -->
@@ -72,8 +71,6 @@ export default {
 }
 </script>
 
-
-
 <style scoped>
 .product-card {
   width: 100%;
@@ -91,8 +88,8 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(205, 172, 136, 0.166);
-  backdrop-filter: blur(6px);
+  background: rgba(255, 234, 234, 0.423); /* Zwiększona nieprzezroczystość tła */
+  backdrop-filter: blur(10px); /* Zwiększony blur dla lepszej widoczności */
   z-index: 15;
   opacity: 0;
   transition: opacity 0.4s ease;
@@ -113,31 +110,32 @@ export default {
 
 .discount-overlay .price-original {
   text-decoration: line-through;
-  font-size: 16px;
+  font-size: 20px; /* Powiększony rozmiar */
   margin: 2px 0;
-  opacity: 0.8;
+  opacity: 0.9; /* Zwiększona widoczność */
   cursor: pointer;
-  color:#333;
+  color: #333;
+  font-weight: 500; /* Lekko pogrubiona */
 }
 
 .discount-overlay .price-discounted {
-  font-size: 48px;
-  font-weight: 100;
-  margin: 2px 0;
+  font-size: 60px; /* Jeszcze większy rozmiar dla głównej ceny */
+  font-weight: 200;
+  margin: 5px 0;
   font-family: 'HedvigLetterSerif';
-  color:var(--color-first);
+  color: var(--color-first);
   cursor: pointer;
 }
 
 .discount-overlay .discount-text {
-  font-size: 14px;
+  font-size: 16px; /* Lekko powiększony */
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 4px;
+  letter-spacing: 1.5px;
+  margin-top: 8px;
   cursor: pointer;
-  color:#333;
+  color: #222; /* Ciemniejszy kolor dla lepszego kontrastu */
+  font-weight: 500; /* Lekko pogrubiony */
 }
-
 
 .image-container {
   position: relative;

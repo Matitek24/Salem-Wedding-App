@@ -102,7 +102,6 @@ const getYouTubeEmbedUrl = (url) => {
   <p class="text-center m-3 font1"><span class="zwiastun">ZWIASTUN</span></p>
 </div>
 
-      
           <div v-if="weddingStory.additional_text" class="col-lg-5 p-5">
             <div class="card shadow-sm h-100">
               <div class="card-body">
@@ -117,42 +116,62 @@ const getYouTubeEmbedUrl = (url) => {
         <div class="row mb-5 mt-5 text-center d-flex justify-content-center">
           <!-- Film ze ślubu -->
           <div v-if="weddingStory.youtube_link" class="col-md-4 mb-4">
-            <div class="media-box mx-auto">
-              <a :href="weddingStory.youtube_link" target="_blank" class="btn mt-2">
-              <div class="icon-circle mb-3">
+            <div class="media-box mx-auto" :class="{ 'locked': weddingStory.is_public }">
+              <a 
+                :href="!weddingStory.is_public ? weddingStory.youtube_link : '#'" 
+                target="_blank" 
+                class="btn mt-2"
+                :class="{ 'disabled': weddingStory.is_public }"
+              >
+              <div class="icon-circle mb-3 position-relative">
                 <img src="../../public/images/Icon/icon film.png" alt="icon2" style="width:110px;">
+                <div v-if="weddingStory.is_public" class="lock-overlay">
+                  <img src="../../public/images/Icon/klodka_white.png" alt="Zablokowane" class="lock-icon">
+                </div>
               </div>
-              <span class="info2">   Obejrzyj film <i class="bi bi-box-arrow-up-right ms-1"></i> </span>
+              <span class="info2">Obejrzyj film <i class="bi bi-box-arrow-up-right ms-1"></i></span>
               </a>
             </div>
           </div>
           
-          <!-- Galeria zdjęć -->
+          <!-- Galeria zdjęć (zawsze odblokowana) -->
           <div v-if="weddingStory.gallery_link" class="col-md-4 mb-4">
             <div class="media-box mx-auto">
-              <a :href="weddingStory.gallery_link" target="_blank" class="btn mt-2">
-              <div class="icon-circle mb-3">
-              <img src="../../public/images/Icon/icon photo.png" alt="icon2" style="width:110px;">
+              <a 
+                :href="weddingStory.gallery_link" 
+                target="_blank" 
+                class="btn mt-2"
+              >
+              <div class="icon-circle mb-3 position-relative">
+                <img src="../../public/images/Icon/icon photo.png" alt="icon2" style="width:110px;">
               </div>
-              <span class="info2">  Przeglądaj galerię <i class="bi bi-box-arrow-up-right ms-1"></i></span>
+              <span class="info2">Przeglądaj galerię <i class="bi bi-box-arrow-up-right ms-1"></i></span>
               </a>
             </div>
           </div>
           
           <!-- Dodatkowa galeria -->
           <div v-if="weddingStory.extra_gallery_link" class="col-md-4 mb-4">
-            <div class="media-box mx-auto">
-              <a :href="weddingStory.extra_gallery_link" target="_blank" class="btn mt-2">
-              <div class="icon-circle mb-3">
+            <div class="media-box mx-auto" :class="{ 'locked': weddingStory.is_public }">
+              <a 
+                :href="!weddingStory.is_public ? weddingStory.extra_gallery_link : '#'" 
+                target="_blank" 
+                class="btn mt-2"
+                :class="{ 'disabled': weddingStory.is_public }"
+              >
+              <div class="icon-circle mb-3 position-relative">
                 <img src="../../public/images/Icon/icon photo+.png" alt="icon2" style="width:130px;">
+                <div v-if="weddingStory.is_public" class="lock-overlay">
+                  <img src="../../public/images/Icon/klodka_white.png" alt="Zablokowane" class="lock-icon">
+                </div>
               </div>
-              <span class="info2">  Zdjecia Dodatkowe <i class="bi bi-box-arrow-up-right ms-1"></i></span>
+              <span class="info2">Zdjecia Dodatkowe <i class="bi bi-box-arrow-up-right ms-1"></i></span>
               </a>
             </div>
           </div>
         </div>
       </div>
- 
+  
      <!-- Sekcja Pamiątek - widoczna tylko dla historii prywatnych -->
       <div v-if="weddingStory && !weddingStory.is_public" class="container">
         <div class="d-flex flex-column justify-content-center text-center">
@@ -168,7 +187,7 @@ const getYouTubeEmbedUrl = (url) => {
         <div class="row justify-content-center">
           <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
             <ProductCard 
-              imageUrl="/_nuxt/public/images/wesele_fot1.jpg"
+              imageUrl="/images/wesele_fot1.jpg"
               label="ALBUM"
               title="100 str. ze zdjęciami"
               description="welurowa okładka 5 kolorów do wyboru"
@@ -180,7 +199,7 @@ const getYouTubeEmbedUrl = (url) => {
           
           <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
             <ProductCard 
-              imageUrl="/_nuxt/public/images/wesele_fot1.jpg"
+              imageUrl="/images/wesele_fot1.jpg"
               label="ODBITKI"
               title="100 str. ze zdjęciami"
               description="welurowa okładka 5 kolorów do wyboru"
@@ -191,7 +210,7 @@ const getYouTubeEmbedUrl = (url) => {
           
           <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
             <ProductCard 
-              imageUrl="/_nuxt/public/images/wesele_fot1.jpg"
+              imageUrl="/images/wesele_fot1.jpg"
               label="ODBITKI"
               title="100 str. ze zdjęciami"
               description="welurowa okładka 5 kolorów do wyboru"
@@ -209,6 +228,35 @@ const getYouTubeEmbedUrl = (url) => {
 </template>
 
 <style scoped>
+/* Nowe style dla zablokowanych elementów */
+.locked {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.disabled {
+  pointer-events: none;
+  border: none;
+}
+
+.lock-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(59, 59, 59, 0.558);
+  border-radius: 10px;
+}
+
+.lock-icon {
+  width: 50px;
+  height: 50px;
+  z-index: 10;
+}
 
 .info2{
   position: relative;
@@ -222,8 +270,8 @@ const getYouTubeEmbedUrl = (url) => {
   top: -10px;
   right: -60px; 
   z-index: 3;
-  width: 60px; /* dostosuj rozmiar wg potrzeb */
-  height: 60px; /* dostosuj rozmiar wg potrzeb */
+  width: 60px;
+  height: 60px;
   background-image: url(../../public/images/Icon/ozdobnik_brown.png);
   background-size: contain;
   background-repeat: no-repeat;
@@ -237,8 +285,8 @@ const getYouTubeEmbedUrl = (url) => {
   left: -125px; 
   transform: scaleX(-1);
   z-index: 3;
-  width: 60px; /* dostosuj rozmiar wg potrzeb */
-  height: 60px; /* dostosuj rozmiar wg potrzeb */
+  width: 60px;
+  height: 60px;
   background-image: url(../../public/images/Icon/ozdobnik_brown.png);
   background-size: contain;
   background-repeat: no-repeat;
@@ -265,24 +313,20 @@ const getYouTubeEmbedUrl = (url) => {
   position: relative;
   font-family: 'HedvigLetteresSerif';
   font-size: 1.1rem;
-  
 }
 .card::after {
   content: "PODCZAS TEGO WESELA WSPÓŁPRACOWALIŚMY";
   font-family: "Zodiak";
   text-align: center;
-  padding-top: 10px;
-  padding-bottom:20px;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding: 10px;
   color: white;
   position: absolute;
   top: -40px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
-  width: 290px; /* dostosuj rozmiar wg potrzeb */
-  height: 70px; /* dostosuj rozmiar wg potrzeb */
+  width: 290px;
+  height: 70px;
   background-color: var(--color-first);
   background-size: contain;
   background-repeat: no-repeat;

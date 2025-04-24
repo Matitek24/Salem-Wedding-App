@@ -14,7 +14,6 @@ const currentBanners = computed(() => {
   const filtered = banners.value
     .filter(banner => banner.page === route.name)
     .sort((a, b) => a.sort_order - b.sort_order);
-
   return filtered.length > 0 ? filtered : banners.value.length > 0 ? [banners.value[0]] : [];
 });
 
@@ -25,6 +24,22 @@ const shouldShowBanner = computed(() => {
     route.name === 'blog-id' ||
     (route.name === 'blog' && route.params.id)
   );
+});
+
+// Nowa funkcja do formatowania nazwy strony
+const formatPageName = computed(() => {
+  if (!route.name) return '';
+  if(route.name === 'index') return 'Strona Główna';
+  if(route.name === 'onas') return 'O Nas';
+  if(route.name === 'blogMain') return 'Blog';
+  if (route.name === 'kontakt') return '';
+  
+  // Zamień myślniki na spacje i sformatuj każde słowo
+  const name = route.name.replace(/-/g, ' ');
+  return name
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 });
 
 const fetchBanners = async () => {
@@ -65,7 +80,6 @@ onMounted(fetchBanners);
         </template>
       </Carousel>
     </template>
-
     <!-- ✅ Efekt zoom tylko przy jednym banerze -->
     <template v-else>
       <img
@@ -74,6 +88,12 @@ onMounted(fetchBanners);
         class="banner-image zoom-banner"
       />
     </template>
+    
+    <!-- Tytuł strony na środku na dole banera -->
+    <div class="page-title-container">
+      <h1 class="page-title">{{ formatPageName }}</h1>
+      <div class="title-underline"></div>
+    </div>
   </div>
 </template>
 
@@ -159,5 +179,91 @@ onMounted(fetchBanners);
 :deep(.carousel__pagination-button--active) {
   background-color: rgba(255, 255, 255, 0.75);
   transform: scale(1.3);
+}
+
+/* Style dla tytułu strony */
+.page-title-container {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 10;
+  width: auto;
+  min-width: 200px;
+  padding: 0 20px;
+}
+
+.page-title {
+  color: white;
+  font-size: 28px;
+  font-weight: 300;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin: 0;
+  font-family: 'Zodiak', Times, serif;
+  text-shadow: 0px 2px 5px 10px rgba(0, 0, 0, 0.347);
+  opacity: 0;
+  animation: fadeIn 1s ease-out forwards 0.5s;
+}
+
+.title-underline {
+  width: 0;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin: 10px auto 0;
+  transition: width 0.5s ease;
+  animation: expandUnderline 1s ease-out forwards 1s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes expandUnderline {
+  from {
+    width: 0;
+  }
+  to {
+    width: 80px;
+  }
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 24px;
+  }
+  
+  .page-title-container {
+    bottom: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+  
+  .page-title-container {
+    bottom: 70px;
+  }
+  
+  @keyframes expandUnderline {
+    from {
+      width: 0;
+    }
+    to {
+      width: 60px;
+    }
+  }
 }
 </style>

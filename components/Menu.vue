@@ -22,12 +22,17 @@
           <!-- Na małych ekranach pokaż wszystkie elementy pod sobą -->
           <template v-if="isSmallScreen && isNavbarOpen">
             <li v-for="(item, index) in leftItems" :key="'left-' + index" class="nav-item mobile-nav-item">
-
-              <a  class="nav-link" :href="item.link">{{ item.text }}</a>
+              <a class="nav-link" :href="item.link" :class="{ 'active': isActive(item.link) }">
+                {{ item.text }}
+                <span class="hover-underline"></span>
+              </a>
             </li>
             
             <li v-for="(item, index) in rightItems" :key="'right-' + index" class="nav-item mobile-nav-item">
-              <a class="nav-link" :href="item.link">{{ item.text }}</a>
+              <a class="nav-link" :href="item.link" :class="{ 'active': isActive(item.link) }">
+                {{ item.text }}
+                <span class="hover-underline"></span>
+              </a>
             </li>
           </template>
           
@@ -35,8 +40,10 @@
           <template v-else>       
             <li v-for="(item, index) in leftItems" :key="'left-' + index" 
                 :class="['nav-item', {'dropdown': item.text.toLowerCase() === 'portfolio'}]">
-
-              <a  class="nav-link" :href="item.link">{{ item.text }}</a>
+              <a class="nav-link" :href="item.link" :class="{ 'active': isActive(item.link) }">
+                {{ item.text }}
+                <span class="hover-underline"></span>
+              </a>
             </li>
    
             <li class="nav-item logo-item">
@@ -46,7 +53,10 @@
             </li>
             
             <li v-for="(item, index) in rightItems" :key="'right-' + index" class="nav-item">
-              <a class="nav-link" :href="item.link">{{ item.text }}</a>
+              <a class="nav-link" :href="item.link" :class="{ 'active': isActive(item.link) }">
+                {{ item.text }}
+                <span class="hover-underline"></span>
+              </a>
             </li>
           </template>
         </ul>
@@ -79,6 +89,7 @@ const windowWidth = ref(1024);
 const isSticky = ref(false);
 const navbar = ref(null);
 const scrollThreshold = ref(100); // Próg przewijania do aktywacji sticky
+const currentPath = ref('');
 
 const updateWindowWidth = () => {
   if (typeof window !== 'undefined') {
@@ -94,8 +105,11 @@ const handleScroll = () => {
 
 onMounted(() => {
   updateWindowWidth();
-  window.addEventListener('resize', updateWindowWidth);
-  window.addEventListener('scroll', handleScroll);
+  if (typeof window !== 'undefined') {
+    currentPath.value = window.location.pathname;
+    window.addEventListener('resize', updateWindowWidth);
+    window.addEventListener('scroll', handleScroll);
+  }
 });
 
 onUnmounted(() => {
@@ -109,6 +123,17 @@ const isSmallScreen = computed(() => windowWidth.value < 1000);
 
 const toggleNavbar = () => {
   isNavbarOpen.value = !isNavbarOpen.value;
+};
+
+const isActive = (link) => {
+  // Remove trailing slash for comparison
+  const formattedLink = link.endsWith('/') ? link.slice(0, -1) : link;
+  const formattedPath = currentPath.value.endsWith('/') 
+    ? currentPath.value.slice(0, -1) 
+    : currentPath.value;
+  
+  return formattedPath === formattedLink || 
+         (formattedLink === '/' && formattedPath === '');
 };
 
 </script>
@@ -188,10 +213,44 @@ const toggleNavbar = () => {
   text-transform: uppercase;
   text-decoration: none;
   letter-spacing: 3px;
+  position: relative;
+  padding-bottom: 5px;
+  display: inline-block;
 }
 
 .nav-link:hover {
   color: #ddd !important; 
+}
+
+/* Nowy kod dla podkreślenia hover */
+.hover-underline {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.7);
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover .hover-underline {
+  width: 100%;
+}
+
+/* Styl dla aktywnej strony */
+.nav-link.active {
+  position: relative;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .dropdown-toggle::after {
@@ -229,11 +288,32 @@ const toggleNavbar = () => {
   text-transform: uppercase;
   letter-spacing: 2px;
   transition: all 0.2s ease;
+  position: relative;
 }
 
 .dropdown-item:hover {
   background-color: rgba(255, 255, 255, 0.1);
   color: #ddd !important;
+}
+
+/* Dodajemy również podkreślenie do elementów dropdown */
+.dropdown-item .hover-underline {
+  bottom: 0;
+  height: 1px;
+}
+
+.dropdown-item:hover .hover-underline {
+  width: 80%;
+}
+
+.dropdown-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 @keyframes fadeIn {
@@ -250,7 +330,7 @@ const toggleNavbar = () => {
 }
 
 .logo-img {
-  width: 120px;
+  width: 140px;
   transition: width 0.3s ease;
   filter: invert(1);
 }
@@ -337,27 +417,15 @@ const toggleNavbar = () => {
     transition: color 0.3s ease-in-out;
   }
 
-  .nav-link::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    width: 100%;
-    height: 2px;
-    background-color: white;
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.3s ease-in-out;
+  /* Aktualizujemy style dla mobilnych podkreśleń */
+  .mobile-nav-item .nav-link::after {
+    bottom: 5px;
   }
 
-  .nav-link:hover {
-    color: #ddd !important;
+  .mobile-nav-item .hover-underline {
+    bottom: 5px;
   }
-  .nav-link:hover::after {
-    transform: scaleX(1);
-    transform-origin: center;
-  }
-  
+
   .navbar-toggler {
     order: -1;
   }
@@ -385,8 +453,17 @@ const toggleNavbar = () => {
 }
 @media (max-width: 1300px) {
  .nav-link{
-  font-size: 0.6rem;
+  font-size: 0.5rem;
   padding: 0px;
+  padding-bottom: 5px; /* zachowanie miejsca na podkreślenie */
+ }
+  
+}
+@media (max-width: 1100px) {
+ .nav-link{
+  font-size: 0.45rem;
+  padding: 0px;
+  padding-bottom: 5px; /* zachowanie miejsca na podkreślenie */
  }
   
 }
@@ -394,6 +471,7 @@ const toggleNavbar = () => {
  .nav-link{
   font-size: 0.8rem;
   padding: 6px;
+  padding-bottom: 10px; /* zachowanie miejsca na podkreślenie */
  }
   
 }

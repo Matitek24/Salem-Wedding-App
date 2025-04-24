@@ -42,13 +42,14 @@
       <!-- Dane kontaktowe -->
       <div class="row mt-4" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">
         <div class="col-md-4 text-center text-md-end">
-          <p>tel. 509 150 763</p>
+
+          <p>tel. <a href="tel:+48509150763" style="text-decoration: none; color:black;">509 150 763</a></p>
         </div>
         <div class="col-md-4 text-center">
           <p>Wyszków, ul. Spacerowa 17</p>
         </div>
         <div class="col-md-4 text-center text-md-start">
-          <p>tel. 608 681 689</p>
+          <p>tel. <a href="tel:+48608681689" style="text-decoration: none; color:black;">608 681 689</a></p>
         </div>
       </div>
     </div>

@@ -67,6 +67,7 @@ useHead({
                 imageUrl="/images/A&K plener-7_websize.jpg"
                 description="welurowa okładka 5 kolorów do wyboru welurowe kladka 5 kolorow kolorow kolorow welurowa okładka 5 kolorów do wyboru welurowe"
                 currentPrice="2500"
+                label="Fotoreportaz"
                 :showPackageButton="true"
                 />
             </div>
@@ -76,7 +77,7 @@ useHead({
                 <OfertaCard 
                 imageUrl="/images/A&M plener-198_websize.jpg"
                 description="welurowa okładka 5 kolorów do wyboru welurowe kladka 5 kolorow kolorow kolorow welurowa okładka 5 kolorów do wyboru welurowe"
-                label="Fotoreportaz"
+                label="Fotoreportaz + Fotoplener"
                 currentPrice="6500"
                 :showPackageButton="true"
                 />

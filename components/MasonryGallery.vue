@@ -155,7 +155,7 @@ watch(
 .macy-item {
   margin-bottom: 10px;
   cursor: pointer;
-  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   opacity: 0;
   transform: scale(0.95) translateY(10px);
 }

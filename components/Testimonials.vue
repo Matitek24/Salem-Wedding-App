@@ -1,33 +1,3 @@
-<script setup>
-const props = defineProps({
-  logoImage: {
-    type: String,
-    default: "../public/images/SalemWedding.png"
-  },
-  leftImage: {
-    type: String,
-    default: "../public/images/SalemWedding.png"
-  },
-  primaryButtonText: {
-    type: String,
-    default: "Wesele na głowie"
-  },
-  mainOfferText: {
-    type: String,
-    default: "Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznani Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się"
-  },
-  ctaButtonText: {
-    type: String,
-    default: "TEL: 555 123 321"
-  },
-  imagePosition: {
-    type: String,
-    default: "left",
-    validator: (value) => ['left', 'right'].includes(value)
-  }
-});
-</script>
-
 <template>
   <div class="container-fluid p-0 obiekt">
     <div class="row banner-section align-items-center m-0">
@@ -42,8 +12,8 @@ const props = defineProps({
           :src="leftImage" 
           alt="Eleganckie buty" 
           class="img-fluid w-100"
-          :class="imagePosition === 'left' ? 'image-left' : 'image-right'"
-        >
+          :class="imagePosition === 'left' ? 'image-left' : 'image-right'
+        ">
       </div>
       
       <!-- Text column -->
@@ -73,6 +43,36 @@ const props = defineProps({
   </div>
 </template>
 
+<script setup>
+const props = defineProps({
+  logoImage: {
+    type: String,
+    default: "../public/images/SalemWedding.png"
+  },
+  leftImage: {
+    type: String,
+    default: "../public/images/SalemWedding.png"
+  },
+  primaryButtonText: {
+    type: String,
+    default: "Wesele na głowie"
+  },
+  mainOfferText: {
+    type: String,
+    default: "Zapraszamy do zapoznania się z naszą ofertą..."
+  },
+  ctaButtonText: {
+    type: String,
+    default: "TEL: 555 123 321"
+  },
+  imagePosition: {
+    type: String,
+    default: "left",
+    validator: (value) => ['left', 'right'].includes(value)
+  }
+});
+</script>
+
 <style scoped>
 .obiekt{
     margin-top:200px;
@@ -85,36 +85,20 @@ const props = defineProps({
 .banner-section {
   max-width: 100vw;
   overflow: hidden;
+
 }
 
-.logo {
+/* Image positioning styles (reduced margins) */
+.image-left, .image-right {
+  margin: 20px;
   position: relative;
-  top: 60px;
-  left: 10px;
-  z-index: 2;
+  top: -100px;
 }
-
-.logo img {
-  background-color: rgb(255, 255, 255);
-  padding: 5px;
-  box-shadow: 4px 6px 6px 4px rgba(0, 0, 0, 0.079);
-}
-
-/* Image positioning styles */
 .image-left {
-  margin: 40px;
-  position: relative;
-  left: 100px;
-  top: -100px;
-  display: flex;
+  left: 50px;
 }
-
 .image-right {
-  margin: 40px;
-  position: relative;
-  right: 100px;
-  top: -100px;
-  display: flex;
+  right: 50px;
 }
 
 .card {
@@ -122,31 +106,30 @@ const props = defineProps({
   border: none;
 }
 
-/* Content positioning styles */
-.content-right {
-  position: relative;
-  right: 70px;
-  top: 50px;
-  margin-bottom: 3rem;
-  font-size: 0.8rem;
-  font-family: 'Zodiak';
-}
-
-.content-left {
-  position: relative;
-  left: 70px;
-  top: 50px;
-  margin-bottom: 3rem;
-  font-size: 0.8rem;
-  font-family: 'Zodiak';
-}
-
+/* Extended description box width */
 .offer-text {
-  max-width: 400px;
+  max-width: 600px;
+  width: 100%;
+  margin-left:20px;
+}
+
+/* Content positioning styles */
+.content-right, .content-left {
+  position: relative;
+  top: 50px;
+  margin-bottom: 3rem;
+  font-size: 0.8rem;
+  font-family: 'Zodiak';
+}
+.content-right {
+  right: 70px;
+}
+.content-left {
+  left: 70px;
 }
 
 /* Button positioning styles */
-.button-right {
+.button-right, .button-left {
   background-color: #b99879;
   color: white;
   border: none;
@@ -156,24 +139,14 @@ const props = defineProps({
   position: relative;
   top: 15px;
   z-index: 1;
-  right: -120px;
   text-transform: uppercase;
   font-family: 'Zodiak';
 }
-
+.button-right {
+  right: -120px;
+}
 .button-left {
-  background-color: #b99879;
-  color: white;
-  border: none;
-  border-radius: 2px;
-  padding: 15px !important;
-  transition: all 0.3s ease;
-  position: relative;
-  top: 15px;
-  z-index: 1;
   left: -120px;
-  text-transform: uppercase;
-  font-family: 'Zodiak';
 }
 
 .custom-button:hover {
@@ -181,34 +154,32 @@ const props = defineProps({
   color: white;
 }
 
+/* Adjusted media queries */
 @media (max-width: 1200px) {
   .image-left, .image-right {
-    margin: 40px;
-    position: relative;
-    left: -40px;
-    display: flex;
+    margin: 20px;
+    top: 0;
+    left: 0;
+    right: 0;
   }
 }
 
 @media (max-width: 992px) {
   .image-left, .image-right {
-    margin: 40px;
+    margin: 20px;
     position: relative;
-    left: -40px;
-    top: 0px;
-    display: flex;
-    
+    top: 0;
+    left: 0;
+    right: 0;
   }
   .obiekt{
     margin-top:0px;
-}
-  .content-right, .content-left {
-    position: relative;
-    right: 0px;
-    left: 0px;
-    top: -220px;
   }
-  
+  .content-right, .content-left {
+    top: -220px;
+    right: 0;
+    left: 0;
+  }
   .button-right, .button-left {
     right: 0;
     left: 0;
@@ -218,7 +189,8 @@ const props = defineProps({
 /* Responsywność */
 @media (max-width: 768px) {
   .banner-section {
-    min-height: auto;
+    height: auto;
   }
 }
+
 </style>
