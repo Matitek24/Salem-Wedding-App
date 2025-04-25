@@ -442,6 +442,13 @@ onMounted(() => {
   color: #555;
   margin: 2rem 0;
 }
+.content :deep(img) {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem 0;
+  border-radius: 6px;
+}
 
 .post-footer {
   padding-top: 1rem;
