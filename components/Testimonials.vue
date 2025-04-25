@@ -191,6 +191,13 @@ const props = defineProps({
   .banner-section {
     height: auto;
   }
+  .image-left {
+  top: -50px;
+}
+.offer-text{
+  top:50px;
+  position: relative;
+}
 }
 
 </style>

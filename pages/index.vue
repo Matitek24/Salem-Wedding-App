@@ -32,14 +32,38 @@ onMounted(() => {
   }
 });
 
-
 useHead({
-  title: 'Salem Wedding',
+  title: 'Salem Wedding – Twoja Ślubna Historia',
+  link: [
+    { rel: 'canonical', href: 'https://salemtest2.you2.pl/' }
+  ],
   meta: [
-    { name: 'description', content: '' },
-    { property: 'og:title', content: '' },
-    { property: 'og:description', content: '' }
-  ]
+    { name: 'description', content: 'Salem Wedding – fotograf ślubny. Uchwyć swoją wyjątkową historię w najpiękniejszych kadrach.' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:title', content: 'Salem Wedding – Twoja Ślubna Historia' },
+    { property: 'og:description', content: 'Salem Wedding – fotograf ślubny. Uchwyć swoją wyjątkową historię w najpiękniejszych kadrach.' },
+    { property: 'og:image', content: 'https://salemtest2.you2.pl/images/SalemWedding.png' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'Salem Wedding – Twoja Ślubna Historia' },
+    { name: 'twitter:description', content: 'Salem Wedding – fotograf ślubny. Uchwyć swoją wyjątkową historię w najpiękniejszych kadrach.' },
+    { name: 'twitter:image', content: 'https://salemtest2.you2.pl/images/SalemWedding.png' }
+  ],
+  script: [
+      {
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "url": "https://salemtest2.you2.pl/",
+          "name": "Salem Wedding",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Salem Wedding",
+            "logo": { "@type": "ImageObject", "url": "https://salemtest2.you2.pl/logo.png" }
+          }
+        })
+      }
+    ]
 })
 
 const galleryItems = [
@@ -80,7 +104,7 @@ const galleryItems = [
         <p class="left-border ps-3" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi impedit dicta eaque iusto fuga quidem quod sequi fugiat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit inventore, animi eum consequatur fugit quae labore voluptas laborum facere omnis. In consectetur sit earum esse velit ex asperiores quam. Facere.</p>
       </template>
       <template #mainImage>
-        <img src="../public/images/wesele_fot1.jpg" style="width:100%;" alt="Main Image" >
+        <img src="../public/images/wesele_fot1.jpg" style="width:100%;" alt="Main Image" loading="lazy">
       </template>
     </PhotographyLayout>
   </div>
@@ -93,7 +117,7 @@ const galleryItems = [
         <p class="left-border ps-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi impedit dicta eaque iusto fuga quidem quod sequi fugiat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit inventore, animi eum consequatur fugit quae labore voluptas laborum facere omnis. In consectetur sit earum esse velit ex asperiores quam. Facere.</p>
       </template>
       <template #mainImage>
-        <img src="../public/images/wesele_fot1.jpg" style="width:100%;" alt="Main Image">
+        <img src="../public/images/wesele_fot1.jpg" style="width:100%;" alt="Main Image" loading="lazy">
       </template>
     </VideoLayoutMain>
   </div>

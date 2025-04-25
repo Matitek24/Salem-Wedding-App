@@ -1,5 +1,5 @@
 <template>
-  <div class="content-block container-fluid my-5">
+  <div class="content-block container-fluid my-5" style="z-index:11;">
     <div class="row" :class="{ 'flex-row-reverse': position === 'right' }">
       <!-- Image Column -->
       <div class="col-lg-6 image-column">
@@ -12,7 +12,7 @@
       </div>
       
       <!-- Text Column -->
-      <div class="col-lg-6 d-flex align-items-center">
+      <div class="col-lg-6 d-flex align-items-center" style="z-index:10;">
         <div class="text-container p-4"
              :class="{ 'text-right': position === 'right', 'text-left': position === 'left' }"
              :data-aos="position === 'right' ? 'fade-right' : 'fade-left'"

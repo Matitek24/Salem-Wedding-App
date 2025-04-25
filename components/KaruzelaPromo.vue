@@ -208,5 +208,12 @@ onMounted(() => {
     width: 25px;
     height: 25px;
   }
+ 
 }
+@media (max-width: 450px) {
+  .video-slide iframe{
+  width: 150% !important;
+}
+}
+
 </style>

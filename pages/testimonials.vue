@@ -7,6 +7,15 @@ import Footer from '~/components/footer.vue';
 import Odnosnik from '~/components/Odnosnik.vue';
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+useHead({
+  title: 'Testimonials - Salem Wedding',
+  meta: [
+    { name: 'description', content: '' },
+    { property: 'og:title', content: '' },
+    { property: 'og:description', content: '' }
+  ]
+})
+
 
 onMounted(() => {
   const initAOS = () => {
@@ -29,14 +38,6 @@ onMounted(() => {
     window.addEventListener('load', initAOS);
   }
 });
-useHead({
-  title: 'Testimonials - Salem Wedding',
-  meta: [
-    { name: 'description', content: '' },
-    { property: 'og:title', content: '' },
-    { property: 'og:description', content: '' }
-  ]
-})
 
 
 </script>
