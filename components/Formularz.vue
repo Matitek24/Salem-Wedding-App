@@ -83,10 +83,10 @@
        </div>
 
 
-        <!-- Wybór zakresu usług -->
+        <!-- Wybór zakresu usług - zmodyfikowany dla responsywności -->
         <div class="mb-5 mt-5">
           <label class="form-label">Wybierz zakres usług, którymi jesteś zainteresowany*:</label>
-          <div class="d-flex justify-content-center">
+          <div class="d-flex flex-column flex-md-row justify-content-center">
             <div class="form-check m-2 d-flex flex-row justify-content-center align-items-center">
               <input type="checkbox" id="serviceFoto" class="form-check-input m-2" value="foto" v-model="form.services">
               <label for="serviceFoto" class="form-check-label">Foto</label>
@@ -388,5 +388,15 @@ input[type=checkbox]{
 }
 input{
   border:1px solid rgba(130, 130, 130, 0.685);
+}
+
+/* Added styles for better mobile alignment of checkboxes */
+@media (max-width: 767px) {
+  .form-check {
+    justify-content: flex-start !important;
+    width: 100%;
+    max-width: 200px;
+    margin: 0.5rem auto !important;
+  }
 }
 </style>

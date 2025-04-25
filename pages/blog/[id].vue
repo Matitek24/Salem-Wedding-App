@@ -45,7 +45,7 @@
               </div>
 
               <div class="row">
-                <div class="col-md-8" style="padding-right: 130px;">
+                <div class="col-md-8 content-blog" >
                   <div class="content" v-html="post.content"></div>
                 </div>
 
@@ -244,6 +244,14 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.content-blog{
+  padding-right: 130px;
+}
+@media (max-width: 576px) {
+  .content-blog{
+    padding-right: 0px;
+  }
+}
 /* Style dla blog-detail (pierwszy fragment) */
 .guzik1 {
   padding: 12px 25px;

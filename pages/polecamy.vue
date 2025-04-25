@@ -39,7 +39,7 @@ useHead({
   ]
 })
 
-const categories = ref(['Barmani', 'Atrakcje', 'Suknie/DJ']);
+const categories = ref(['Barmani', 'Atrakcje', 'Suknie']);
 const selectedCategory = ref(null);
 
 // Your PolecamyBlok items with category information
@@ -73,7 +73,7 @@ const polecamyItems = ref([
   },
   {
     id: 4,
-    category: 'Suknie/DJ',
+    category: 'Suknie',
     leftImage: "/images/wesele_fot3.jpg",
     logoImage: "/images/SalemWedding.png",
     primaryButtonText: "DJ weselny",
@@ -232,5 +232,63 @@ const categoriesWithItems = computed(() => {
   width: 80px;
   height: 2px;
   background-color: var(--color-fourth-click);
+}
+.categories {
+  display: flex;
+  flex-wrap: wrap; /* Pozwala elementom zawijać się */
+  gap: 10px;
+  margin-bottom: 40px;
+  margin-top: 70px;
+  justify-content: center;
+  padding: 0 15px; /* Dodaje padding po bokach */
+}
+
+/* Media query dla urządzeń mobilnych */
+@media screen and (max-width: 768px) {
+  .categories {
+    gap: 8px; /* Mniejsze odstępy na małych ekranach */
+  }
+  
+  .categories button {
+    padding: 5px 10px;
+    margin-bottom: 10px; /* Margines na dole każdego przycisku */
+    font-size: 0.9rem;
+  }
+  
+  .categories button.active::after {
+    top: -20px; /* Dostosowanie pozycji ozdobnika */
+    width: 40px;
+    height: 40px;
+  }
+  
+  .category-title {
+    font-size: 4rem; /* Mniejszy tytuł kategorii na mobilnych */
+  }
+}
+
+/* Dla bardzo małych ekranów */
+@media screen and (max-width: 480px) {
+  .categories {
+    gap: 5px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+  }
+  
+  .categories button {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+  }
+  
+  .categories button.active::after {
+    top: -15px;
+    width: 30px;
+    height: 30px;
+  }
+  
+  .category-title {
+    font-size: 3.5rem;
+    margin: 30px 0 20px;
+  }
 }
 </style>

@@ -124,6 +124,20 @@ const props = defineProps({
   background-color: #a68669;
   color: white;
 }
+@media (max-width: 450px) {
+  .custom-button {
+  background-color: #b99879;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  position: relative;
+  top:-45px;
+  left: 80px;
+  font-family: 'Zodiak';
+}
+}
+
 @media (max-width: 1400px) {
   .text_2{
     left:2rem;

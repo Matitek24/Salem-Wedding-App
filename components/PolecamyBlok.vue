@@ -171,8 +171,13 @@ const props = defineProps({
   background-color: #a68669;
   color: white;
 }
-@media (max-width: 1400px) {
- 
+@media (max-width: 450px) {
+ .logo{
+  left:100px !important;
+ }
+ .custom-button{
+  left: 70px !important;
+ }
 }
 @media (max-width: 1200px) {
 

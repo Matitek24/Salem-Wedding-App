@@ -154,6 +154,29 @@ onUnmounted(() => {
 
   
 }
+@media screen and (max-width: 450px) {
+  .lead1, .lead2 {
+    position: static;
+    display: block;
+    text-align: center;
+    margin-top: -30px;
+  }
+  
+  .lead {
+    text-align: center;
+    margin-top: 0rem;
+  }
+  
+  .display-4 {
+    margin-left: 0;
+    text-align: center;
+    font-size: 6rem !important;
+  }
+  
+  .lead12 {
+    margin-right: 0;
+  }
+}
 @media (max-width: 1200px) and (min-width: 990px) {
   .lead1 {
     bottom: 50px;

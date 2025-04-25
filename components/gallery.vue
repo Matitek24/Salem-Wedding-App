@@ -262,4 +262,54 @@ fetchGallery();
 .gallery-transition-move {
   transition: transform 0.8s ease;
 }
+.categories {
+  display: flex;
+  flex-wrap: wrap; /* Pozwala elementom zawijać się na nowy wiersz */
+  gap: 10px;
+  margin-bottom: 40px;
+  margin-top: 70px;
+  justify-content: center;
+  padding: 0 15px; /* Dodaje padding po bokach dla lepszego wyglądu */
+}
+
+/* Media query dla mniejszych ekranów */
+@media screen and (max-width: 768px) {
+  .categories {
+    gap: 8px; /* Zmniejsz odstęp między przyciskami */
+  }
+  
+  .categories button {
+    padding: 5px 10px;
+    margin-bottom: 5px; /* Dodaj margin na dole każdego przycisku */
+    font-size: 0.9rem; /* Zmniejsz czcionkę */
+  }
+  
+  .categories button.active::after {
+    top: -20px; /* Dostosuj pozycję ozdobnika */
+    width: 40px;
+    height: 40px;
+  }
+  
+  .line {
+    margin-top: -20px; /* Dostosuj pozycję linii */
+  }
+}
+
+/* Dla jeszcze mniejszych ekranów (telefony) */
+@media screen and (max-width: 480px) {
+  .categories {
+    gap: 5px;
+  }
+  
+  .categories button {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+  
+  .categories button.active::after {
+    top: -15px;
+    width: 30px;
+    height: 30px;
+  }
+}
 </style>

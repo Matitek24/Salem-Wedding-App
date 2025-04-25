@@ -121,4 +121,9 @@
         width: 100%;
     }
   }
+  @media screen and (max-width: 450px) {
+.profile-image{
+  top:3rem;
+}
+}
   </style>
