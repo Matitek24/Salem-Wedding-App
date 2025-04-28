@@ -32,14 +32,36 @@ onMounted(() => {
 });
 
 useHead({
-  title: 'O nas - Salem Wedding',
+  title: 'O nas – Salem Wedding',
+  link: [
+    { rel: 'canonical', href: 'https://salemtest2.you2.pl/o-nas' }
+  ],
   meta: [
-    { name: 'description', content: '' },
-    { property: 'og:title', content: '' },
-    { property: 'og:description', content: '' }
+    { charset: 'utf-8' },
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    { name: 'description', content: 'Poznaj zespół Salem Wedding – fotograf i ekipa video, którzy uwiecznią Twój wyjątkowy dzień.' },
+    { property: 'og:type',        content: 'website' },
+    { property: 'og:title',       content: 'O nas – Salem Wedding' },
+    { property: 'og:description', content: 'Poznaj zespół Salem Wedding – fotograf i ekipa video, którzy uwiecznią Twój wyjątkowy dzień.' },
+    { property: 'og:image',       content: 'https://salemtest2.you2.pl/images/SalemWedding_Onas.png' },
+    { name: 'twitter:card',        content: 'summary_large_image' },
+    { name: 'twitter:title',       content: 'O nas – Salem Wedding' },
+    { name: 'twitter:description', content: 'Poznaj zespół Salem Wedding – fotograf i ekipa video, którzy uwiecznią Twój wyjątkowy dzień.' },
+    { name: 'twitter:image',       content: 'https://salemtest2.you2.pl/images/SalemWedding_Onas.png' }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "url": "https://salemtest2.you2.pl/",
+        "name": "Salem Wedding",
+        "logo": { "@type": "ImageObject", "url": "https://salemtest2.you2.pl/logo.png" }
+      })
+    }
   ]
 })
-
 
 
 const pawel = {
@@ -133,6 +155,7 @@ const film = {
         leftImage="/images/wesele_fot1.jpg"
       text2="Sprawdź naszą"
       scriptTitle="ofertę"
+       primaryButtonLink="/oferta"
       cardText="Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko."
       buttonText="SPRAWDŹ NASZĄ OFERTĘ"
       containerMarginTop="200px"/>

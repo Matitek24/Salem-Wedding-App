@@ -21,100 +21,86 @@ onMounted(() => {
   };
 
   if (document.readyState === 'complete') {
-    // Strona już załadowana, inicjuj AOS od razu
     initAOS();
   } else {
-    // Czekaj na pełne załadowanie strony
     window.addEventListener('load', initAOS);
   }
 });
 
-
 useHead({
   title: 'Polecamy - Salem Wedding',
   meta: [
-    { name: 'description', content: '' },
-    { property: 'og:title', content: '' },
-    { property: 'og:description', content: '' }
+    { name: 'description', content: 'Polecamy sprawdzone marki i usługi weselne: fotobudki, DJ-ów, dekoracje i atrakcje dla niezapomnianego dnia.' },
+    { property: 'og:title', content: 'Polecamy - Salem Wedding' },
+    { property: 'og:description', content: 'Polecamy sprawdzone marki i usługi weselne: fotobudki, DJ-ów, dekoracje i atrakcje dla niezapomnianego dnia.' }
   ]
 })
 
 const categories = ref(['Barmani', 'Atrakcje', 'Suknie']);
 const selectedCategory = ref(null);
 
-// Your PolecamyBlok items with category information
 const polecamyItems = ref([
   {
     id: 1,
     category: 'Barmani',
-    leftImage: "/images/wesele_fot1.jpg",
-    logoImage: "/images/SalemWedding.png",
-    primaryButtonText: "Fotograf ślubny",
-    mainOfferText: "Zapraszamy do zapoznania się z naszą ofertą fotografa ślubnego. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą.",
-    ctaButtonText: "TEL: 555 123 321"
+    leftImage: '/images/wesele_fot1.jpg',
+    logoImage: '/images/SalemWedding.png',
+    primaryButtonText: 'Fotograf ślubny',
+    mainOfferText: 'Zapraszamy do zapoznania się z naszą ofertą fotografa ślubnego. Profesjonalne zdjęcia uwiecznią najpiękniejsze chwile Waszego dnia.',
+    ctaButtonText: 'TEL: 555 123 321'
   },
   {
     id: 2,
     category: 'Barmani',
-    leftImage: "/images/wesele_fot3.jpg",
-    logoImage: "/images/SalemWedding.png",
-    primaryButtonText: "Kamerzysta ślubny",
-    mainOfferText: "Zapraszamy do zapoznania się z naszą ofertą kamerzysty ślubnego. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko.",
-    ctaButtonText: "TEL: 555 456 789"
+    leftImage: '/images/wesele_fot3.jpg',
+    logoImage: '/images/SalemWedding.png',
+    primaryButtonText: 'Kamerzysta ślubny',
+    mainOfferText: 'Oferujemy usługi kamerzysty, który z pasją stworzy film z Waszego ślubu. Każda scena będzie opowiadać Waszą historię.',
+    ctaButtonText: 'TEL: 555 456 789'
   },
   {
     id: 3,
     category: 'Atrakcje',
-    leftImage: "/images/wesele_fot1.jpg",
-    logoImage: "/images/SalemWedding.png",
-    primaryButtonText: "Fotobudka",
-    mainOfferText: "Zapraszamy do zapoznania się z naszą ofertą fotobudki na wesele. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą.",
-    ctaButtonText: "TEL: 555 987 654"
+    leftImage: '/images/wesele_fot1.jpg',
+    logoImage: '/images/SalemWedding.png',
+    primaryButtonText: 'Fotobudka',
+    mainOfferText: 'Nasza fotobudka to doskonała rozrywka dla gości. Uwiecznijcie wspólne chwile z zabawnymi gadżetami i natychmiastowymi odbitkami.',
+    ctaButtonText: 'TEL: 555 987 654'
   },
   {
     id: 4,
     category: 'Suknie',
-    leftImage: "/images/wesele_fot3.jpg",
-    logoImage: "/images/SalemWedding.png",
-    primaryButtonText: "DJ weselny",
-    mainOfferText: "Zapraszamy do zapoznania się z naszą ofertą DJ-a na wesele. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą.",
-    ctaButtonText: "TEL: 555 111 222"
+    leftImage: '/images/wesele_fot3.jpg',
+    logoImage: '/images/SalemWedding.png',
+    primaryButtonText: 'DJ weselny',
+    mainOfferText: 'Zadbamy o oprawę muzyczną Waszego wesela. Nasz DJ zapewni świetną atmosferę i dobrą zabawę do białego rana.',
+    ctaButtonText: 'TEL: 555 111 222'
   }
 ]);
 
-// Filter items based on selected category
 const filteredPolecamyItems = computed(() => {
   return selectedCategory.value
     ? polecamyItems.value.filter(item => item.category === selectedCategory.value)
     : polecamyItems.value;
 });
 
-// Create a list of unique categories with items
 const categoriesWithItems = computed(() => {
-  const filteredItems = filteredPolecamyItems.value;
-  const uniqueCategories = [...new Set(filteredItems.map(item => item.category))];
-  
-  return uniqueCategories.map(category => {
-    return {
-      name: category,
-      items: filteredItems.filter(item => item.category === category)
-    };
-  });
+  const filtered = filteredPolecamyItems.value;
+  const unique = [...new Set(filtered.map(item => item.category))];
+  return unique.map(name => ({ name, items: filtered.filter(i => i.category === name) }));
 });
 </script>
 
 <template>
   <div class="container">
-  <div data-aos="fade-down"   
-  data-aos-duration="500"      
-  data-aos-easing="ease-in-out">
-  <Slogan
-      greeting="Polecamy"
-      teamTitle="Profesjonalistów"
-      rightText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi impLorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium repellendus rerum impedit inventore sequi. Rem, facere nostrum iure in neque, excepturi imp"
-    /></div>
+    <div data-aos="fade-down" data-aos-duration="500" data-aos-easing="ease-in-out">
+      <Slogan
+        greeting="Polecamy"
+        teamTitle="Profesjonalistów"
+        rightText="Polecamy najlepsze marki i usługi weselne – od fotobudek czy DJ-ów, po dekoracje i atrakcje. Zaufaj naszym rekomendacjom, by uczynić swój dzień niezapomnianym."
+      />
+    </div>
 
-    
     <!-- Categories filter -->
     <div class="categories position-relative">
       <button
@@ -133,17 +119,16 @@ const categoriesWithItems = computed(() => {
         Profesjonaliści
       </button>
     </div>
-    <div class="line-break">
-      <hr>
-    </div>
-    
+    <div class="line-break"><hr /></div>
+
     <!-- Display PolecamyBlok components grouped by category -->
-    <div v-for="categoryGroup in categoriesWithItems" :key="categoryGroup.name" class="category-section pt-4">
-      <!-- Category title -->
-      <h1 class="category-title">{{ categoryGroup.name }}</h1>
-      
-      <!-- PolecamyBlok components for this category -->
-      <div v-for="item in categoryGroup.items" :key="item.id">
+    <div
+      v-for="group in categoriesWithItems"
+      :key="group.name"
+      class="category-section pt-4"
+    >
+      <h1 class="category-title">{{ group.name }}</h1>
+      <div v-for="item in group.items" :key="item.id">
         <PolecamyBlok
           :leftImage="item.leftImage"
           :logoImage="item.logoImage"

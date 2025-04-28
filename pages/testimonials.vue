@@ -7,12 +7,65 @@ import Footer from '~/components/footer.vue';
 import Odnosnik from '~/components/Odnosnik.vue';
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+
+
 useHead({
-  title: 'Testimonials - Salem Wedding',
+  title: 'Opinie klientów – Salem Wedding',
+  link: [
+    { rel: 'canonical', href: 'https://salemtest2.you2.pl/opinie' }
+  ],
   meta: [
-    { name: 'description', content: '' },
-    { property: 'og:title', content: '' },
-    { property: 'og:description', content: '' }
+    { charset: 'utf-8' },
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    {
+      name: 'description',
+      content:
+        'Przeczytaj opinie naszych klientów – zobacz, jak Salem Wedding uwiecznia emocje i wspomnienia z Waszych wyjątkowych chwil.'
+    },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:title', content: 'Opinie klientów – Salem Wedding' },
+    {
+      property: 'og:description',
+      content:
+        'Przeczytaj opinie naszych klientów – zobacz, jak Salem Wedding uwiecznia emocje i wspomnienia z Waszych wyjątkowych chwil.'
+    },
+    { property: 'og:url', content: 'https://salemtest2.you2.pl/opinie' },
+    { property: 'og:image', content: 'https://salemtest2.you2.pl/images/testimonials-og.jpg' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'Opinie klientów – Salem Wedding' },
+    {
+      name: 'twitter:description',
+      content:
+        'Przeczytaj opinie naszych klientów – zobacz, jak Salem Wedding uwiecznia emocje i wspomnienia z Waszych wyjątkowych chwil.'
+    },
+    { name: 'twitter:image', content: 'https://salemtest2.you2.pl/images/testimonials-og.jpg' }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Opinie klientów – Salem Wedding",
+        "description":
+          "Przeczytaj opinie naszych klientów – zobacz, jak Salem Wedding uwiecznia emocje i wspomnienia z Waszych wyjątkowych chwil.",
+        "url": "https://salemtest2.you2.pl/opinie",
+        "mainEntity": {
+          "@type": "Review",
+          "author": {
+            "@type": "Person",
+            "name": "Aleksandra & Łukasz"
+          },
+          "reviewBody":
+            "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form…",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          }
+        }
+      })
+    }
   ]
 })
 
@@ -103,6 +156,7 @@ onMounted(() => {
   
         leftImage="/images/wesele_fot1.jpg"
       text2="Poznaj"
+       primaryButtonLink="/historie"
       text3="par które nam zaufały"
       scriptTitle="historie"
       cardText="here are many variations of passages of Lorem Ipsum available, but the majority have sufered alteration in some form, by injected here are many variations of passages of Lorem Ipsum available, but the majority have sufered alteration in some form, by injected "

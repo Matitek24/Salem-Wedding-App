@@ -12,6 +12,15 @@ const weddingStory = ref(null);
 const loading = ref(false);
 const error = ref(null);
 
+useHead({
+  title: 'Salem Wedding',
+  meta: [
+    { name: 'description', content: '' },
+    { property: 'og:title', content: '' },
+    { property: 'og:description', content: '' }
+  ]
+})
+
 const fetchWeddingStory = async () => {
   loading.value = true;
   try {

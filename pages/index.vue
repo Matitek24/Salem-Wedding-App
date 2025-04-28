@@ -71,7 +71,7 @@ const galleryItems = [
   { image: '/images/wesele_fot3.jpg', title: 'HISTORIE' },
   { image: '/images/wesele_fot3.jpg', title: 'BLOG' },
   { image: '/images/wesele_fot3.jpg', title: 'OFERTA' },
-  { image: '/images/wesele_fot3.jpg', title: 'O NAS' },
+  { image: '/images/wesele_fot3.jpg', title: 'ONAS' },
   { image: '/images/wesele_fot3.jpg', title: 'KONTAKT' },
 ]
 </script>

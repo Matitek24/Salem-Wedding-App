@@ -5,7 +5,15 @@
         <div class="col-lg-3 position-relative">
           <div class="image-container left-image">
             <picture>
-              <img :src="photographer.image" alt="Fotograf" class="img-fluid">
+            
+              <NuxtImg
+            :src="photographer.image"
+            alt="Twórca Filmów"
+            class="img-fluid"
+            format="webp"
+            loading="lazy"
+            placeholder="blur" 
+          />
             </picture>
           </div>
         </div>
@@ -21,7 +29,9 @@
               </p>
             </div>
             <div class="mt-4">
-              <button class="view-photos-btn">{{ photographer.buttonText }}</button>
+              <NuxtLink to="/film" class="view-photos-btn " style="text-decoration: none;">
+                {{ photographer.buttonText }}
+              </NuxtLink>
             </div>
           </div>
         </div>
@@ -31,7 +41,14 @@
           <div class="image-container right-image">
             <picture>
               <source media="(max-width: 990px)" srcset="./../public/images/wesele_fot1.jpg">
-              <img :src="photographer.secondaryImage" class="img-fluid">
+              <NuxtImg
+            :src="photographer.secondaryImage"
+            alt="Zdjecie drugie filmowiec"
+            class="img-fluid"
+            format="webp"
+            loading="lazy"
+            placeholder="blur" 
+          />
             </picture>
           </div>
         </div>

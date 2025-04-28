@@ -7,7 +7,11 @@
           'image-right': position === 'right',
           'image-left': position === 'left'
         }">
-          <img :src="image" :alt="title" class="img-fluid">
+       <NuxtImg
+        :src="image"
+        :alt="title"
+        loading="lazy"
+      />
         </div>
       </div>
       

@@ -142,6 +142,7 @@ watch(
       @click="() => props.openLightbox(idx)"
     >
       <img loading="lazy" :src="image.image_path" :alt="image.category.name" />
+
     </div>
   </div>
 </template>

@@ -33,9 +33,9 @@ onMounted(() => {
 useHead({
   title: 'Kontakt - Salem Wedding',
   meta: [
-    { name: 'description', content: '' },
-    { property: 'og:title', content: '' },
-    { property: 'og:description', content: '' }
+    { name: 'description', content: 'Skontaktuj się z Salem Wedding – jesteśmy tu, aby pomóc w organizacji Twojego wymarzonego ślubu. Biuro, telefon i mapa dojazdu.' },
+    { property: 'og:title', content: 'Kontakt - Salem Wedding' },
+    { property: 'og:description', content: 'Skontaktuj się z Salem Wedding – jesteśmy tu, aby pomóc w organizacji Twojego wymarzonego ślubu. Biuro, telefon i mapa dojazdu.' }
   ]
 })
   </script>

@@ -203,13 +203,39 @@ onMounted(() => {
 
 
 useHead({
-  title: 'Blog - Salem Wedding',
+  title: 'Salem Wedding – Blog',
+  link: [
+    { rel: 'canonical', href: 'https://salemtest2.you2.pl/' }
+  ],
   meta: [
-    { name: 'description', content: '' },
-    { property: 'og:title', content: '' },
-    { property: 'og:description', content: '' }
+    { name: 'description', content: 'Salem Wedding – Blog: blog z poradami i inspiracjami weselnymi. Poznaj najlepsze praktyki i trendy.' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:title', content: 'Salem Wedding – Blog' },
+    { property: 'og:description', content: 'Salem Wedding – blog ślubny z poradami i inspiracjami weselnymi. Praktyczne wskazówki i najnowsze trendy.' },
+    { property: 'og:image', content: 'https://salemtest2.you2.pl/images/SalemWedding.png' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'Salem Wedding – Blog' },
+    { name: 'twitter:description', content: 'Salem Wedding – blog ślubny z poradami i inspiracjami weselnymi. Praktyczne wskazówki i najnowsze trendy.' },
+    { name: 'twitter:image', content: 'https://salemtest2.you2.pl/images/SalemWedding.png' }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "url": "https://salemtest2.you2.pl/",
+        "name": "Salem Wedding Blog",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Salem Wedding",
+          "logo": { "@type": "ImageObject", "url": "https://salemtest2.you2.pl/logo.png" }
+        }
+      })
+    }
   ]
 })
+
 const config = useRuntimeConfig()
 const posts = ref([])
 const loading = ref(true)

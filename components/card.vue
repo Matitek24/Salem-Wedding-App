@@ -2,7 +2,14 @@
     <div class="product-card">
       <!-- Kontener na zdjęcie z etykietą Album -->
       <div class="image-container">
-        <img :src="imageUrl" alt="Produkt" class="product-image">
+       
+        <NuxtImg
+          :src="imageUrl"
+          :alt="title"
+          class="product-image"
+          format="webp"          
+          loading="lazy"   
+        />
         <span class="product-label">{{ label }}</span>
       </div>
       

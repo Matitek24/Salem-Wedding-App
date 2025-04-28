@@ -4,7 +4,15 @@
         <!-- Left image column -->
         <div class="col-lg-3 position-relative">
           <div class="image-container left-image">
-            <img :src="photographer.image" alt="Fotograf" class="img-fluid">
+    
+            <NuxtImg
+            :src="photographer.image"
+            alt="Fotograf"
+            class="img-fluid"
+            format="webp"
+            loading="lazy"
+            placeholder="blur" 
+          />
           </div>
         </div>
         
@@ -19,7 +27,10 @@
               </p>
             </div>
             <div class="mt-4">
-              <button class="view-photos-btn">{{ photographer.buttonText }}</button>
+              <NuxtLink to="/portfolio" class="view-photos-btn " style="text-decoration: none;">
+                {{ photographer.buttonText }}
+              </NuxtLink>
+
             </div>
           </div>
         </div>
@@ -27,7 +38,14 @@
         <!-- Right image column -->
         <div class="col-lg-3 position-relative">
           <div class="image-container right-image">
-            <img :src="photographer.secondaryImage" alt="Fotograf w akcji" class="img-fluid">
+            <NuxtImg
+            :src="photographer.secondaryImage"
+            alt="Fotograf w akcji"
+            class="img-fluid"
+            format="webp"
+            loading="lazy"
+            placeholder="blur" 
+          />
           </div>
         </div>
       </div>

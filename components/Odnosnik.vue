@@ -20,6 +20,10 @@ const props = defineProps({
     type: String,
     default: "Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko."
   },
+  primaryButtonLink: {
+    type: String,
+    default: '/portfolio'
+  },
   buttonText: {
     type: String,
     default: "SPRAWDŹ NASZĄ OFERTĘ"
@@ -37,7 +41,15 @@ const props = defineProps({
     <div class="row banner-section align-items-center m-0">
       <!-- Lewa kolumna ze zdjęciem -->
       <div class="col-lg-6 p-0 justify-content-end">
-        <img :src="leftImage" alt="Eleganckie buty" class="img-fluid w-100">
+     
+        <NuxtImg
+          :src="leftImage"
+          :alt="buttonText"
+          class="img-fluid w-100"
+          format="webp"          
+          loading="lazy" 
+          placeholder="blur"     
+        />
       </div>
       <!-- Prawa kolumna z tekstem oferty -->
       <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center text-center p-4 right">
@@ -54,7 +66,13 @@ const props = defineProps({
           </div>
           
           <!-- Przycisk CTA -->
-          <button class="btn custom-button px-4 py-2">{{ buttonText }}</button>
+          <NuxtLink
+  :to="primaryButtonLink"
+  class="btn custom-button px-4 py-2 inline-block text-center"
+>
+  {{ buttonText }}
+</NuxtLink>
+
         </div>
       </div>
     </div>

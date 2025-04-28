@@ -17,16 +17,17 @@
           <h3>Znajdź</h3>
           <p>Zobserwuj</p>
           <div class="social-icons">
-            <a href="https://facebook.com" target="_blank" aria-label="Facebook" data-aos="zoom-in" data-aos-delay="100">
-              <img src="../public/images/Icon/iconicon-YT.png" alt="youtube">
+            <a href="https://www.youtube.com/@MariuszubinskiSALEM" target="_blank" aria-label="YouTube" data-aos="zoom-in" data-aos-delay="100">
+              <img src="../public/images/Icon/iconicon-YT.png" alt="YouTube">
             </a>
-            <a href="https://instagram.com" target="_blank" aria-label="Instagram" data-aos="zoom-in" data-aos-delay="200">
-              <img src="../public/images/Icon/iconicon-IG.png" alt="instagram">
+            <a href="https://www.instagram.com/salemwedding/" target="_blank" aria-label="Instagram" data-aos="zoom-in" data-aos-delay="200">
+              <img src="../public/images/Icon/iconicon-IG.png" alt="Instagram">
             </a>
-            <a href="https://instagram.com" target="_blank" aria-label="Instagram" data-aos="zoom-in" data-aos-delay="300">
-              <img src="../public/images/Icon/iconicon-FB.png" alt="facebook">
+            <a href="https://www.facebook.com/search/top?q=salem%20design%20studio" target="_blank" aria-label="Facebook" data-aos="zoom-in" data-aos-delay="300">
+              <img src="../public/images/Icon/iconicon-FB.png" alt="Facebook">
             </a>
           </div>
+
         </div>
         <!-- Prawy liść -->
         <div class="col-lg-5 col-md-12 d-flex justify-content-start leaf-container">

@@ -14,7 +14,7 @@ const props = defineProps({
   },
   mainOfferText: {
     type: String,
-    default: "Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznani Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się  Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko. Zapraszamy do zapoznania się"
+    default: "Zapraszamy do zapoznania się z naszą ofertą. Być może coś wpadnie ci w oko..."
   },
   ctaButtonText: {
     type: String,
@@ -25,18 +25,26 @@ const props = defineProps({
 
 <template>
   <div class="container-fluid p-0" style="margin-top:0px;">
-    <div class="row banner-section align-items-center m-0" data-aos="zoom-in-up"   
-  data-aos-duration="500"      
-  data-aos-easing="ease-in-out">
-      <!-- Lewa kolumna ze zdjęciem butów -->
+    <div class="row banner-section align-items-center m-0" data-aos="zoom-in-up" data-aos-duration="500" data-aos-easing="ease-in-out">
+      <!-- Lewa kolumna ze zdjęciem -->
       <div class="col-lg-6 p-0 justify-content-end">
-        <img :src="leftImage" alt="Eleganckie buty" class="img-fluid w-100">
+        <NuxtImg
+          :src="leftImage"
+          alt="Oferta"
+          class="img-fluid w-100"
+          lazy
+        />
       </div>
-      <!-- Prawa kolumna z tekstem oferty -->
+      <!-- Prawa kolumna z tekstem -->
       <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center text-center p-4 right">
         <div class="offer-text">
           <div class="logo">
-            <img :src="logoImage" alt="logo" style="width:100px">
+            <NuxtImg
+              :src="logoImage"
+              alt="logo"
+              width="100"
+              lazy
+            />
           </div>
           <button class="btn custom-button2 px-4 py-2">
             {{ primaryButtonText }}
@@ -48,21 +56,20 @@ const props = defineProps({
               </p>
             </div>
             <div class="d-flex flex-column guzik">
-                <button class="custom-button3">
+              <button class="custom-button3">
                 www
-                </button>
-                <div class="icons">
-                <img src="../public/images/Icon/iconicon-IG.png" style="width: 20px;">
-                <img src="../public/images/Icon/iconicon-YT.png" style="width: 20px;">
-                <img src="../public/images/Icon/iconicon-FB.png" style="width: 20px;">
-                </div>
+              </button>
+              <div class="icons">
+                <NuxtImg src="../public/images/Icon/iconicon-IG.png" alt="Instagram" width="20" lazy />
+                <NuxtImg src="../public/images/Icon/iconicon-YT.png" alt="YouTube" width="20" lazy />
+                <NuxtImg src="../public/images/Icon/iconicon-FB.png" alt="Facebook" width="20" lazy />
+              </div>
             </div>
           </div>
 
           <button class="btn custom-button px-4 py-2">
             {{ ctaButtonText }}
           </button>
-          
         </div>
       </div>
     </div>
