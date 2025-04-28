@@ -1,33 +1,29 @@
 <script setup>
-import { useHead } from '#imports'
+import { useHead, useRuntimeConfig, onMounted, ref } from '#imports'
+import axios from 'axios'
 import Slogan from '~/components/Slogan.vue';
-import { ref, computed } from 'vue';
 import Testimonials from '~/components/Testimonials.vue';
 import Footer from '~/components/footer.vue';
 import Odnosnik from '~/components/Odnosnik.vue';
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
-
+// SEO
 useHead({
   title: 'Opinie klientów – Salem Wedding',
-  link: [
-    { rel: 'canonical', href: 'https://salemtest2.you2.pl/opinie' }
-  ],
+  link: [{ rel: 'canonical', href: 'https://salemtest2.you2.pl/opinie' }],
   meta: [
     { charset: 'utf-8' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     {
       name: 'description',
-      content:
-        'Przeczytaj opinie naszych klientów – zobacz, jak Salem Wedding uwiecznia emocje i wspomnienia z Waszych wyjątkowych chwil.'
+      content: 'Przeczytaj opinie naszych klientów – zobacz, jak Salem Wedding uwiecznia emocje i wspomnienia z Waszych wyjątkowych chwil.'
     },
     { property: 'og:type', content: 'website' },
     { property: 'og:title', content: 'Opinie klientów – Salem Wedding' },
     {
       property: 'og:description',
-      content:
-        'Przeczytaj opinie naszych klientów – zobacz, jak Salem Wedding uwiecznia emocje i wspomnienia z Waszych wyjątkowych chwil.'
+      content: 'Przeczytaj opinie naszych klientów – zobacz, jak Salem Wedding uwiecznia emocje i wspomnienia z Waszych wyjątkowych chwil.'
     },
     { property: 'og:url', content: 'https://salemtest2.you2.pl/opinie' },
     { property: 'og:image', content: 'https://salemtest2.you2.pl/images/testimonials-og.jpg' },
@@ -35,66 +31,41 @@ useHead({
     { name: 'twitter:title', content: 'Opinie klientów – Salem Wedding' },
     {
       name: 'twitter:description',
-      content:
-        'Przeczytaj opinie naszych klientów – zobacz, jak Salem Wedding uwiecznia emocje i wspomnienia z Waszych wyjątkowych chwil.'
+      content: 'Przeczytaj opinie naszych klientów – zobacz, jak Salem Wedding uwiecznia emocje i wspomnienia z Waszych wyjątkowych chwil.'
     },
     { name: 'twitter:image', content: 'https://salemtest2.you2.pl/images/testimonials-og.jpg' }
-  ],
-  script: [
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "Opinie klientów – Salem Wedding",
-        "description":
-          "Przeczytaj opinie naszych klientów – zobacz, jak Salem Wedding uwiecznia emocje i wspomnienia z Waszych wyjątkowych chwil.",
-        "url": "https://salemtest2.you2.pl/opinie",
-        "mainEntity": {
-          "@type": "Review",
-          "author": {
-            "@type": "Person",
-            "name": "Aleksandra & Łukasz"
-          },
-          "reviewBody":
-            "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form…",
-          "reviewRating": {
-            "@type": "Rating",
-            "ratingValue": "5",
-            "bestRating": "5"
-          }
-        }
-      })
-    }
   ]
 })
 
+// Runtime config wykorzystywany do pobierania danych
+const config = useRuntimeConfig()
+const testimonials = ref([])
 
+// Pobierz opinie z API
+onMounted(async () => {
+  try {
+    const response = await axios.get(`${config.public.apiBaseUrl}/testimonials`)
+    // jeśli zasób jest opakowany w data, dostosuj poniżej
+    testimonials.value = Array.isArray(response.data) ? response.data : response.data.data
+  } catch (error) {
+    console.error('Błąd podczas pobierania opinii:', error)
+  }
+})
+
+// AOS init
 onMounted(() => {
   const initAOS = () => {
     setTimeout(() => {
-      AOS.init({
-        offset: 100,
-        delay: 200,
-        easing: 'ease-in-out',
-        once: true,
-        mirror: true
-      });
-    }, 1000);
-  };
-
-  if (document.readyState === 'complete') {
-    // Strona już załadowana, inicjuj AOS od razu
-    initAOS();
-  } else {
-    // Czekaj na pełne załadowanie strony
-    window.addEventListener('load', initAOS);
+      AOS.init({ offset: 100, delay: 200, easing: 'ease-in-out', once: true, mirror: true })
+    }, 1000)
   }
-});
-
-
+  if (document.readyState === 'complete') {
+    initAOS()
+  } else {
+    window.addEventListener('load', initAOS)
+  }
+})
 </script>
-
 <template>
   <div class="container" >
    <div class="pt-4 mt-4"   data-aos="fade-down"   
@@ -111,40 +82,20 @@ onMounted(() => {
    <div class="line-break">
     <hr>
    </div>
-   <div   data-aos="fade-left"   
-  data-aos-duration="500"      
-  data-aos-easing="ease-in-out">
-    <Testimonials
+   <div
+      v-for="item in testimonials"
+      :key="item.id"
+      :data-aos="item.image_position === 'left' ? 'fade-left' : 'fade-right'"
+      data-aos-duration="500"
+      data-aos-easing="ease-in-out"
+    >
+      <Testimonials
         class="testimonials"
-    leftImage="/images/wesele_fot1.jpg"
-    primaryButtonText="Aleksandra & Łukasz"
-    mainOfferText="There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc . There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected  There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected  There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected  There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected  There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected  There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected "
-    imagePosition="left" 
-    />
-    </div>
-
-    <div   data-aos="fade-right"   
-  data-aos-duration="500"      
-  data-aos-easing="ease-in-out">
-    <Testimonials
-        class="testimonials"
-    leftImage="/images/wesele_fot1.jpg"
-    primaryButtonText="Aleksandra & Łukasz"
-    mainOfferText="There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
-    imagePosition="right" 
-    />
-    </div>
-
-    <div   data-aos="fade-left"   
-  data-aos-duration="500"      
-  data-aos-easing="ease-in-out">
-    <Testimonials
-        class="testimonials"
-    leftImage="/images/wesele_fot1.jpg"
-    primaryButtonText="Aleksandra & Łukasz"
-    mainOfferText="There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
-    imagePosition="left" 
-    />
+        :leftImage="config.public.backendUrl + '/storage/' + item.image"
+        :primaryButtonText="item.name"
+        :mainOfferText="item.content"
+        :imagePosition="item.image_position"
+      />
     </div>
     <div class="line mt-5">
           <hr>
@@ -191,3 +142,8 @@ onMounted(() => {
 
 }
 </style>
+
+
+
+
+

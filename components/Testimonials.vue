@@ -83,7 +83,8 @@ const props = defineProps({
 <style scoped>
 
 .obiekt {
-  margin-top: 200px;
+  /* Zmniejszona odległość między kolejnymi komponentami */
+  margin-top: 80px;
 }
 .card-body {
   padding-left: 30px !important;
@@ -170,7 +171,7 @@ const props = defineProps({
     right: 0;
   }
   .obiekt {
-    margin-top: 0;
+    margin-top: 40px;
   }
   .content-right,
   .content-left {
