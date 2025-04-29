@@ -12,7 +12,7 @@
             class="img-fluid"
             format="webp"
             loading="lazy"
-            placeholder="blur" 
+
           />
             </picture>
           </div>
@@ -47,7 +47,6 @@
             class="img-fluid"
             format="webp"
             loading="lazy"
-            placeholder="blur" 
           />
             </picture>
           </div>

@@ -1,30 +1,71 @@
 <script setup>
 import { useHead } from '#imports'
 import Slogan from '~/components/Slogan.vue';
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import PolecamyBlok from '~/components/PolecamyBlok.vue';
 import Footer from '~/components/footer.vue';
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import axios from 'axios';
 
-onMounted(() => {
-  const initAOS = () => {
-    setTimeout(() => {
-      AOS.init({
-        offset: 100,
-        delay: 200,
-        easing: 'ease-in-out',
-        once: true,
-        mirror: true
-      });
-    }, 1000);
-  };
+// Get API base URL from runtime config
+const config = useRuntimeConfig();
+const apiBaseUrl = config.public.apiBaseUrl;
 
-  if (document.readyState === 'complete') {
+// State variables
+const categories = ref([]);
+const selectedCategory = ref(null);
+const recommendations = ref([]);
+const loading = ref(true);
+const error = ref(null);
+
+// Fetch recommendations and categories data
+onMounted(async () => {
+  try {
+    // Fetch all categories
+    const categoriesResponse = await axios.get(`${apiBaseUrl}/recommendations/categories`);
+    categories.value = categoriesResponse.data;
+    
+    // Fetch all recommendations
+    const recommendationsResponse = await axios.get(`${apiBaseUrl}/recommendations`);
+    recommendations.value = recommendationsResponse.data.data;
+    
+    loading.value = false;
+    
+    // Initialize AOS after data is loaded
     initAOS();
-  } else {
-    window.addEventListener('load', initAOS);
+  } catch (err) {
+    console.error('Error fetching data:', err);
+    error.value = 'Failed to load recommendations. Please try again later.';
+    loading.value = false;
   }
+});
+
+// Initialize AOS animation
+const initAOS = () => {
+  setTimeout(() => {
+    AOS.init({
+      offset: 100,
+      delay: 200,
+      easing: 'ease-in-out',
+      once: true,
+      mirror: true
+    });
+  }, 1000);
+};
+
+// Filter recommendations by category
+const filteredRecommendations = computed(() => {
+  return selectedCategory.value
+    ? recommendations.value.filter(item => item.category === selectedCategory.value)
+    : recommendations.value;
+});
+
+// Group recommendations by category
+const categoriesWithItems = computed(() => {
+  const filtered = filteredRecommendations.value;
+  const unique = [...new Set(filtered.map(item => item.category))];
+  return unique.map(name => ({ name, items: filtered.filter(i => i.category === name) }));
 });
 
 useHead({
@@ -36,59 +77,12 @@ useHead({
   ]
 })
 
-const categories = ref(['Barmani', 'Atrakcje', 'Suknie']);
-const selectedCategory = ref(null);
-
-const polecamyItems = ref([
-  {
-    id: 1,
-    category: 'Barmani',
-    leftImage: '/images/wesele_fot1.jpg',
-    logoImage: '/images/SalemWedding.png',
-    primaryButtonText: 'Fotograf ślubny',
-    mainOfferText: 'Zapraszamy do zapoznania się z naszą ofertą fotografa ślubnego. Profesjonalne zdjęcia uwiecznią najpiękniejsze chwile Waszego dnia.',
-    ctaButtonText: 'TEL: 555 123 321'
-  },
-  {
-    id: 2,
-    category: 'Barmani',
-    leftImage: '/images/wesele_fot3.jpg',
-    logoImage: '/images/SalemWedding.png',
-    primaryButtonText: 'Kamerzysta ślubny',
-    mainOfferText: 'Oferujemy usługi kamerzysty, który z pasją stworzy film z Waszego ślubu. Każda scena będzie opowiadać Waszą historię.',
-    ctaButtonText: 'TEL: 555 456 789'
-  },
-  {
-    id: 3,
-    category: 'Atrakcje',
-    leftImage: '/images/wesele_fot1.jpg',
-    logoImage: '/images/SalemWedding.png',
-    primaryButtonText: 'Fotobudka',
-    mainOfferText: 'Nasza fotobudka to doskonała rozrywka dla gości. Uwiecznijcie wspólne chwile z zabawnymi gadżetami i natychmiastowymi odbitkami.',
-    ctaButtonText: 'TEL: 555 987 654'
-  },
-  {
-    id: 4,
-    category: 'Suknie',
-    leftImage: '/images/wesele_fot3.jpg',
-    logoImage: '/images/SalemWedding.png',
-    primaryButtonText: 'DJ weselny',
-    mainOfferText: 'Zadbamy o oprawę muzyczną Waszego wesela. Nasz DJ zapewni świetną atmosferę i dobrą zabawę do białego rana.',
-    ctaButtonText: 'TEL: 555 111 222'
-  }
-]);
-
-const filteredPolecamyItems = computed(() => {
-  return selectedCategory.value
-    ? polecamyItems.value.filter(item => item.category === selectedCategory.value)
-    : polecamyItems.value;
-});
-
-const categoriesWithItems = computed(() => {
-  const filtered = filteredPolecamyItems.value;
-  const unique = [...new Set(filtered.map(item => item.category))];
-  return unique.map(name => ({ name, items: filtered.filter(i => i.category === name) }));
-});
+// Function to get full image URL
+const getImageUrl = (path) => {
+  if (!path) return '';
+  if (path.startsWith('http')) return path;
+  return `${config.public.backendUrl}/storage/${path}`;
+}
 </script>
 
 <template>
@@ -101,41 +95,61 @@ const categoriesWithItems = computed(() => {
       />
     </div>
 
-    <!-- Categories filter -->
-    <div class="categories position-relative">
-      <button
-        v-for="category in categories"
-        :key="category"
-        @click="selectedCategory = category"
-        :class="{ active: selectedCategory === category }"
-      >
-        {{ category }}
-      </button>
-      <button
-        @click="selectedCategory = null"
-        :class="{ active: selectedCategory === null }"
-        class="reset"
-      >
-        Profesjonaliści
-      </button>
+    <!-- Loading state -->
+    <div v-if="loading" class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-3">Ładowanie polecanych profesjonalistów...</p>
     </div>
-    <div class="line-break"><hr /></div>
 
-    <!-- Display PolecamyBlok components grouped by category -->
-    <div
-      v-for="group in categoriesWithItems"
-      :key="group.name"
-      class="category-section pt-4"
-    >
-      <h1 class="category-title">{{ group.name }}</h1>
-      <div v-for="item in group.items" :key="item.id">
-        <PolecamyBlok
-          :leftImage="item.leftImage"
-          :logoImage="item.logoImage"
-          :primaryButtonText="item.primaryButtonText"
-          :mainOfferText="item.mainOfferText"
-          :ctaButtonText="item.ctaButtonText"
-        />
+    <!-- Error state -->
+    <div v-else-if="error" class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
+
+    <!-- Content when loaded -->
+    <div v-else>
+      <!-- Categories filter -->
+      <div class="categories position-relative">
+        <button
+          v-for="category in categories"
+          :key="category"
+          @click="selectedCategory = category"
+          :class="{ active: selectedCategory === category }"
+        >
+          {{ category }}
+        </button>
+        <button
+          @click="selectedCategory = null"
+          :class="{ active: selectedCategory === null }"
+          class="reset"
+        >
+          Profesjonaliści
+        </button>
+      </div>
+      <div class="line-break"><hr /></div>
+
+      <!-- Display PolecamyBlok components grouped by category -->
+      <div
+        v-for="group in categoriesWithItems"
+        :key="group.name"
+        class="category-section pt-4"
+      >
+        <h1 class="category-title">{{ group.name }}</h1>
+        <div v-for="item in group.items" :key="item.id">
+          <PolecamyBlok
+            :leftImage="getImageUrl(item.left_image)"
+            :logoImage="getImageUrl(item.logo_image)"
+            :primaryButtonText="item.primary_button_text"
+            :mainOfferText="item.main_offer_text"
+            :ctaButtonText="item.cta_button_text"
+            :websiteUrl="item.website_url"
+            :instagramUrl="item.instagram_url"
+            :youtubeUrl="item.youtube_url"
+            :facebookUrl="item.facebook_url"
+          />
+        </div>
       </div>
     </div>
   </div>

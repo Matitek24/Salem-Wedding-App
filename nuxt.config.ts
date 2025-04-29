@@ -45,7 +45,8 @@ export default defineNuxtConfig({
           src: 'https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js',
           defer: true
         }
-      ]
+      ],
+      
     }
   }
 });

@@ -19,8 +19,36 @@ const props = defineProps({
   ctaButtonText: {
     type: String,
     default: "TEL: 555 123 321"
+  },
+  websiteUrl: {
+    type: String,
+    default: "#"
+  },
+  instagramUrl: {
+    type: String,
+    default: ""
+  },
+  youtubeUrl: {
+    type: String,
+    default: ""
+  },
+  facebookUrl: {
+    type: String,
+    default: ""
   }
 });
+
+// Check if social media URL exists
+const hasSocialMedia = computed(() => {
+  return props.instagramUrl || props.youtubeUrl || props.facebookUrl;
+});
+
+// Handle website button click
+const goToWebsite = () => {
+  if (props.websiteUrl) {
+    window.open(props.websiteUrl, '_blank');
+  }
+};
 </script>
 
 <template>
@@ -56,13 +84,19 @@ const props = defineProps({
               </p>
             </div>
             <div class="d-flex flex-column guzik">
-              <button class="custom-button3">
+              <button class="custom-button3" @click="goToWebsite" v-if="websiteUrl">
                 www
               </button>
-              <div class="icons">
-                <NuxtImg src="../public/images/Icon/iconicon-IG.png" alt="Instagram" width="20" lazy />
-                <NuxtImg src="../public/images/Icon/iconicon-YT.png" alt="YouTube" width="20" lazy />
-                <NuxtImg src="../public/images/Icon/iconicon-FB.png" alt="Facebook" width="20" lazy />
+              <div class="icons" v-if="hasSocialMedia">
+                <a v-if="instagramUrl" :href="instagramUrl" target="_blank" rel="noopener noreferrer">
+                  <NuxtImg src="../public/images/Icon/iconicon-IG.png" alt="Instagram" width="20" lazy />
+                </a>
+                <a v-if="youtubeUrl" :href="youtubeUrl" target="_blank" rel="noopener noreferrer">
+                  <NuxtImg src="../public/images/Icon/iconicon-YT.png" alt="YouTube" width="20" lazy />
+                </a>
+                <a v-if="facebookUrl" :href="facebookUrl" target="_blank" rel="noopener noreferrer">
+                  <NuxtImg src="../public/images/Icon/iconicon-FB.png" alt="Facebook" width="20" lazy />
+                </a>
               </div>
             </div>
           </div>
@@ -77,7 +111,6 @@ const props = defineProps({
 </template>
 
 <style scoped>
-
 .card-body{
     padding-left:30px !important;
     padding: 2rem;
@@ -88,11 +121,16 @@ const props = defineProps({
   margin-top: 20px;
   position: relative;
   left: -85px
-
 }
 .icons img{
     margin:5px !important;
-    
+}
+.icons a {
+  margin: 0 5px;
+  transition: opacity 0.3s ease;
+}
+.icons a:hover {
+  opacity: 0.8;
 }
 
 .custom-button3 {
@@ -108,6 +146,11 @@ const props = defineProps({
   font-size: 1rem;
   z-index: 1;
   font-family: 'Zodiak';
+  cursor: pointer;
+}
+
+.custom-button3:hover {
+  background-color: #a68669;
 }
 
 .banner-section{
@@ -146,8 +189,6 @@ const props = defineProps({
   font-family: 'Zodiak';
 }
 
-
-
 .custom-button2 {
   background-color: #b99879;
   color: white;
@@ -160,7 +201,6 @@ const props = defineProps({
   text-transform: uppercase;
   font-family: 'Zodiak';
 }
-
 
 .custom-button {
   background-color: #b99879;
